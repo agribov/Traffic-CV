@@ -18,6 +18,13 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="helperFunctions.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="helperFunctions.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07132E0C-A9DB-4EDA-ABF2-B3E1D68ED4FC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -141,8 +148,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
