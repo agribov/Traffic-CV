@@ -11,6 +11,9 @@
 #ifndef _helperFunctions
 #define _helperFunctions
 
+/* Functions to create:
+- 
+*/
 
 
 #endif // !_helperFunctions
