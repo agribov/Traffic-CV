@@ -4,7 +4,9 @@
 /*                                                                              */
 /* File: main.cpp                                                               */
 /*                                                                              */
-/* Author(s): Alex Gribov, Kevin Smida                                          */
+/* Author(s): Alex Gribov, Alexander Senckowski, Molly McGuire and Kevin Smida  */
+/*                                                                              */
+/* All Right Reserved 2017 (c)                                                  */
 /*                                                                              */
 /********************************************************************************/
 
@@ -18,7 +20,7 @@ using namespace std;
 void connectToCamera();
 
 int main(int argc, char* argv[]) {
-	
+
 	// FIXME: In the future all declarations will be in file globals.h, but I left this here for now so everyone can see how the stream works.
 	VideoCapture cap;		// Number is the ID of video device.
 
