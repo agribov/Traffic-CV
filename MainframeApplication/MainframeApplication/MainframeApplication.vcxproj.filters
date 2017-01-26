@@ -24,7 +24,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helperFunctions.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="subtractionMethod.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
