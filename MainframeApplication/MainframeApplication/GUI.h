@@ -15,6 +15,14 @@
 
 #include "globals.h"
 
+// Function declaration
 void initializeGUI();
+
+void on_low_r_thresh_trackbar(int, void *);
+void on_high_r_thresh_trackbar(int, void *);
+void on_low_g_thresh_trackbar(int, void *);
+void on_high_g_thresh_trackbar(int, void *);
+void on_low_b_thresh_trackbar(int, void *);
+void on_high_b_thresh_trackbar(int, void *);
 
 #endif // !_gui
