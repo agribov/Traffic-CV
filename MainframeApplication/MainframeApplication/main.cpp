@@ -4,7 +4,9 @@
 /*                                                                              */
 /* File: main.cpp                                                               */
 /*                                                                              */
-/* Author(s): Alex Gribov, Kevin Smida                                          */
+/* Author(s): Alex Gribov, Alexander Senckowski, Molly McGuire and Kevin Smida  */
+/*                                                                              */
+/* All Right Reserved 2017 (c)                                                  */
 /*                                                                              */
 /********************************************************************************/
 
@@ -18,7 +20,7 @@ using namespace std;
 void connectToCamera();
 
 int main(int argc, char* argv[]) {
-	
+
 	// FIXME: In the future all declarations will be in file globals.h, but I left this here for now so everyone can see how the stream works.
 	VideoCapture cap;		// Number is the ID of video device.
 
@@ -27,11 +29,9 @@ int main(int argc, char* argv[]) {
 	//*****************************************************//
 
 	// FIXME: Future home of FLIR ONE address
-	const std::string videoStreamAddress = "http://10.253.77.174:8080/cam_1.mjpg";
+	const std::string videoStreamAddress = "http://192.168.0.117:8080/cam_1.mjpg";
 	// Address of sample video feed
 	const std::string sampleStreamAddress = "http://66.193.157.18/mjpg/video.mjpg";
-	const std::string ipCamStreamAddress = "http://192.168.0.102:8080/video";
-	
 
 	// Load the videostrem into VideoCapture object.
 	cap.open(sampleStreamAddress);
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 			break;
 		}
 
-		//flip(frame, frame, 1);
+		flip(frame, frame, 1);
 		imshow("MyVideo", frame); //show the frame in "MyVideo" window
 
 		// Sample image processing
