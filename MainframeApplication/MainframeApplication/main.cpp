@@ -26,18 +26,18 @@ int thresholding(Mat &frame, Mat* p_frame_threshold);
 int main(int argc, char* argv[]) {
 	const string sampleStreamAddress = "http://66.193.157.18/mjpg/video.mjpg";
 	VideoCapture* pCap;
+	char* sampleVideo = "thermalSample.mp4";
 
-	initializeGUI();
+	initializeGUI(); // Defined in GUI.cpp
 
 	//create Background Subtractor objects
 	pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 approach
 
 	//initializeVideo(sampleStreamAddress.c_str());
-	pCap = initializeVideo("http://66.193.157.18/mjpg/video.mjpg");
+
+	pCap = initializeVideo(sampleVideo); // Defined in videoHelper.cpp
 
 	processVideo(pCap);
-
-	//thresholding("http://66.193.157.18/mjpg/video.mjpg");
 
 	//destroy GUI windows
 	destroyAllWindows();

@@ -32,6 +32,9 @@
     <ClInclude Include="threshold.h" />
     <ClInclude Include="videoHelper.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="thermalSample.mp4" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07132E0C-A9DB-4EDA-ABF2-B3E1D68ED4FC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
