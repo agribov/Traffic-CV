@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="helperFunctions.cpp" />
     <ClCompile Include="main.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helperFunctions.h" />
