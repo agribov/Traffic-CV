@@ -10,7 +10,17 @@
 /*                                                                              */
 /********************************************************************************/
 
-
+/********************************************************************************/
+/*                                                                              */
+/* The Subtraction Method code is code that has been modified from a tutorial   */
+/* in the OpenCV documentation. A link to the source is below.                  */
+/* http://docs.opencv.org/3.2.0/d1/dc5/tutorial_background_subtraction.html     */
+/*                                                                              */
+/* The Thresholding code is code that has been modified from a tutorial         */
+/* in the OpenCV documentation. A link to the source is below.                  */
+/* http://docs.opencv.org/3.2.0/da/d97/tutorial_threshold_inRange.html          */
+/*                                                                              */
+/********************************************************************************/
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
