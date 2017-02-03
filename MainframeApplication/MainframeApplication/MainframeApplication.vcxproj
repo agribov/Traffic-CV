@@ -19,13 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="helperFunctions.cpp" />
     <ClCompile Include="main.cpp" />
-
+    <ClCompile Include="videoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="helperFunctions.h" />
     <ClInclude Include="subtractionMethod.h" />
+    <ClInclude Include="threshold.h" />
+    <ClInclude Include="videoHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="thermalSample.mp4" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07132E0C-A9DB-4EDA-ABF2-B3E1D68ED4FC}</ProjectGuid>
