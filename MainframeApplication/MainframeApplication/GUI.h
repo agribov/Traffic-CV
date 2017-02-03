@@ -18,6 +18,9 @@
 // Function declaration
 void initializeGUI();
 
+void on_low_hue_thresh_trackbar(int, void *);
+void on_high_hue_thresh_trackbar(int, void *);
+
 void on_low_r_thresh_trackbar(int, void *);
 void on_high_r_thresh_trackbar(int, void *);
 void on_low_g_thresh_trackbar(int, void *);

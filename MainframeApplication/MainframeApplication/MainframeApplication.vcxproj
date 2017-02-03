@@ -22,6 +22,7 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="helperFunctions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="threshold.cpp" />
     <ClCompile Include="videoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
