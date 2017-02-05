@@ -12,33 +12,41 @@
 
 #include "globals.h"
 #include "GUI.h"
+#include "threshold.h"
 
 // Variable declaration
-int low_r, low_g, low_b;
-int high_r, high_g, high_b;
 char keyboard; //input from keyboard
 
 void initializeGUI() {
 	//create GUI windows
-	namedWindow("Frame");
-	namedWindow("FG Mask MOG 2");
 	namedWindow("Video Capture", WINDOW_NORMAL);
+	namedWindow("FG Mask MOG 2");
+	namedWindow("Thresholded");
 	namedWindow("Object Detection", WINDOW_NORMAL);
 
-	low_r = 30;
-	low_g = 30;
-	low_b = 30;
-	high_r = 100;
-	high_g = 100;
-	high_b = 100;
+	//-- Trackbars to set thresholds for hue values
+	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
+	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
 
-	//-- Trackbars to set thresholds for RGB values
+
+	//-- Trackbars to set thresholds for RGB values -- NOT CURRENTLY USED, SWITCHED TO HSV THRESHOLDING
+	/*
 	createTrackbar("Low R", "Object Detection", &low_r, 255, on_low_r_thresh_trackbar);
 	createTrackbar("High R", "Object Detection", &high_r, 255, on_high_r_thresh_trackbar);
 	createTrackbar("Low G", "Object Detection", &low_g, 255, on_low_g_thresh_trackbar);
 	createTrackbar("High G", "Object Detection", &high_g, 255, on_high_g_thresh_trackbar);
 	createTrackbar("Low B", "Object Detection", &low_b, 255, on_low_b_thresh_trackbar);
 	createTrackbar("High B", "Object Detection", &high_b, 255, on_high_b_thresh_trackbar);
+	*/
+}
+
+void on_low_hue_thresh_trackbar(int, void *) {
+	low_r = min(high_r - 1, low_r);
+	setTrackbarPos("Low R", "Object Detection", low_r);
+}
+void on_high_hue_thresh_trackbar(int, void *) {
+	low_r = min(high_r - 1, low_r);
+	setTrackbarPos("Low R", "Object Detection", low_r);
 }
 
 void on_low_r_thresh_trackbar(int, void *) {
