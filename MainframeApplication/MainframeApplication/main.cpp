@@ -59,8 +59,10 @@ void processVideo(VideoCapture* pCap) {
 			exit(EXIT_FAILURE);
 		}
 
+		colorThreshold(frame, &threshFrame);
+
 		//update the background model
-		pMOG2->apply(frame, fgMaskMOG2);
+		pMOG2->apply(threshFrame, fgMaskMOG2);
 
 		//get the frame number and write it on the current frame
 		stringstream ss;
@@ -73,7 +75,6 @@ void processVideo(VideoCapture* pCap) {
 
 		//Run Thresholding
 		//thresholding(frame, &threshFrame);
-		colorThreshold(frame, &threshFrame);
 
 		//show current frame and masks
 		imshow("Video Capture", frame);
