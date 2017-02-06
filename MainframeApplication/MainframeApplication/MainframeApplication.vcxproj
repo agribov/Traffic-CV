@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="helperFunctions.cpp" />
+    <ClCompile Include="IdentifyVehicle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="threshold.cpp" />
     <ClCompile Include="videoHelper.cpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="globals.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="helperFunctions.h" />
+    <ClInclude Include="IdentifyVehicle.h" />
     <ClInclude Include="subtractionMethod.h" />
     <ClInclude Include="threshold.h" />
     <ClInclude Include="videoHelper.h" />

@@ -41,4 +41,3 @@ int thresholding(Mat &frame, Mat* p_frame_threshold) {
 
 	return 0;
 }
-
