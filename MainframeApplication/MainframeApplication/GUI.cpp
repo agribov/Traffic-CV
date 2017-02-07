@@ -20,6 +20,7 @@ char keyboard; //input from keyboard
 void initializeGUI() {
 	//create GUI windows
 	namedWindow("Video Capture", WINDOW_NORMAL);
+	namedWindow("FG Mask MOG");
 	namedWindow("FG Mask MOG 2");
 	namedWindow("Thresholded");
 	namedWindow("Object Detection", WINDOW_NORMAL);

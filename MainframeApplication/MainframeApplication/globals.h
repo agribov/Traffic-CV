@@ -17,6 +17,7 @@
 
 // Opencv includes
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/video/background_segm.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include "subtractionMethod.h"
 #include "opencv2/imgcodecs.hpp"
