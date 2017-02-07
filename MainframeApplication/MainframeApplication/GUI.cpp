@@ -73,3 +73,5 @@ void on_high_b_thresh_trackbar(int, void *) {
 	high_b = max(high_b, low_b + 1);
 	setTrackbarPos("High B", "Object Detection", high_b);
 }
+
+// Molly's test
