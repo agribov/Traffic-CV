@@ -32,6 +32,9 @@ void initializeGUI() {
 	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
 
 
+
+
+
 	//-- Trackbars to set thresholds for RGB values -- NOT CURRENTLY USED, SWITCHED TO HSV THRESHOLDING
 	/*
 	createTrackbar("Low R", "Object Detection", &low_r, 255, on_low_r_thresh_trackbar);
