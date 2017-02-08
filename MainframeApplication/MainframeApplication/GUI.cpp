@@ -93,6 +93,15 @@ void on_high_b_thresh_trackbar(int, void *) {
 	setTrackbarPos("High B", "Object Detection", high_b);
 }
 
+
+
+
+/*
+NO MAIN!!!!!
+
+make a function that you can call from main.cpp
+pass video capture as args
+*/
 int main(void) {
 
 	cv::VideoCapture capVideo;
