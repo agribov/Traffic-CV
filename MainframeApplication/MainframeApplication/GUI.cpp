@@ -57,6 +57,90 @@ void initializeGUI() {
 	createTrackbar("Low B", "Object Detection", &low_b, 255, on_low_b_thresh_trackbar);
 	createTrackbar("High B", "Object Detection", &high_b, 255, on_high_b_thresh_trackbar);
 	*/
+
+
+
+
+
+	/*
+	WHAT WE NEED TO DO FOR THE GUI:
+
+		1) SHORT TERM TESTING
+			The short term testing GUI will allow the testers (Alex, Alex, Kevin, and Molly) to ensure that the 
+			code that they write works, and can be interacted with in an effective way. The preferred output will
+			look like the following:
+			 ____________________________________________________________________________________________________
+			|_________________________________________________________________________________________|_|  -  X |
+			|     _______________________________________________________      ______________________________   |
+			|    |   ACTUAL VIDEO FRAME                                  |    |  DEBUG TOOLS                 |  |       
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |    TRACKBAR 1                |  |
+			|    |                                                       |    |    TRACKBAR 2                |  |
+			|    |                                                       |    |    TRACKBAR 3                |  |
+			|    |                                                       |    |    TRACKBAR 4                |  |
+			|    |                                                       |    |       ETC..                  |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |   FEED 1   ON OFF            |  |
+			|    |                                                       |    |   FEED 1   ON OFF            |  |                         
+			|    |                                                       |    |   FEED 1   ON OFF            |  |                          
+			|    |                                                       |    |   FEED 1   ON OFF            |  |
+			|    |                                                       |    |   FEED 1   ON OFF            |  |
+			|    |                                                       |    |   FEED 1   ON OFF            |  |
+			|    |_______________________________________________________|    |       ETC..                  |  |
+			|                                                                 |                              |  |
+			|     _______________________________________________________     |                              |  |
+			|    |  FRAME DEPENDENT ON DEBUG TOOLS SETTINGS              |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |                                                       |    |                              |  |
+			|    |_______________________________________________________|    |______________________________|  |
+			|                                                                                                   |
+			|___________________________________________________________________________________________________|
+
+
+			Depending on what feed is toggled on and off in the debug tools interactive bar sets the frame in the 
+			frame dependent window. All of the trackbar features should edit the frame inside the WINDOW, not the 
+			frame itself. 
+
+		2) LONG TERM USABILITY
+
+
+			We should focus on the short term for now, but I will update this comment section with the plan before
+			2/10/2017 - Molly
+	
+	*/
+
+	/*  HOW TO MAKE A WINDOW THAT DISPLAYS MORE THAN ONE VIDEO FEED IN IT */
+	// first, read this short tutorial!
+	// http://devblog.michalski.im/2012/05/18/combine-multiple-video-frames-into-one-using-opencv/
+
+	/*  we need to 
+		1) make a "master window" - this is the only one with an 'x' '-' and 'dock' 
+		2) find a reigon of interest that we can potnetially change video streams in
+		3) create buttons that change the video in the reigon of interest (roi)
+		*/
+
+
+
+
+
+
 }
 
 void on_low_hue_thresh_trackbar(int, void *) {
@@ -95,13 +179,7 @@ void on_high_b_thresh_trackbar(int, void *) {
 
 
 
-
 /*
-NO MAIN!!!!!
-
-make a function that you can call from main.cpp
-pass video capture as args
-*/
 int main(void) {
 
 	cv::VideoCapture capVideo;
@@ -135,66 +213,66 @@ int main(void) {
 	}
 
 
-	/*************************************************************************/
-
-
 	char chCheckForEscKey = 0;
 
-
-
-	/******************************************************************/
-
 	while (true) {
-		cv::Mat frame, f1, f2, f3, f4, merged_f, roi;
+	cv::Mat frame, f1, f2, f3, f4, merged_f, roi;
 
-		//grab and retrieve each frames of the video sequentially
+	//grab and retrieve each frames of the video sequentially
 
-		frame = capVideo.read(imgFrame);
-		capVideo2.read(imgFrame);
+	frame = capVideo.read(imgFrame);
+	capVideo2.read(imgFrame);
 
 
 
-		// initialize each frame
-		f1 = cv::Mat(cv::Size(320, 240), CV_8UC3);
-		f2 = cv::Mat(cv::Size(320, 240), CV_8UC3);
-		f3 = cv::Mat(cv::Size(320, 240), CV_8UC3);
-		f4 = cv::Mat(cv::Size(320, 240), CV_8UC3);
-		frame = cv::Mat(cv::Size(320, 240), CV_8UC3);
-		roi = cv::Mat(cv::Size(320, 240), CV_8UC3);
+	// initialize each frame
+	f1 = cv::Mat(cv::Size(320, 240), CV_8UC3);
+	f2 = cv::Mat(cv::Size(320, 240), CV_8UC3);
+	f3 = cv::Mat(cv::Size(320, 240), CV_8UC3);
+	f4 = cv::Mat(cv::Size(320, 240), CV_8UC3);
+	frame = cv::Mat(cv::Size(320, 240), CV_8UC3);
+	roi = cv::Mat(cv::Size(320, 240), CV_8UC3);
 
-		cv::resize(frame, f1, cv::Size(), 0.5, 0.5);
-		cv::flip(f1, f1, 1);
+	cv::resize(frame, f1, cv::Size(), 0.5, 0.5);
+	cv::flip(f1, f1, 1);
 
-		//copy the contents of the video for simplicity's sake
-		f2 = f1.clone();
-		f3 = f1.clone();
-		f4 = f1.clone();
-		//merge all frames together into one big frame
-		merged_f = cv::Mat(cv::Size(640, 480), CV_8UC3);
-		roi = cv::Mat(merged_f, cv::Rect(0, 0, 320, 240));
-		f1.copyTo(roi);
-		roi = cv::Mat(merged_f, cv::Rect(320, 0, 320, 240));
-		f2.copyTo(roi);
-		roi = cv::Mat(merged_f, cv::Rect(0, 240, 320, 240));
-		f3.copyTo(roi);
-		roi = cv::Mat(merged_f, cv::Rect(320, 240, 320, 240));
-		f4.copyTo(roi);
+	//copy the contents of the video for simplicity's sake
+	f2 = f1.clone();
+	f3 = f1.clone();
+	f4 = f1.clone();
+	//merge all frames together into one big frame
+	merged_f = cv::Mat(cv::Size(640, 480), CV_8UC3);
+	roi = cv::Mat(merged_f, cv::Rect(0, 0, 320, 240));
+	f1.copyTo(roi);
+	roi = cv::Mat(merged_f, cv::Rect(320, 0, 320, 240));
+	f2.copyTo(roi);
+	roi = cv::Mat(merged_f, cv::Rect(0, 240, 320, 240));
+	f3.copyTo(roi);
+	roi = cv::Mat(merged_f, cv::Rect(320, 240, 320, 240));
+	f4.copyTo(roi);
 
-		//disply the big frame
-		cv::imshow("Video1", merged_f);
+	//disply the big frame
+	cv::imshow("Video1", merged_f);
 
-		//wait for 40 milliseconds
-		int c = cvWaitKey(40);
+	//wait for 40 milliseconds
+	int c = cvWaitKey(40);
 
-		//exit the loop if user press "Esc" key  (ASCII value of "Esc" is 27) 
-		if (27 == char(c)) break;
+	//exit the loop if user press "Esc" key  (ASCII value of "Esc" is 27)
+	if (27 == char(c)) break;
 	}
 
 
 	if (chCheckForEscKey != 27) {               // if the user did not press esc (i.e. we reached the end of the video)
-		cv::waitKey(0);                         // hold the windows open to allow the "end of video" message to show
+	cv::waitKey(0);                         // hold the windows open to allow the "end of video" message to show
 	}
 	// note that if the user did press esc, we don't need to hold the windows open, we can simply let the program end which will close the windows
 
 	return(0);
-}
+	}
+
+	
+	*/
+	
+
+
+	
