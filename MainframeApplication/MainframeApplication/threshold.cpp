@@ -17,15 +17,6 @@ int low_r = 30, low_g = 30, low_b = 30;
 int high_r = 100, high_g = 100, high_b = 100;
 int lowHue = 0, highHue = 50;
 
-//initial min and max HSV filter values.
-//these will be changed using trackbars
-int H_MIN = 0;
-int H_MAX = 256;
-int S_MIN = 0;
-int S_MAX = 256;
-int V_MIN = 0;
-int V_MAX = 256;
-
 int colorThreshold(Mat &frame, Mat* p_frame_threshold) {
 	Mat hsvFrame;
 	// Convert frame to HSV space, to threshold color
