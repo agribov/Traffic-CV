@@ -76,10 +76,20 @@ void processVideo(VideoCapture* pCap) {
 		//Run Thresholding
 		//thresholding(frame, &threshFrame);
 
+
+		std::vector<cv::Mat> testing;
+
+		testing.push_back(threshFrame);
+		testing.push_back(fgMaskMOG2);
+
+
 		//show current frame and masks
 		imshow("Video Capture", frame);
 		imshow("FG Mask MOG 2", fgMaskMOG2);
 		imshow("Thresholded", (threshFrame));
+	//	imshow("Master Window", frame); 
+		// frame should always be shown in the master window
+		imshow("Master Window", makeCanvas(testing, 500, 1));
 
 		//get the input from the keyboard
 		keyboard = (char)waitKey(30);

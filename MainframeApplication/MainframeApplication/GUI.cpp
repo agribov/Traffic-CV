@@ -38,14 +38,14 @@ char keyboard; //input from keyboard
 
 void initializeGUI() {
 	//create GUI windows
-	namedWindow("Video Capture", WINDOW_NORMAL);
-	namedWindow("FG Mask MOG 2");
-	namedWindow("Thresholded");
+	namedWindow("Video Capture", WINDOW_NORMAL);     // Video capture is also used in main.cpp to show current frame and masks
+	namedWindow("FG Mask MOG 2");                    // FG Mask MOG 2 "" ^ as above
+	namedWindow("Thresholded");						 // Thresholded "" ^ as above
 	namedWindow("Object Detection", WINDOW_NORMAL);
 
 	//-- Trackbars to set thresholds for hue values
-	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
-	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
+	// createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
+//	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
 
 
 	//-- Trackbars to set thresholds for RGB values -- NOT CURRENTLY USED, SWITCHED TO HSV THRESHOLDING
@@ -133,14 +133,71 @@ void initializeGUI() {
 	/*  we need to 
 		1) make a "master window" - this is the only one with an 'x' '-' and 'dock' 
 		2) find a reigon of interest that we can potnetially change video streams in
+			2.1) there should definately be two, one for the non-processed image and
+			one for the processed image. There should potentially be a third for the 
+			toolbar, but I think that establishing the streams should happen first, 
+			and messing with them should happen second. 
 		3) create buttons that change the video in the reigon of interest (roi)
 		*/
 
+	namedWindow("Master Window", WINDOW_NORMAL);
+	createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
+	createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
 
+	int master_window_w = 550;
+	int master_window_h = 400;
 
+	resizeWindow("Master Window", master_window_w, master_window_h);
+}
 
+cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
+	int N = vecMat.size();
+	nRows = nRows > N ? N : nRows;
+	int edgeThickness = 10;
+	int imagesPerRow = ceil(double(N) / nRows);
+	int resizeHeight = floor(2.0 * ((floor(double(windowHeight - edgeThickness) / nRows)) / 2.0)) - edgeThickness;
+	int maxRowLength = 0;
 
+	std::vector<int> resizeWidth;
+	for (int i = 0; i < N;) {
+		int thisRowLen = 0;
+		for (int k = 0; k < imagesPerRow; k++) {
+			double aspectRatio = double(vecMat[i].cols) / vecMat[i].rows;
+			int temp = int(ceil(resizeHeight * aspectRatio));
+			resizeWidth.push_back(temp);
+			thisRowLen += temp;
+			if (++i == N) break;
+		}
+		if ((thisRowLen + edgeThickness * (imagesPerRow + 1)) > maxRowLength) {
+			maxRowLength = thisRowLen + edgeThickness * (imagesPerRow + 1);
+		}
+	}
+	int windowWidth = maxRowLength;
+	cv::Mat canvasImage(windowHeight, windowWidth, CV_8UC3, Scalar(0, 0, 0));
 
+	for (int k = 0, i = 0; i < nRows; i++) {
+		int y = i * resizeHeight + (i + 1) * edgeThickness;
+		int x_end = edgeThickness;
+		for (int j = 0; j < imagesPerRow && k < N; k++, j++) {
+			int x = x_end;
+			cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
+			cv::Size s = canvasImage(roi).size();
+			// change the number of channels to three
+			cv::Mat target_ROI(s, CV_8UC3);
+			if (vecMat[k].channels() != canvasImage.channels()) {
+				if (vecMat[k].channels() == 1) {
+					cv::cvtColor(vecMat[k], target_ROI, CV_GRAY2BGR);
+				}
+			}
+			cv::resize(target_ROI, target_ROI, s);
+			if (target_ROI.type() != canvasImage.type()) {
+				target_ROI.convertTo(target_ROI, canvasImage.type());
+			}
+			target_ROI.copyTo(canvasImage(roi));
+			x_end += resizeWidth[k] + edgeThickness;
+		}
+	}
+	return canvasImage;
 }
 
 void on_low_hue_thresh_trackbar(int, void *) {
