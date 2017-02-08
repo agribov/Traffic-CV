@@ -20,7 +20,6 @@ char keyboard; //input from keyboard
 void initializeGUI() {
 
 
-
 	//create GUI windows
 	namedWindow("Video Capture", WINDOW_NORMAL);
 	namedWindow("FG Mask MOG 2");
@@ -42,9 +41,6 @@ void initializeGUI() {
 	createTrackbar("High B", "Object Detection", &high_b, 255, on_high_b_thresh_trackbar);
 	*/
 }
-
-
-
 
 void on_low_hue_thresh_trackbar(int, void *) {
 	low_r = min(high_r - 1, low_r);
