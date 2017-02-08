@@ -16,6 +16,7 @@
 
 // Variable declaration
 char keyboard; //input from keyboard
+int erosionVal= 0, dilationVal = 0;
 
 void initializeGUI() {
 	//create GUI windows
@@ -28,6 +29,9 @@ void initializeGUI() {
 	//-- Trackbars to set thresholds for hue values
 	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
 	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
+
+	createTrackbar("Erosion", "Object Detection", &erosionVal, 255, on_low_hue_thresh_trackbar);
+	createTrackbar("Dilation", "Object Detection", &dilationVal, 255, on_high_hue_thresh_trackbar);
 
 
 	//-- Trackbars to set thresholds for RGB values -- NOT CURRENTLY USED, SWITCHED TO HSV THRESHOLDING
