@@ -29,3 +29,12 @@ VideoCapture* initializeVideo(char* videoFilename) {
 void releaseVideo(VideoCapture* pCap) {
 	(*pCap).release();
 }
+
+void dilateFrame(Mat inputFrame, Mat* p_returnFrame) {
+	// WRITE ME
+	return;
+}
+void erodeFrame(Mat outputFrame, Mat* p_returnFrame) {
+	// WRITE ME
+	return;
+}
