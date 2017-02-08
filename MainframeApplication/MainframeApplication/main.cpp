@@ -79,8 +79,9 @@ void processVideo(VideoCapture* pCap) {
 
 		std::vector<cv::Mat> testing;
 
-		testing.push_back(threshFrame);
-		testing.push_back(fgMaskMOG2);
+	//	testing.push_back(threshFrame);
+	//	testing.push_back(fgMaskMOG2);
+	//	testing.push_back(frame);
 
 
 		//show current frame and masks
@@ -89,7 +90,16 @@ void processVideo(VideoCapture* pCap) {
 		imshow("Thresholded", (threshFrame));
 	//	imshow("Master Window", frame); 
 		// frame should always be shown in the master window
-		imshow("Master Window", makeCanvas(testing, 500, 1));
+
+
+
+		testing.push_back(threshFrame);
+		testing.push_back(frame);
+		testing.push_back(fgMaskMOG2);
+		
+
+
+		imshow("Master Window", makeCanvas(testing, 700, 2));
 
 		//get the input from the keyboard
 		keyboard = (char)waitKey(30);

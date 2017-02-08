@@ -140,15 +140,20 @@ void initializeGUI() {
 		3) create buttons that change the video in the reigon of interest (roi)
 		*/
 
-	namedWindow("Master Window", WINDOW_NORMAL);
+	namedWindow("Master Window");
 	createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
 	createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
 
 	int master_window_w = 550;
 	int master_window_h = 400;
 
-	resizeWindow("Master Window", master_window_w, master_window_h);
+	//resizeWindow("Master Window", master_window_w, master_window_h);
 }
+
+
+
+
+
 
 cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
 	int N = vecMat.size();
