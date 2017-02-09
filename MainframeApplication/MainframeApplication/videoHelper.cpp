@@ -30,10 +30,17 @@ void releaseVideo(VideoCapture* pCap) {
 }
 
 void dilateFrame(Mat inputFrame, Mat* p_returnFrame) {
-	// WRITE ME
+	// WRITE ME	
+	//Morph type set to Rectangle, 3x3 rectangle - arbitrary size.
+	Mat dElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	//perform dilation
+	dilate(inputFrame, *p_returnFrame, dElement);
 	return;
 }
 void erodeFrame(Mat outputFrame, Mat* p_returnFrame) {
 	// WRITE ME
+	//Morph type set to Rectangle, 3x3 rectangle - arbitrary si
+	Mat eElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	erode(outputFrame, *p_returnFrame, eElement);
 	return;
 }
