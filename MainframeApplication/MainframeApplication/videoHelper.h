@@ -18,4 +18,7 @@
 VideoCapture* initializeVideo(char* videoFilename);
 void releaseVideo(VideoCapture* pCap);
 
+void dilateFrame(Mat inputFrame, Mat* p_returnFrame);
+void erodeFrame(Mat outputFrame, Mat* p_returnFrame);
+
 #endif // !_videoHelper
