@@ -13,7 +13,6 @@
 #include "globals.h"
 #include "videoHelper.h"
 
-
 VideoCapture* initializeVideo(char* videoFilename) {
 	//create the capture object
 	VideoCapture* capture = new VideoCapture(videoFilename);
