@@ -49,7 +49,7 @@ void processVideo(VideoCapture* pCap) {
 	//read input data. ESC or 'q' for quitting
 	keyboard = 0;
 
-	Mat frame, threshFrame; //current frame
+	Mat frame, threshFrame, adaptiveFrame; //current frame
 	Mat fgMaskKNN;
 
 	while (keyboard != 'q' && keyboard != 27) {
@@ -62,15 +62,20 @@ void processVideo(VideoCapture* pCap) {
 		}
 
 		colorThreshold(frame, &threshFrame);
+		//Test adaptive thresholding
+		//cvtColor(frame, adaptiveFrame, COLOR_BGR2GRAY);	//BGR to gray color conversion
+		//adaptiveThreshold(adaptiveFrame, adaptiveFrame, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 3, 0);
 
 		for (int i = 0; i < erosionVal; i++)
 		{
 			erodeFrame(threshFrame, &threshFrame);
+			//erodeFrame(adaptiveFrame, &adaptiveFrame);
 		}
 
 		for (int i = 0; i < dilationVal; i++)
 		{
 			dilateFrame(threshFrame, &threshFrame);
+			//dilateFrame(adaptiveFrame, &adaptiveFrame);
 		}
 
 		//update the background model
@@ -94,6 +99,7 @@ void processVideo(VideoCapture* pCap) {
 		imshow("FG Mask KNN", fgMaskKNN);
 		imshow("FG Mask MOG 2", fgMaskMOG2);
 		imshow("Thresholded", (threshFrame));
+		//imshow("Adaptive Thresholding", adaptiveFrame);
 
 		//get the input from the keyboard
 		keyboard = (char)waitKey(30);
