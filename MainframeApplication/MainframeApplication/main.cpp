@@ -96,10 +96,11 @@ void processVideo(VideoCapture* pCap) {
 		testing.push_back(threshFrame);
 		testing.push_back(frame);
 		testing.push_back(fgMaskMOG2);
-		
+		testing.push_back(fgMaskMOG2);
+		testing.push_back(fgMaskMOG2);
+		testing.push_back(fgMaskMOG2);
 
-
-		imshow("Master Window", makeCanvas(testing, 700, 2));
+		imshow("Master Window", makeCanvas(testing, 400, 2));
 
 		//get the input from the keyboard
 		keyboard = (char)waitKey(30);

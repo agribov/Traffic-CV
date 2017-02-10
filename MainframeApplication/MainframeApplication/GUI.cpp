@@ -10,28 +10,9 @@
 /*                                                                              */
 /********************************************************************************/
 
-
-/*
-SOURCES
-http://devblog.michalski.im/2012/05/18/combine-multiple-video-frames-into-one-using-opencv/
-
-http://docs.opencv.org/3.0-beta/doc/py_tutorials/py_gui/py_video_display/py_video_display.html
-
-http://docs.opencv.org/trunk/d3/d63/classcv_1_1Mat.html#af1d014cecd1510cdf580bf2ed7e5aafc
-
-*/
-
 #include "globals.h"
 #include "GUI.h"
 #include "threshold.h"
-#include<opencv2/core/core.hpp>
-#include<opencv2/highgui/highgui.hpp>
-#include<opencv2/opencv.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
-#include"opencv2/highgui.hpp"
-#include<iostream>
-#include<conio.h>
-#include<opencv2/core/mat.hpp>
 
 // Variable declaration
 char keyboard; //input from keyboard
@@ -156,6 +137,7 @@ void initializeGUI() {
 
 
 cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
+
 	int N = vecMat.size();
 	nRows = nRows > N ? N : nRows;
 	int edgeThickness = 10;
@@ -187,6 +169,7 @@ cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
 			int x = x_end;
 			cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
 			cv::Size s = canvasImage(roi).size();
+			
 			// change the number of channels to three
 			cv::Mat target_ROI(s, CV_8UC3);
 			if (vecMat[k].channels() != canvasImage.channels()) {
