@@ -33,6 +33,7 @@
 // C++ includes
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 // Namespace declarations
 using namespace cv;

@@ -30,7 +30,10 @@
     <ClCompile Include="threshold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IdentifyVehicle.cpp">
+    <ClCompile Include="vehicleTracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="videoHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IdentifyVehicle.h">
+    <ClInclude Include="vehicleTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

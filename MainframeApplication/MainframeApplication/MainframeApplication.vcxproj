@@ -24,6 +24,8 @@
     <ClCompile Include="IdentifyVehicle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="threshold.cpp" />
+    <ClCompile Include="vehicle.cpp" />
+    <ClCompile Include="vehicleTracker.cpp" />
     <ClCompile Include="videoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +35,8 @@
     <ClInclude Include="IdentifyVehicle.h" />
     <ClInclude Include="subtractionMethod.h" />
     <ClInclude Include="threshold.h" />
+    <ClInclude Include="vehicle.h" />
+    <ClInclude Include="vehicleTracker.h" />
     <ClInclude Include="videoHelper.h" />
   </ItemGroup>
   <ItemGroup>
