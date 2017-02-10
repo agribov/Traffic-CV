@@ -65,12 +65,12 @@ void processVideo(VideoCapture* pCap) {
 
 		for (int i = 0; i < erosionVal; i++)
 		{
-			erodeFrame(frame, &threshFrame);
+			erodeFrame(threshFrame, &threshFrame);
 		}
 
 		for (int i = 0; i < dilationVal; i++)
 		{
-			dilateFrame(frame, &threshFrame);
+			dilateFrame(threshFrame, &threshFrame);
 		}
 
 		//update the background model
