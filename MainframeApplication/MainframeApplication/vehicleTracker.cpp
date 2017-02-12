@@ -116,10 +116,16 @@ Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
 }
 Mat VehicleTracker::erode(Mat inputFrame, int sliderVal) {
 	//Returns eroded version of inputFrame
+	int V = sliderVal;
+	Mat eElement = getStructuringElement(MORPH_RECT, Size(2*V+1, )); 
+	erode(inputFrame, *p_returnFrame, eElement);
 	return inputFrame;
 }
 Mat VehicleTracker::dilate(Mat inputFrame, int sliderVal) {
 	//Returns dilated version of inputFrame
+	Mat dElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	//perform dilation
+	dilate(inputFrame, *p_returnFrame, dElement);
 	return inputFrame;
 }
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
