@@ -1,6 +1,9 @@
 /********************************************************************************/
 /*                                                                              */
-/* Program: Mainframe Thermal Image Processor                                   */
+/* Program: Main
+
+
+Thermal Image Processor                                   */
 /*                                                                              */
 /* File: globals.cpp                                                            */
 /*                                                                              */
