@@ -81,7 +81,7 @@ void processVideo(VideoCapture* pCap) {
 		//show current frame and masks
 		imshow("Video Capture", frame);
 		imshow("FG Mask KNN", fgMaskKNN);
-		imshow("FG Mask MOG 2", fgMaskMOG2);
+		//imshow("FG Mask MOG 2", fgMaskMOG2);
 		imshow("Thresholded", (threshFrame));
 
 		//get the input from the keyboard

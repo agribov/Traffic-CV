@@ -47,5 +47,6 @@ extern char keyboard; //input from keyboard
 extern int low_r, low_g, low_b;
 extern int high_r, high_g, high_b;
 extern int erosionVal, dilationVal;
+extern int lowHue, highHue;
 
 #endif // !_globals
