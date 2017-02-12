@@ -44,25 +44,6 @@ int main(int argc, char* argv[]) {
 	return EXIT_SUCCESS;
 }
 
-void NEWprocessVideo(VideoCapture* pCap) {
-
-	//read input data. ESC or 'q' for quitting
-	keyboard = 0;
-	VehicleTracker tracker;
-
-	Mat frame, threshFrame, adaptiveFrame; //current frame
-	Mat fgMaskKNN;
-
-	while (keyboard != 'q' && keyboard != 27) {
-
-		//read the current frame
-		if (!(*pCap).read(frame)) {
-			cerr << "Unable to read next frame." << endl;
-			cerr << "Exiting..." << endl;
-			exit(EXIT_FAILURE);
-		}
-	}
-}
 void processVideo(VideoCapture* pCap) {
 	
 	//read input data. ESC or 'q' for quitting
