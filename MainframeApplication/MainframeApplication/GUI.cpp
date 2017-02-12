@@ -40,6 +40,9 @@ void initializeGUI() {
 
 
 
+
+
+
 	//-- Trackbars to set thresholds for RGB values -- NOT CURRENTLY USED, SWITCHED TO HSV THRESHOLDING
 	/*
 	createTrackbar("Low R", "Object Detection", &low_r, 255, on_low_r_thresh_trackbar);
