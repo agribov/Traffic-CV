@@ -48,7 +48,7 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	highThFrame = threshold(frame);	
+	highThFrame = threshold(frame, 5, 5);	
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
@@ -104,9 +104,15 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 
 //PRIVATE FUNCTIONS:
 
-Mat VehicleTracker::threshold(Mat inputFrame) {
+Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
 	//Returns thresholded version of inputFrame
-	return inputFrame;
+	Mat hsvFrame;
+	Mat temp;
+	// Convert frame to HSV space, to threshold color
+	cvtColor(inputFrame, hsvFrame, COLOR_BGR2HSV);
+
+	inRange(hsvFrame, Scalar(lowH, 100, 100), Scalar(highH, 255, 255), temp);
+	return temp;
 }
 Mat VehicleTracker::erode(Mat inputFrame) {
 	//Returns eroded version of inputFrame

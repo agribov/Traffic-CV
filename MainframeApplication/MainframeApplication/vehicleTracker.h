@@ -39,7 +39,7 @@ private:
 
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
-	Mat threshold(Mat inputFrame);
+	Mat threshold(Mat inputFrame, int lowH, int highH);
 	Mat erode(Mat inputFrame);
 	Mat dilate(Mat inputFrame);
 	Mat bgSubtractionMOG2(Mat inputFrame);

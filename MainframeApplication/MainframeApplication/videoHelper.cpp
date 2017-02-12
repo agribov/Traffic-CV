@@ -30,7 +30,11 @@ void releaseVideo(VideoCapture* pCap) {
 	(*pCap).release();
 }
 
-void dilateFrame(Mat inputFrame, Mat* p_returnFrame) {
+void dilate
+
+
+
+(Mat inputFrame, Mat* p_returnFrame) {
 	// WRITE ME
 	return;
 }
