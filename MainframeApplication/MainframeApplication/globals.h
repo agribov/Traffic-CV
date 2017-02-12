@@ -29,6 +29,8 @@ Thermal Image Processor                                   */
 #include "opencv2/videoio.hpp"
 #include <opencv2/highgui.hpp>
 #include <opencv2/video.hpp>
+#include "vehicleTracker.h"
+#include "vehicle.h"
 
 // C includes
 #include <stdio.h>
