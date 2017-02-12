@@ -1,7 +1,7 @@
 /********************************************************************************/
 /*                                                                              */
 /* Program: Mainframe Thermal Image Processor                                   */
-/*                                                                              */
+/*        z                                                                      */
 /* File: vehicle.cpp                                                        */
 /*                                                                              */
 /* Author(s): Alex Gribov, Alexander Senckowski, Molly McGuire and Kevin Smida  */
