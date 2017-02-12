@@ -53,11 +53,11 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
 	// Step 3c: Background subtraction? (**SPIF)
-	erodedFrame = erode(highThFrame, erosionVal);
+	//erodedFrame = erode(highThFrame, erosionVal);
 	
 	// Step 4: Dilate the eroded image (to make cars very clear)
 	// Step 4b: Other clarity functions? (**SPIF)
-	dilatedFrame = dilate(erodedFrame, dilationVal);
+	//dilatedFrame = dilate(erodedFrame, dilationVal);
 	
 	// Step 5: Find contours of filtered image, to be stored in self.vehicleContours
 	findContours(dilatedFrame, vehicleContours);
@@ -114,19 +114,21 @@ Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
 	inRange(hsvFrame, Scalar(lowH, 100, 100), Scalar(highH, 255, 255), temp);
 	return temp;
 }
-Mat VehicleTracker::erode(Mat inputFrame, int sliderVal) {
+Mat VehicleTracker::erode(Mat inputFrame, Mat eoutputFrame, Mat eElement) {
 	//Returns eroded version of inputFrame
-	int V = sliderVal;
-	Mat eElement = getStructuringElement(MORPH_RECT, Size(2*V+1, )); 
-	erode(inputFrame, *p_returnFrame, eElement);
-	return inputFrame;
+	//int V = sliderVal;
+	//Mat eElement = getStructuringElement(MORPH_RECT, Size(3, 3)); 
+	Mat erodedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	erode(inputFrame, eoutputFrame, erodedElement);
+	return eoutputFrame;
 }
-Mat VehicleTracker::dilate(Mat inputFrame, int sliderVal) {
+Mat VehicleTracker::dilate(Mat inputFrame, Mat doutputFrame, Mat dElement) {
 	//Returns dilated version of inputFrame
-	Mat dElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	//int V = sliderVal;
+	Mat dilatedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
 	//perform dilation
-	dilate(inputFrame, *p_returnFrame, dElement);
-	return inputFrame;
+	dilate(inputFrame, doutputFrame, dElement);
+	return doutputFrame;
 }
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
 	//Returns bgSubtracted version of inputFrame, using MOG2 method
