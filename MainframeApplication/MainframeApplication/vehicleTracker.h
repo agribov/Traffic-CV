@@ -34,14 +34,16 @@ private:
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
 	const int MAX_NUMBER_VEHICLES = 10; // Constant value: If number is more than this, algorithm will assume there is noise.
-	
+	const int MIN_VEHICLE_AREA = 5 * 5; // Unit is pixels
+	const int MAX_VEHICLE_AREA = 200 * 200; // Unit is pixels
+
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
-	Mat threshold(Mat inputFrame);
+	Mat threshold(Mat inputFrame, int lowH, int highH);
 	Mat erode(Mat inputFrame);
 	Mat dilate(Mat inputFrame);
 	Mat bgSubtractionMOG2(Mat inputFrame);
-	void findContours(Mat inputFrame);
+	void findContours(Mat inputFrame, vector<vector<Point>> &outputContours);
 	void updateVehicleList();
 
 public:

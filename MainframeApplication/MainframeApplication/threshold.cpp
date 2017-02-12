@@ -12,11 +12,6 @@
 
 #include "globals.h"
 
-// Variable declaration
-int low_r = 30, low_g = 30, low_b = 30;
-int high_r = 100, high_g = 100, high_b = 100;
-int lowHue = 0, highHue = 50;
-
 int colorThreshold(Mat &frame, Mat* p_frame_threshold) {
 	Mat hsvFrame;
 	// Convert frame to HSV space, to threshold color

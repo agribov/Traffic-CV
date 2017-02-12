@@ -12,11 +12,13 @@
 
 #include "globals.h"
 #include "GUI.h"
-#include "threshold.h"
 
 // Variable declaration
 char keyboard; //input from keyboard
 int erosionVal= 0, dilationVal = 0;
+int low_r = 30, low_g = 30, low_b = 30;
+int high_r = 100, high_g = 100, high_b = 100;
+int lowHue = 0, highHue = 50;
 
 void initializeGUI() {
 
@@ -24,7 +26,7 @@ void initializeGUI() {
 	//create GUI windows
 	namedWindow("Video Capture", WINDOW_NORMAL);
 	namedWindow("FG Mask MOG");
-	namedWindow("FG Mask MOG 2");
+	//namedWindow("FG Mask MOG 2");
 	namedWindow("Thresholded");
 	namedWindow("Object Detection", WINDOW_NORMAL);
 
@@ -32,9 +34,8 @@ void initializeGUI() {
 	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
 	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
 
-	createTrackbar("Erosion", "Object Detection", &erosionVal, 255, on_low_hue_thresh_trackbar);
-	createTrackbar("Dilation", "Object Detection", &dilationVal, 255, on_high_hue_thresh_trackbar);
-
+	createTrackbar("Erosion", "Object Detection", &erosionVal, 255, erodeTrackbar);
+	createTrackbar("Dilation", "Object Detection", &dilationVal, 255, dilateTrackbar);
 
 
 
@@ -51,13 +52,22 @@ void initializeGUI() {
 }
 
 void on_low_hue_thresh_trackbar(int, void *) {
-	low_r = min(high_r - 1, low_r);
-	setTrackbarPos("Low R", "Object Detection", low_r);
+	lowHue = min(highHue - 1, low_r);
+	setTrackbarPos("Low Hue", "Object Detection", lowHue);
 }
 void on_high_hue_thresh_trackbar(int, void *) {
-	low_r = min(high_r - 1, low_r);
-	setTrackbarPos("Low R", "Object Detection", low_r);
+	highHue = max(highHue, lowHue);
+	setTrackbarPos("Low Hue", "Object Detection", lowHue);
 }
+void erodeTrackbar(int, void *) {
+	setTrackbarPos("Erosion", "Object Detection", erosionVal);
+}
+void dilateTrackbar(int, void *) {
+	setTrackbarPos("Dilation", "Object Detection", dilationVal);
+}
+
+
+// BELOW: NOT USED
 
 void on_low_r_thresh_trackbar(int, void *) {
 	low_r = min(high_r - 1, low_r);
