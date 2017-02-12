@@ -88,6 +88,7 @@ void VehicleTracker::update(Mat currentFrame) {
 			centroids.push_back(center);
 		}
 	}
+	//***For Step 7 look into using meanshift() and camshift() to find the centroid of the blobs. -AZS ****
 
 	// TODO: ***
 	// Step 8: Iterate through self.vehicles. Compare old vehicle locations to current centroids.
@@ -100,6 +101,17 @@ void VehicleTracker::update(Mat currentFrame) {
 
 void VehicleTracker::drawBoxes(Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
+	// drawBoxes may be unnecessary as meanshift and camshift draw boxes. -AZS
+	vector<Point> center;
+	Rect rect;
+	const Scalar GREEN = Scalar(0, 255, 0);  //Assuming BGR color space.
+	for (int i = 0; i < getVehiclePositions().size(); i++)
+	{
+		Point temp;
+		temp.x = getVehiclePositions()[i].x;	//find more efficient method
+		temp.y = getVehiclePositions()[i].y;
+		rectangle(frame, Point(temp.x + 10, temp.y + 10), Point(temp.x - 10, temp.y - 10), GREEN, 3);	//Rectangle vertices are arbitrarily set.
+	}
 }
 
 //PRIVATE FUNCTIONS:
