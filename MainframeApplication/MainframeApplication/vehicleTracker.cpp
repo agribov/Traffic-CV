@@ -50,19 +50,19 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	highThFrame = threshold(frame, lowHue, highHue);	
+	highThFrame = thresholdFrame(frame, lowHue, highHue);	
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
 	// Step 3c: Background subtraction? (**SPIF)
-	erodedFrame = erode(highThFrame, erosionVal);
+	erodedFrame = erodeFrame(highThFrame, erosionVal);
 	
 	// Step 4: Dilate the eroded image (to make cars very clear)
 	// Step 4b: Other clarity functions? (**SPIF)
-	dilatedFrame = dilate(erodedFrame, dilationVal);
+	dilatedFrame = dilateFrame(erodedFrame, dilationVal);
 	
 	// Step 5: Find contours of filtered image, to be stored in self.vehicleContours
-	findContours(dilatedFrame, vehicleContours);
+	findVehicleContours(dilatedFrame, vehicleContours);
 	
 	// Step 6: Check number and dimensions of vehicles:
 	//		- Small and large contours are probably erroneous
@@ -125,7 +125,7 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 
 //PRIVATE FUNCTIONS:
 
-Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
+Mat VehicleTracker::thresholdFrame(Mat inputFrame, int lowH, int highH) {
 	//Returns thresholded version of inputFrame
 	Mat hsvFrame;
 	Mat temp;
@@ -135,30 +135,39 @@ Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
 	inRange(hsvFrame, Scalar(lowH, 100, 100), Scalar(highH, 255, 255), temp);
 	return temp;
 }
-Mat VehicleTracker::erode(Mat inputFrame, Mat eoutputFrame, Mat eElement) {
+
+Mat VehicleTracker::erodeFrame(Mat inputFrame, int sliderVal) {
 	//Returns eroded version of inputFrame
-	//int V = sliderVal;
+	int eV = sliderVal;
+	Mat outputFrame;
 	//Mat eElement = getStructuringElement(MORPH_RECT, Size(3, 3)); 
-	Mat erodedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
-	erode(inputFrame, eoutputFrame, erodedElement);
-	return eoutputFrame;
+	Mat erodedElement = getStructuringElement(MORPH_RECT, Size(2 * eV + 1, 2 * eV + 1), Point(eV, eV));
+	erode(inputFrame, outputFrame, erodedElement);
+	return outputFrame;
 }
-Mat VehicleTracker::dilate(Mat inputFrame, Mat doutputFrame, Mat dElement) {
+
+Mat VehicleTracker::dilateFrame(Mat inputFrame, int sliderVal) {
 	//Returns dilated version of inputFrame
-	//int V = sliderVal;
-	Mat dilatedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	int dV = sliderVal;
+	Mat outputFrame;
+	Mat dilatedElement = getStructuringElement(MORPH_RECT, Size(2 * dV + 1, 2 * dV + 1), Point(dV, dV));
 	//perform dilation
-	dilate(inputFrame, doutputFrame, dElement);
-	return doutputFrame;
+	dilate(inputFrame, outputFrame, dilatedElement);
+	return outputFrame;
 }
+
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
 	//Returns bgSubtracted version of inputFrame, using MOG2 method
 	return inputFrame;
 }
-void VehicleTracker::findContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
+
+void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
 	// Find the contours of the input frame and store them in self.vehicleContours
+	//vector<Vec4i> heirarchy;
+	findContours(inputFrame, vehicleContours, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 	return;
 }
+
 void VehicleTracker::updateVehicleList() {
 	return;
 }

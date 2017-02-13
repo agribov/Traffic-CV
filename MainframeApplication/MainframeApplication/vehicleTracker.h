@@ -39,11 +39,11 @@ private:
 
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
-	Mat threshold(Mat inputFrame, int lowH, int highH);
-	Mat erode(Mat inputFrame, Mat eoutputFrame, Mat eElement);
-	Mat dilate(Mat inputFrame, Mat doutputFrame, Mat dElement);
+	Mat thresholdFrame(Mat inputFrame, int lowH, int highH);
+	Mat erodeFrame(Mat inputFrame, int sliderVal);
+	Mat dilateFrame(Mat inputFrame, int sliderVal);
 	Mat bgSubtractionMOG2(Mat inputFrame);
-	void findContours(Mat inputFrame, vector<vector<Point>> &outputContours);
+	void findVehicleContours(Mat inputFrame, vector<vector<Point>> &outputContours);
 	void updateVehicleList();
 
 public:
