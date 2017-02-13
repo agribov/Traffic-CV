@@ -25,6 +25,7 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 	// Get location of every vehicle, add to a vector<Point>
 	// Return that vector
 	vector<Point> positions;
+	//printf("%d\n", vehicles.size());
 	for (int i = 0; i < vehicles.size(); i++)
 		positions.push_back(vehicles[i].getPosition());
 
@@ -80,9 +81,9 @@ void VehicleTracker::update(Mat currentFrame) {
 		blobMoment = moments((Mat)vehicleContours[i]);
 		area = blobMoment.m00;
 		if (area < MIN_VEHICLE_AREA) {
-			vehicleContours.erase(firstContour + i);
-			i--;
-			numContours--;
+			//vehicleContours.erase(firstContour + i);
+			//i--;
+			//numContours--;
 		}
 		// Step 7: Find centroids of contours that have not been eliminated
 		else {
@@ -101,11 +102,15 @@ void VehicleTracker::update(Mat currentFrame) {
 
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 	vector<Vehicle> tempList;
+	printf("%d\n", centroids.size());
 	for (i = 0; i < centroids.size(); i++) {
 		Vehicle x(centroids[i]);
 		tempList.push_back(x);
 	}
+	vehicles = tempList;
 
+	frame.copyTo(outputFrame);
+	drawBoxes(outputFrame);
 }
 
 void VehicleTracker::drawBoxes(Mat &frame) {
@@ -119,8 +124,10 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 		Point temp;
 		temp.x = getVehiclePositions()[i].x;	//find more efficient method
 		temp.y = getVehiclePositions()[i].y;
-		rectangle(frame, Point(temp.x + 10, temp.y + 10), Point(temp.x - 10, temp.y - 10), GREEN, 3);	//Rectangle vertices are arbitrarily set.
+		rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), GREEN, 3);	//Rectangle vertices are arbitrarily set.
 	}
+	//printf("%d\n", getVehiclePositions().size());
+
 }
 
 //PRIVATE FUNCTIONS:
