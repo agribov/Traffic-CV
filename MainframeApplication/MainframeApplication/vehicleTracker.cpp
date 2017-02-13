@@ -24,9 +24,12 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 	// From list of vehicles in self.vehicles:
 	// Get location of every vehicle, add to a vector<Point>
 	// Return that vector
+	vector<Point> positions;
+	//printf("%d\n", vehicles.size());
+	for (int i = 0; i < vehicles.size(); i++)
+		positions.push_back(vehicles[i].getPosition());
 
-	vector<Point> PLACEHOLDER;
-	return PLACEHOLDER;
+	return positions;
 }
 
 void VehicleTracker::update(Mat currentFrame) {
@@ -48,19 +51,19 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	highThFrame = threshold(frame, lowHue, highHue);	
+	highThFrame = thresholdFrame(frame, lowHue, highHue);	
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
 	// Step 3c: Background subtraction? (**SPIF)
-	//erodedFrame = erode(highThFrame, erosionVal);
+	erodedFrame = erodeFrame(highThFrame, erosionVal);
 	
 	// Step 4: Dilate the eroded image (to make cars very clear)
 	// Step 4b: Other clarity functions? (**SPIF)
-	//dilatedFrame = dilate(erodedFrame, dilationVal);
+	dilatedFrame = dilateFrame(erodedFrame, dilationVal);
 	
 	// Step 5: Find contours of filtered image, to be stored in self.vehicleContours
-	findContours(dilatedFrame, vehicleContours);
+	findVehicleContours(dilatedFrame, vehicleContours);
 	
 	// Step 6: Check number and dimensions of vehicles:
 	//		- Small and large contours are probably erroneous
@@ -78,9 +81,9 @@ void VehicleTracker::update(Mat currentFrame) {
 		blobMoment = moments((Mat)vehicleContours[i]);
 		area = blobMoment.m00;
 		if (area < MIN_VEHICLE_AREA) {
-			vehicleContours.erase(firstContour + i);
-			i--;
-			numContours--;
+			//vehicleContours.erase(firstContour + i);
+			//i--;
+			//numContours--;
 		}
 		// Step 7: Find centroids of contours that have not been eliminated
 		else {
@@ -88,6 +91,7 @@ void VehicleTracker::update(Mat currentFrame) {
 			centroids.push_back(center);
 		}
 	}
+	//***For Step 7 look into using meanshift() and camshift() to find the centroid of the blobs. -AZS ****
 
 	// TODO: ***
 	// Step 8: Iterate through self.vehicles. Compare old vehicle locations to current centroids.
@@ -96,15 +100,39 @@ void VehicleTracker::update(Mat currentFrame) {
 	//		- If a centroid is near leading edge, create new vehicle in the list
 	//		- If a vehicle in the middle of the intersection has disappeared, 'mark it as suspicious' (TBD, SPIF)
 
+	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
+	vector<Vehicle> tempList;
+	printf("%d\n", centroids.size());
+	for (i = 0; i < centroids.size(); i++) {
+		Vehicle x(centroids[i]);
+		tempList.push_back(x);
+	}
+	vehicles = tempList;
+
+	frame.copyTo(outputFrame);
+	drawBoxes(outputFrame);
 }
 
 void VehicleTracker::drawBoxes(Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
+	// drawBoxes may be unnecessary as meanshift and camshift draw boxes. -AZS
+	vector<Point> center;
+	Rect rect;
+	const Scalar GREEN = Scalar(0, 255, 0);  //Assuming BGR color space.
+	for (int i = 0; i < getVehiclePositions().size(); i++)
+	{
+		Point temp;
+		temp.x = getVehiclePositions()[i].x;	//find more efficient method
+		temp.y = getVehiclePositions()[i].y;
+		rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), GREEN, 3);	//Rectangle vertices are arbitrarily set.
+	}
+	//printf("%d\n", getVehiclePositions().size());
+
 }
 
 //PRIVATE FUNCTIONS:
 
-Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
+Mat VehicleTracker::thresholdFrame(Mat inputFrame, int lowH, int highH) {
 	//Returns thresholded version of inputFrame
 	Mat hsvFrame;
 	Mat temp;
@@ -114,29 +142,39 @@ Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
 	inRange(hsvFrame, Scalar(lowH, 100, 100), Scalar(highH, 255, 255), temp);
 	return temp;
 }
-Mat VehicleTracker::erode(Mat inputFrame, Mat eoutputFrame, Mat eElement) {
+
+Mat VehicleTracker::erodeFrame(Mat inputFrame, int sliderVal) {
 	//Returns eroded version of inputFrame
-	//int V = sliderVal;
-	Mat erodedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
-	erode(inputFrame, eoutputFrame, erodedElement);
-	return eoutputFrame;
+	int eV = sliderVal;
+	Mat outputFrame;
+	//Mat eElement = getStructuringElement(MORPH_RECT, Size(3, 3)); 
+	Mat erodedElement = getStructuringElement(MORPH_RECT, Size(2 * eV + 1, 2 * eV + 1), Point(eV, eV));
+	erode(inputFrame, outputFrame, erodedElement);
+	return outputFrame;
 }
-Mat VehicleTracker::dilate(Mat inputFrame, Mat doutputFrame, Mat dElement) {
+
+Mat VehicleTracker::dilateFrame(Mat inputFrame, int sliderVal) {
 	//Returns dilated version of inputFrame
-	//int V = sliderVal;
-	Mat dilatedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
+	int dV = sliderVal;
+	Mat outputFrame;
+	Mat dilatedElement = getStructuringElement(MORPH_RECT, Size(2 * dV + 1, 2 * dV + 1), Point(dV, dV));
 	//perform dilation
-	dilate(inputFrame, doutputFrame, dElement);
-	return doutputFrame;
+	dilate(inputFrame, outputFrame, dilatedElement);
+	return outputFrame;
 }
+
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
 	//Returns bgSubtracted version of inputFrame, using MOG2 method
 	return inputFrame;
 }
-void VehicleTracker::findContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
+
+void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
 	// Find the contours of the input frame and store them in self.vehicleContours
+	//vector<Vec4i> heirarchy;
+	findContours(inputFrame, vehicleContours, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 	return;
 }
+
 void VehicleTracker::updateVehicleList() {
 	return;
 }

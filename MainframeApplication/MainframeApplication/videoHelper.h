@@ -15,10 +15,12 @@
 
 #include "globals.h"
 
+void processVideo(VideoCapture* pCap);
+
 VideoCapture* initializeVideo(char* videoFilename);
 void releaseVideo(VideoCapture* pCap);
 
-void dilateFrame(Mat inputFrame, Mat* p_returnFrame);
-void erodeFrame(Mat outputFrame, Mat* p_returnFrame);
+void addFrameNumber(Mat &frame, VideoCapture *pCap); // Adds the current frame number to the display
+
 
 #endif // !_videoHelper

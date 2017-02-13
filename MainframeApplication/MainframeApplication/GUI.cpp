@@ -25,17 +25,20 @@ void initializeGUI() {
 
 	//create GUI windows
 	namedWindow("Video Capture", WINDOW_NORMAL);
-	namedWindow("FG Mask MOG");
-	//namedWindow("FG Mask MOG 2");
-	namedWindow("Thresholded");
+	namedWindow("Debug 1");
+	namedWindow("Debug 2");
+	//namedWindow("Thresholded");
 	namedWindow("Object Detection", WINDOW_NORMAL);
 
 	//-- Trackbars to set thresholds for hue values
 	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
 	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
 
-	createTrackbar("Erosion", "Object Detection", &erosionVal, 255, erodeTrackbar);
-	createTrackbar("Dilation", "Object Detection", &dilationVal, 255, dilateTrackbar);
+	createTrackbar("Erosion", "Object Detection", &erosionVal, 25, erodeTrackbar);
+	createTrackbar("Dilation", "Object Detection", &dilationVal, 100, dilateTrackbar);
+
+
+
 
 
 
