@@ -24,9 +24,11 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 	// From list of vehicles in self.vehicles:
 	// Get location of every vehicle, add to a vector<Point>
 	// Return that vector
+	vector<Point> positions;
+	for (int i = 0; i < vehicles.size(); i++)
+		positions.push_back(vehicles[i].getPosition());
 
-	vector<Point> PLACEHOLDER;
-	return PLACEHOLDER;
+	return positions;
 }
 
 void VehicleTracker::update(Mat currentFrame) {
@@ -96,6 +98,13 @@ void VehicleTracker::update(Mat currentFrame) {
 	//		- If a vehicle was near trailing edge, and is now gone, mark it as gone or delete it (we need to pick)
 	//		- If a centroid is near leading edge, create new vehicle in the list
 	//		- If a vehicle in the middle of the intersection has disappeared, 'mark it as suspicious' (TBD, SPIF)
+
+	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
+	vector<Vehicle> tempList;
+	for (i = 0; i < centroids.size(); i++) {
+		Vehicle x(centroids[i]);
+		tempList.push_back(x);
+	}
 
 }
 
