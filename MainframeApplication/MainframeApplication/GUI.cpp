@@ -121,6 +121,7 @@ void initializeGUI() {
 		3) create buttons that change the video in the reigon of interest (roi)
 		*/
 
+
 	namedWindow("Master Window");
 	createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
 	createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);

@@ -84,12 +84,12 @@ void processVideo(VideoCapture* pCap) {
 	//	testing.push_back(fgMaskMOG2);
 	//	testing.push_back(frame);
 
-		cvtColor(frame, frame_duplicate, CV_BGR2HSV);
+		cvtColor(frame, frame_duplicate, COLOR_BGR2HSV);
 
 		//show current frame and masks
-		imshow("Video Capture", frame);	//-AZS
-		imshow("FG Mask MOG 2", fgMaskMOG2);
-		imshow("Thresholded", (threshFrame));
+		//imshow("Video Capture", frame);	//-AZS
+		//imshow("FG Mask MOG 2", fgMaskMOG2);
+		//imshow("Thresholded", (threshFrame));
 	//	imshow("Master Window", frame); 
 		// frame should always be shown in the master window
 
