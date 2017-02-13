@@ -1,9 +1,6 @@
 /********************************************************************************/
 /*                                                                              */
-/* Program: Main
-
-
-Thermal Image Processor                                   */
+/* Program: Main Thermal Image Processor                                        */
 /*                                                                              */
 /* File: vehicle.h		                                                        */
 /*                                                                              */
@@ -26,12 +23,12 @@ private:
 	int waitingTime; // Amount of time vehicle has been sitting still (IGNORE FOR NOW)
 public:
 	//VehicleTracker(); // DEFINE ME
-	Vehicle(Point pos) {
-		position = pos;
+	Vehicle(Point2f pos) {
+		position = (Point)pos;
 		velocity = 0;
 	}
 	void update(Point pos); // Updates all information about vehicle, given new location.
-
+	Point getPosition() { return position; }
 };
 
 #endif
