@@ -1,10 +1,7 @@
 
 /********************************************************************************/
 /*                                                                              */
-/* Program: Main
-
-
-Thermal Image Processor                                   */
+/* Program: MainThermal Image Processor			                                */
 /*                                                                              */
 /* File: globals.cpp                                                            */
 /*                                                                              */
