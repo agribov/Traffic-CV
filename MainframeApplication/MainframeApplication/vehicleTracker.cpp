@@ -117,7 +117,6 @@ Mat VehicleTracker::threshold(Mat inputFrame, int lowH, int highH) {
 Mat VehicleTracker::erode(Mat inputFrame, Mat eoutputFrame, Mat eElement) {
 	//Returns eroded version of inputFrame
 	//int V = sliderVal;
-	//Mat eElement = getStructuringElement(MORPH_RECT, Size(3, 3)); 
 	Mat erodedElement = getStructuringElement(MORPH_RECT, Size(3, 3));
 	erode(inputFrame, eoutputFrame, erodedElement);
 	return eoutputFrame;
