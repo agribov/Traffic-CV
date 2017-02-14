@@ -66,7 +66,7 @@ void releaseVideo(VideoCapture* pCap) {
 void addFrameNumber(Mat &frame, VideoCapture *pCap) {
 	//get the frame number and write it on the current frame
 	stringstream ss;
-	rectangle(frame, cv::Point(10, 2), cv::Point(100, 20),
+	rectangle(frame, cv::Point(10, 2), cv::Point(100, 45),
 		cv::Scalar(255, 255, 255), -1);
 	ss << (*pCap).get(CAP_PROP_POS_FRAMES);
 	string frameNumberString = ss.str();
@@ -75,13 +75,12 @@ void addFrameNumber(Mat &frame, VideoCapture *pCap) {
 }
 
 void addCarCount(Mat &frame, VideoCapture *pCap) {
-	//rectangle(frame, cv::Point(10, 2), cv::Point(100, 20),
-		//cv::Scalar(255, 255, 1), -1);  NEED TO REPOSITION
 	string result;          //contains result of converting int --> string
 	ostringstream convert;   // stream used for the conversion
 	convert << currentCarCount;      // insert the textual representation of 'currentCarCount' in the characters in the stream
 	result = convert.str(); // set 'result' to the contents of the stream. result is now "count"
-	putText(frame, result, cv::Point(100, 100), FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
+	result += " cars";
+	putText(frame, result , cv::Point(15, 40), FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
 }
 
 // NOT USED, here as a historic monument
