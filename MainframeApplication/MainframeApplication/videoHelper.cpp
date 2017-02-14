@@ -14,6 +14,7 @@
 #include "videoHelper.h"
 #include "vehicle.h"
 #include "vehicleTracker.h"
+#include "GUI.h"
 
 void processVideo(VideoCapture* pCap) {
 
@@ -24,6 +25,7 @@ void processVideo(VideoCapture* pCap) {
 	Mat frame, outputFrame;
 
 	while (keyboard != 'q' && keyboard != 27) {
+		vector<Mat> testing;
 
 		//read the current frame
 		if (!(*pCap).read(frame)) {
@@ -37,9 +39,17 @@ void processVideo(VideoCapture* pCap) {
 		addFrameNumber(outputFrame, pCap);
 		addCarCount(outputFrame, pCap);
 
+		
+		//imshow("Debug 1", tracker.getDilated());
+		//imshow("Debug 2", tracker.getEroded());
+
 		imshow("Video Capture", outputFrame);
-		imshow("Debug 1", tracker.getDilated());
-		imshow("Debug 2", tracker.getEroded());
+		testing.push_back(outputFrame);
+		testing.push_back(outputFrame);
+		testing.push_back(tracker.getDilated());
+		testing.push_back(tracker.getEroded());
+
+		imshow("Master Window", makeCanvas(testing, 400, 2, frame));
 
 		//get the input from the keyboard
 		keyboard = (char)waitKey(30);

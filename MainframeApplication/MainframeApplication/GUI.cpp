@@ -168,13 +168,13 @@ void initializeGUI() {
 
 	//create GUI windows
 	namedWindow("Video Capture", WINDOW_NORMAL);     // Video capture is also used in main.cpp to show current frame and masks
-	namedWindow("FG Mask MOG 2");                    // FG Mask MOG 2 "" ^ as above
-	namedWindow("Thresholded");						 // Thresholded "" ^ as above
-	namedWindow("Video Capture", WINDOW_NORMAL);
-	namedWindow("Debug 1");
-	namedWindow("Debug 2");
+	//namedWindow("FG Mask MOG 2");                    // FG Mask MOG 2 "" ^ as above
+	//namedWindow("Thresholded");						 // Thresholded "" ^ as above
+	//namedWindow("Video Capture", WINDOW_NORMAL);
+	//namedWindow("Debug 1");
+	//namedWindow("Debug 2");
 	//namedWindow("Thresholded");
-	namedWindow("Object Detection", WINDOW_NORMAL);
+	//namedWindow("Object Detection", WINDOW_NORMAL);
 
 	//-- Trackbars to set thresholds for hue values
 	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
