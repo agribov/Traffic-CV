@@ -108,7 +108,7 @@ void VehicleTracker::update(Mat currentFrame) {
 		tempList.push_back(x);
 	}
 	vehicles = tempList;
-
+	currentCarCount = 0;
 	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
 }
@@ -125,10 +125,18 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 		temp.x = getVehiclePositions()[i].x;	//find more efficient method
 		temp.y = getVehiclePositions()[i].y;
 		rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), GREEN, 3);	//Rectangle vertices are arbitrarily set.
+		currentCarCount++;
 	}
 	//printf("%d\n", getVehiclePositions().size());
 
 }
+
+//void VehicleTracker::cumulativeCarCount(int count) {
+	//for (int test = 0; test < 200; test++)  //USED FOR DEBUGGING
+	//	printf("%d  and  %d\n", currentCarCount, currentCarCount);
+	//cumulativeCarCount = currentCarCount;
+	//cumulativeCarCount = currentCarCount + cumulativeCarCount;
+//}
 
 //PRIVATE FUNCTIONS:
 

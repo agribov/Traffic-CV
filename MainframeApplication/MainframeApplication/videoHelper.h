@@ -21,6 +21,7 @@ VideoCapture* initializeVideo(char* videoFilename);
 void releaseVideo(VideoCapture* pCap);
 
 void addFrameNumber(Mat &frame, VideoCapture *pCap); // Adds the current frame number to the display
+void addCarCount(Mat &frame, VideoCapture *pCap);
 
 
 #endif // !_videoHelper

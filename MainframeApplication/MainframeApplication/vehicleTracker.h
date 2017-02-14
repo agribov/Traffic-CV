@@ -50,6 +50,7 @@ public:
 	VehicleTracker(); // This is the initializer for the VehicleTracker object
 	vector<Point> getVehiclePositions(); // This function returns a vector of the current vehicle centroids
 	void update(Mat currentFrame); // This function is called to update the algorithm when a new frame is available
+	//void cumulativeCarCount(int cumulativeCarCount);
 	Mat getTrackedFrame() { return outputFrame;}
 	Mat getThresholded() { return highThFrame; }
 	Mat getEroded() { return erodedFrame; }

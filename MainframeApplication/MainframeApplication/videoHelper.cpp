@@ -33,8 +33,10 @@ void processVideo(VideoCapture* pCap) {
 		}
 
 		tracker.update(frame);
+		//tracker.cumulativeCarCount(currentCarCount);
 		outputFrame = tracker.getTrackedFrame();
 		addFrameNumber(outputFrame, pCap);
+		addCarCount(outputFrame, pCap);
 
 		imshow("Video Capture", outputFrame);
 		imshow("Debug 1", tracker.getDilated());
@@ -70,6 +72,16 @@ void addFrameNumber(Mat &frame, VideoCapture *pCap) {
 	string frameNumberString = ss.str();
 	putText(frame, frameNumberString.c_str(), cv::Point(15, 15),
 		FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
+}
+
+void addCarCount(Mat &frame, VideoCapture *pCap) {
+	//rectangle(frame, cv::Point(10, 2), cv::Point(100, 20),
+		//cv::Scalar(255, 255, 1), -1);  NEED TO REPOSITION
+	string result;          //contains result of converting int --> string
+	ostringstream convert;   // stream used for the conversion
+	convert << currentCarCount;      // insert the textual representation of 'currentCarCount' in the characters in the stream
+	result = convert.str(); // set 'result' to the contents of the stream. result is now "count"
+	putText(frame, result, cv::Point(100, 100), FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
 }
 
 // NOT USED, here as a historic monument
