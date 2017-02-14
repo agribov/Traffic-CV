@@ -34,4 +34,6 @@ void on_high_g_thresh_trackbar(int, void *);
 void on_low_b_thresh_trackbar(int, void *);
 void on_high_b_thresh_trackbar(int, void *);
 
+cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, size_t nRows, cv::Mat original);
+
 #endif // !_gui
