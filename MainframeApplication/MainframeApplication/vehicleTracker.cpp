@@ -130,14 +130,6 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 	//printf("%d\n", getVehiclePositions().size());
 
 }
-
-//void VehicleTracker::cumulativeCarCount(int count) {
-	//for (int test = 0; test < 200; test++)  //USED FOR DEBUGGING
-	//	printf("%d  and  %d\n", currentCarCount, currentCarCount);
-	//cumulativeCarCount = currentCarCount;
-	//cumulativeCarCount = currentCarCount + cumulativeCarCount;
-//}
-
 //PRIVATE FUNCTIONS:
 
 Mat VehicleTracker::thresholdFrame(Mat inputFrame, int lowH, int highH) {

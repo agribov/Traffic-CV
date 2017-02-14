@@ -33,7 +33,6 @@ void processVideo(VideoCapture* pCap) {
 		}
 
 		tracker.update(frame);
-		//tracker.cumulativeCarCount(currentCarCount);
 		outputFrame = tracker.getTrackedFrame();
 		addFrameNumber(outputFrame, pCap);
 		addCarCount(outputFrame, pCap);
@@ -75,11 +74,11 @@ void addFrameNumber(Mat &frame, VideoCapture *pCap) {
 }
 
 void addCarCount(Mat &frame, VideoCapture *pCap) {
-	string result;          //contains result of converting int --> string
-	ostringstream convert;   // stream used for the conversion
-	convert << currentCarCount;      // insert the textual representation of 'currentCarCount' in the characters in the stream
-	result = convert.str(); // set 'result' to the contents of the stream. result is now "count"
-	result += " cars";
+	string result;				//contains result of converting int --> string
+	ostringstream convert;		// stream used for the conversion
+	convert << currentCarCount; // insert the textual representation of 'currentCarCount' in the characters in the stream
+	result = convert.str();		// set 'result' to the contents of the stream. result is now "currentCarCount"
+	result += " cars";			// append "cars" to "currentCarCount"
 	putText(frame, result , cv::Point(15, 40), FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
 }
 
