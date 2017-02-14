@@ -182,9 +182,15 @@ void initializeGUI() {
 	createTrackbar("High B", "Object Detection", &high_b, 255, on_high_b_thresh_trackbar);
 	*/
 
+
 	namedWindow("Master Window");
 	createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
 	createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
+/* putting both trackbars on the master window, when built I think that this is why they show up on the first 
+window that popps up. If you close out of the window, a new master window will appear- this time without the 
+trackbars. Is this a bug? */
+
+
 
 	int master_window_w = 550;
 	int master_window_h = 400;
@@ -197,14 +203,16 @@ void initializeGUI() {
 
 
 
-cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
+cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, size_t nRows, cv::Mat original) {
 
-	int N = vecMat.size();   //warning initilization size_t to int
+	size_t N = vecMat.size();   //warning initilization size_t to int
 	nRows = nRows > N ? N : nRows;
 	int edgeThickness = 10;
-	int imagesPerRow = ceil(double(N) / nRows);  //warning initialization double to int
+	int imagesPerRow = ceil((N) / nRows);  //warning initialization double to int
 	int resizeHeight = floor(2.0 * ((floor(double(windowHeight - edgeThickness) / nRows)) / 2.0)) - edgeThickness; //warning initialization double to int
 	int maxRowLength = 0;
+
+	/*The above chunk of code sets variables for formatting reasons*/
 
 	std::vector<int> resizeWidth;
 	for (int i = 0; i < N;) {
@@ -220,30 +228,66 @@ cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
 			maxRowLength = thisRowLen + edgeThickness * (imagesPerRow + 1);
 		}
 	}
+
+	/* The above chunk of code makes the videos the optimal size to display in the window*/
+
 	int windowWidth = maxRowLength;
 	cv::Mat canvasImage(windowHeight, windowWidth, CV_8UC3, Scalar(0, 0, 0));
 
 	for (int k = 0, i = 0; i < nRows; i++) {
 		int y = i * resizeHeight + (i + 1) * edgeThickness;
 		int x_end = edgeThickness;
+		/* the above formats the images in each row*/
 		for (int j = 0; j < imagesPerRow && k < N; k++, j++) {
 			int x = x_end;
-			cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
-			cv::Size s = canvasImage(roi).size();
-			
-			// change the number of channels to three
-			cv::Mat target_ROI(s, CV_8UC3);
-			if (vecMat[k].channels() != canvasImage.channels()) {
-				if (vecMat[k].channels() == 1) {
-					cv::cvtColor(vecMat[k], target_ROI, CV_GRAY2BGR);
+
+			if (i == 0 && j == 0)
+			{
+				cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
+				cv::Size s = canvasImage(roi).size();
+
+				// change the number of channels to three
+				cv::Mat target_ROI(s, CV_8UC3);
+
+				if (vecMat[k].channels() != canvasImage.channels()) {
+					if (vecMat[k].channels() == 1) {
+						cv::cvtColor(vecMat[k], target_ROI, CV_GRAY2BGR, 3); /* this is where all of the images are converted to
+																			 greyscale- is that what is happening to the colored image?
+																			 I there a way to get all of the images to show without
+																			 converting?*/
+					}
 				}
+				cv::resize(original, original, s);
+				if (original.type() != canvasImage.type()) {
+					original.convertTo(original, canvasImage.type());
+				}
+				original.copyTo(canvasImage(roi));
+				x_end += resizeWidth[k] + edgeThickness;
 			}
-			cv::resize(target_ROI, target_ROI, s);
-			if (target_ROI.type() != canvasImage.type()) {
-				target_ROI.convertTo(target_ROI, canvasImage.type());
+			/*The above block controls what is shown in the first video frame.
+			my plan is to take the image passed in as an argument and display it there*/
+			else
+			{
+				cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
+				cv::Size s = canvasImage(roi).size();
+
+				// change the number of channels to three
+				cv::Mat target_ROI(s, CV_8UC3);
+				if (vecMat[k].channels() != canvasImage.channels()) {
+					if (vecMat[k].channels() == 1) {
+						cv::cvtColor(vecMat[k], target_ROI, CV_GRAY2BGR, 3); /* this is where all of the images are converted to
+																		  greyscale- is that what is happening to the colored image?
+																		  I there a way to get all of the images to show without
+																		  converting?*/
+					}
+				}
+				cv::resize(target_ROI, target_ROI, s);
+				if (target_ROI.type() != canvasImage.type()) {
+					target_ROI.convertTo(target_ROI, canvasImage.type());
+				}
+				target_ROI.copyTo(canvasImage(roi));
+				x_end += resizeWidth[k] + edgeThickness;
 			}
-			target_ROI.copyTo(canvasImage(roi));
-			x_end += resizeWidth[k] + edgeThickness;
 		}
 	}
 	return canvasImage;
