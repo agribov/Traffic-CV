@@ -14,6 +14,7 @@
 #include "videoHelper.h"
 #include "vehicle.h"
 #include "vehicleTracker.h"
+#include "GUI.h"
 
 void processVideo(VideoCapture* pCap) {
 
@@ -24,6 +25,7 @@ void processVideo(VideoCapture* pCap) {
 	Mat frame, outputFrame;
 
 	while (keyboard != 'q' && keyboard != 27) {
+		vector<Mat> testing;
 
 		//read the current frame
 		if (!(*pCap).read(frame)) {
@@ -35,10 +37,19 @@ void processVideo(VideoCapture* pCap) {
 		tracker.update(frame);
 		outputFrame = tracker.getTrackedFrame();
 		addFrameNumber(outputFrame, pCap);
+		addCarCount(outputFrame, pCap);
+
+		
+		//imshow("Debug 1", tracker.getDilated());
+		//imshow("Debug 2", tracker.getEroded());
 
 		imshow("Video Capture", outputFrame);
-		imshow("Debug 1", tracker.getDilated());
-		imshow("Debug 2", tracker.getEroded());
+		testing.push_back(outputFrame);
+		testing.push_back(outputFrame);
+		testing.push_back(tracker.getDilated());
+		testing.push_back(tracker.getEroded());
+
+		imshow("Master Window", makeCanvas(testing, 400, 2, frame));
 
 		//get the input from the keyboard
 		keyboard = (char)waitKey(30);
@@ -64,12 +75,21 @@ void releaseVideo(VideoCapture* pCap) {
 void addFrameNumber(Mat &frame, VideoCapture *pCap) {
 	//get the frame number and write it on the current frame
 	stringstream ss;
-	rectangle(frame, cv::Point(10, 2), cv::Point(100, 20),
+	rectangle(frame, cv::Point(10, 2), cv::Point(100, 45),
 		cv::Scalar(255, 255, 255), -1);
 	ss << (*pCap).get(CAP_PROP_POS_FRAMES);
 	string frameNumberString = ss.str();
 	putText(frame, frameNumberString.c_str(), cv::Point(15, 15),
 		FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
+}
+
+void addCarCount(Mat &frame, VideoCapture *pCap) {
+	string result;				//contains result of converting int --> string
+	ostringstream convert;		// stream used for the conversion
+	convert << currentCarCount; // insert the textual representation of 'currentCarCount' in the characters in the stream
+	result = convert.str();		// set 'result' to the contents of the stream. result is now "currentCarCount"
+	result += " cars";			// append "cars" to "currentCarCount"
+	putText(frame, result , cv::Point(15, 40), FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
 }
 
 // NOT USED, here as a historic monument

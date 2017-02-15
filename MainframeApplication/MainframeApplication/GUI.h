@@ -1,9 +1,6 @@
 /********************************************************************************/
 /*                                                                              */
-/* Program: Main
-
-
-Thermal Image Processor                                   */
+/* Program: Main Thermal Image Processor		                                */
 /*                                                                              */
 /* File: GUI.h                                                                  */
 /*                                                                              */
@@ -33,5 +30,7 @@ void on_low_g_thresh_trackbar(int, void *);
 void on_high_g_thresh_trackbar(int, void *);
 void on_low_b_thresh_trackbar(int, void *);
 void on_high_b_thresh_trackbar(int, void *);
+
+Mat makeCanvas(vector<Mat>& vecMat, int windowHeight, size_t nRows, cv::Mat original);
 
 #endif // !_gui
