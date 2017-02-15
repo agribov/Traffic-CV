@@ -14,10 +14,16 @@
 #include "GUI.h"
 #include "threshold.h"
 
+#include <stdarg.h>
+
 // Variable declaration
 char keyboard; //input from keyboard
 
-void initializeGUI() {
+/////////////////////////////////////////////////// -AZS
+
+
+
+void initializeGUI(char* title, int nArgs, ...) {
 	//create GUI windows
 	//namedWindow("Video Capture", WINDOW_NORMAL);     // Video capture is also used in main.cpp to show current frame and masks
 	//namedWindow("FG Mask MOG 2");                    // FG Mask MOG 2 "" ^ as above
@@ -39,21 +45,17 @@ void initializeGUI() {
 	createTrackbar("High B", "Object Detection", &high_b, 255, on_high_b_thresh_trackbar);
 	*/
 
-
-
-
-
 	/*
 	WHAT WE NEED TO DO FOR THE GUI:
 
 		1) SHORT TERM TESTING
-			The short term testing GUI will allow the testers (Alex, Alex, Kevin, and Molly) to ensure that the 
+			The short term testing GUI will allow the testers (Alex, Alex, Kevin, and Molly) to ensure that the
 			code that they write works, and can be interacted with in an effective way. The preferred output will
 			look like the following:
 			 ____________________________________________________________________________________________________
 			|_________________________________________________________________________________________|_|  -  X |
 			|     _______________________________________________________      ______________________________   |
-			|    |   ACTUAL VIDEO FRAME                                  |    |  DEBUG TOOLS                 |  |       
+			|    |   ACTUAL VIDEO FRAME                                  |    |  DEBUG TOOLS                 |  |
 			|    |                                                       |    |                              |  |
 			|    |                                                       |    |    TRACKBAR 1                |  |
 			|    |                                                       |    |    TRACKBAR 2                |  |
@@ -65,8 +67,8 @@ void initializeGUI() {
 			|    |                                                       |    |                              |  |
 			|    |                                                       |    |                              |  |
 			|    |                                                       |    |   FEED 1   ON OFF            |  |
-			|    |                                                       |    |   FEED 1   ON OFF            |  |                         
-			|    |                                                       |    |   FEED 1   ON OFF            |  |                          
+			|    |                                                       |    |   FEED 1   ON OFF            |  |
+			|    |                                                       |    |   FEED 1   ON OFF            |  |
 			|    |                                                       |    |   FEED 1   ON OFF            |  |
 			|    |                                                       |    |   FEED 1   ON OFF            |  |
 			|    |                                                       |    |   FEED 1   ON OFF            |  |
@@ -95,95 +97,225 @@ void initializeGUI() {
 			|___________________________________________________________________________________________________|
 
 
-			Depending on what feed is toggled on and off in the debug tools interactive bar sets the frame in the 
-			frame dependent window. All of the trackbar features should edit the frame inside the WINDOW, not the 
-			frame itself. 
+			Depending on what feed is toggled on and off in the debug tools interactive bar sets the frame in the
+			frame dependent window. All of the trackbar features should edit the frame inside the WINDOW, not the
+			frame itself.
 
 		2) LONG TERM USABILITY
 
 
 			We should focus on the short term for now, but I will update this comment section with the plan before
 			2/10/2017 - Molly
-	
+
 	*/
 
 	/*  HOW TO MAKE A WINDOW THAT DISPLAYS MORE THAN ONE VIDEO FEED IN IT */
 	// first, read this short tutorial!
 	// http://devblog.michalski.im/2012/05/18/combine-multiple-video-frames-into-one-using-opencv/
 
-	/*  we need to 
-		1) make a "master window" - this is the only one with an 'x' '-' and 'dock' 
+	/*  we need to
+		1) make a "master window" - this is the only one with an 'x' '-' and 'dock'
 		2) find a reigon of interest that we can potnetially change video streams in
 			2.1) there should definately be two, one for the non-processed image and
-			one for the processed image. There should potentially be a third for the 
-			toolbar, but I think that establishing the streams should happen first, 
-			and messing with them should happen second. 
+			one for the processed image. There should potentially be a third for the
+			toolbar, but I think that establishing the streams should happen first,
+			and messing with them should happen second.
 		3) create buttons that change the video in the reigon of interest (roi)
 		*/
 
 
-	namedWindow("Master Window");
-	createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
-	createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
+		//namedWindow("Master Window");
+		//createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
+		//createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
 
-	int master_window_w = 550;
-	int master_window_h = 400;
+		//int master_window_w = 550;
+		//int master_window_h = 400;
 
-	//resizeWindow("Master Window", master_window_w, master_window_h);
-}
+		//resizeWindow("Master Window", master_window_w, master_window_h);
 
+		////////////////////////////////////////////////////////////// -AZS
 
-cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
+//void cvShowManyImages(char* title, int nArgs, ...) {
 
-	int N = vecMat.size();
-	nRows = nRows > N ? N : nRows;
-	int edgeThickness = 10;
-	int imagesPerRow = ceil(double(N) / nRows);
-	int resizeHeight = floor(2.0 * ((floor(double(windowHeight - edgeThickness) / nRows)) / 2.0)) - edgeThickness;
-	int maxRowLength = 0;
+    // img - Used for getting the arguments 
+    IplImage *img;
 
-	std::vector<int> resizeWidth;
-	for (int i = 0; i < N;) {
-		int thisRowLen = 0;
-		for (int k = 0; k < imagesPerRow; k++) {
-			double aspectRatio = double(vecMat[i].cols) / vecMat[i].rows;
-			int temp = int(ceil(resizeHeight * aspectRatio));
-			resizeWidth.push_back(temp);
-			thisRowLen += temp;
-			if (++i == N) break;
-		}
-		if ((thisRowLen + edgeThickness * (imagesPerRow + 1)) > maxRowLength) {
-			maxRowLength = thisRowLen + edgeThickness * (imagesPerRow + 1);
-		}
+    // [[DispImage]] - the image in which input images are to be copied
+    IplImage *DispImage;
+
+    int size;
+    int i;
+    int m, n;
+    int x, y;
+
+    // w - Maximum number of images in a row 
+    // h - Maximum number of images in a column 
+    int w, h;
+
+    // scale - How much we have to resize the image
+    float scale;
+    int max;
+
+    // If the number of arguments is lesser than 0 or greater than 12
+    // return without displaying 
+    if (nArgs <= 0) {
+        printf("Number of arguments too small....\n");
+        return;
+
 	}
-	int windowWidth = maxRowLength;
-	cv::Mat canvasImage(windowHeight, windowWidth, CV_8UC3, Scalar(0, 0, 0));
+    else if (nArgs > 12) {
+        printf("Number of arguments too large....\n");
+        return;
 
-	for (int k = 0, i = 0; i < nRows; i++) {
-		int y = i * resizeHeight + (i + 1) * edgeThickness;
-		int x_end = edgeThickness;
-		for (int j = 0; j < imagesPerRow && k < N; k++, j++) {
-			int x = x_end;
-			cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
-			cv::Size s = canvasImage(roi).size();
-			
-			// change the number of channels to three
-			cv::Mat target_ROI(s, CV_8UC3);
-			if (vecMat[k].channels() != canvasImage.channels()) {
-				if (vecMat[k].channels() == 1) {
-					cv::cvtColor(vecMat[k], target_ROI, CV_GRAY2BGR);
-				}
-			}
-			cv::resize(target_ROI, target_ROI, s);
-			if (target_ROI.type() != canvasImage.type()) {
-				target_ROI.convertTo(target_ROI, canvasImage.type());
-			}
-			target_ROI.copyTo(canvasImage(roi));
-			x_end += resizeWidth[k] + edgeThickness;
-		}
 	}
-	return canvasImage;
-}
+    // Determine the size of the image, 
+    // and the number of rows/cols 
+    // from number of arguments 
+    else if (nArgs == 1) {
+        w = h = 1;
+        size = 300;
+
+	}
+    else if (nArgs == 2) {
+        w = 2; h = 1;
+        size = 300;
+
+	}
+    else if (nArgs == 3 || nArgs == 4) {
+        w = 2; h = 2;
+        size = 300;
+
+	}
+    else if (nArgs == 5 || nArgs == 6) {
+        w = 3; h = 2;
+        size = 200;
+
+	}
+    else if (nArgs == 7 || nArgs == 8) {
+        w = 4; h = 2;
+        size = 200;
+
+	}
+    else {
+        w = 4; h = 3;
+        size = 150;
+
+	}
+	    // Create a new 3 channel image
+		[[DispImage]] = cvCreateImage(cvSize(100 + size*w, 60 + size*h), 8, 3);
+		
+		    // Used to get the arguments passed
+		    va_list args;
+		    va_start(args, nArgs);
+		
+		    // Loop for nArgs number of arguments
+		    for (i = 0, m = 20, n = 20; i < nArgs; i++, m += (20 + size)) {
+		
+        // Get the Pointer to the IplImage
+        img = va_arg(args, IplImage*);
+
+        // Check whether it is NULL or not
+        // If it is NULL, release the image, and return
+        if (img == 0) {
+            printf("Invalid arguments");
+            cvReleaseImage(&DispImage);
+            return;
+
+			}
+
+        // Find the width and height of the image
+        x = img->width;
+        y = img->height;
+
+        // Find whether height or width is greater in order to resize the image
+        max = (x > y) ? x : y;
+
+        // Find the scaling factor to resize the image
+        scale = (float)((float)max / size);
+
+        // Used to Align the images
+        if (i % w == 0 && m != 20) {
+            m = 20;
+            n += 20 + size;
+			}
+
+        // Set the image ROI to display the current image
+        cvSetImageROI(DispImage, cvRect(m, n, (int)(x / scale), (int)(y / scale)));
+
+        // Resize the input image and copy the it to the Single Big Image
+        cvResize(img, DispImage);
+
+        // Reset the ROI in order to display the next image
+        cvResetImageROI(DispImage);
+		}
+
+	    // Create a new window, and show the Single Big Image
+	    cvNamedWindow(title, 1);
+	    cvShowImage(title, DispImage);
+	
+	    cvWaitKey();
+	    cvDestroyWindow(title);
+	
+	    // End the number of arguments
+	    va_end(args);
+	
+	    // Release the Image Memory
+	    cvReleaseImage(&DispImage);
+	
+	}
+
+
+//cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, int nRows) {
+//
+//	int N = vecMat.size();
+//	nRows = nRows > N ? N : nRows;
+//	int edgeThickness = 10;
+//	int imagesPerRow = ceil(double(N) / nRows);
+//	int resizeHeight = floor(2.0 * ((floor(double(windowHeight - edgeThickness) / nRows)) / 2.0)) - edgeThickness;
+//	int maxRowLength = 0;
+//
+//	std::vector<int> resizeWidth;
+//	for (int i = 0; i < N;) {
+//		int thisRowLen = 0;
+//		for (int k = 0; k < imagesPerRow; k++) {
+//			double aspectRatio = double(vecMat[i].cols) / vecMat[i].rows;
+//			int temp = int(ceil(resizeHeight * aspectRatio));
+//			resizeWidth.push_back(temp);
+//			thisRowLen += temp;
+//			if (++i == N) break;
+//		}
+//		if ((thisRowLen + edgeThickness * (imagesPerRow + 1)) > maxRowLength) {
+//			maxRowLength = thisRowLen + edgeThickness * (imagesPerRow + 1);
+//		}
+//	}
+//	int windowWidth = maxRowLength;
+//	cv::Mat canvasImage(windowHeight, windowWidth, CV_8UC3, Scalar(0, 0, 0));
+//
+//	for (int k = 0, i = 0; i < nRows; i++) {
+//		int y = i * resizeHeight + (i + 1) * edgeThickness;
+//		int x_end = edgeThickness;
+//		for (int j = 0; j < imagesPerRow && k < N; k++, j++) {
+//			int x = x_end;
+//			cv::Rect roi(x, y, resizeWidth[k], resizeHeight);
+//			cv::Size s = canvasImage(roi).size();
+//			
+//			// change the number of channels to three
+//			cv::Mat target_ROI(s, CV_8UC3);
+//			if (vecMat[k].channels() != canvasImage.channels()) {
+//				if (vecMat[k].channels() == 1) {
+//					cv::cvtColor(vecMat[k], target_ROI, CV_GRAY2BGR);
+//				}
+//			}
+//			cv::resize(target_ROI, target_ROI, s);
+//			if (target_ROI.type() != canvasImage.type()) {
+//				target_ROI.convertTo(target_ROI, canvasImage.type());
+//			}
+//			target_ROI.copyTo(canvasImage(roi));
+//			x_end += resizeWidth[k] + edgeThickness;
+//		}
+//	}
+//	return canvasImage;
+//}
 
 void on_low_hue_thresh_trackbar(int, void *) {
 	low_r = min(high_r - 1, low_r);

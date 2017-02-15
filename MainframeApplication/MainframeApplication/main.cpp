@@ -95,8 +95,8 @@ void processVideo(VideoCapture* pCap) {
 
 		//frame_duplicate = frame.clone();	//-AZS
 
-		//testing.push_back(threshFrame);
-		//testing.push_back(frame);
+		testing.push_back(threshFrame);
+		testing.push_back(frame);
 		testing.push_back(fgMaskMOG2);
 		//testing.push_back(fgMaskMOG2);
 		//testing.push_back(fgMaskMOG2);
