@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 	const string sampleStreamAddress = "http://66.193.157.18/mjpg/video.mjpg";
 
 	VideoCapture* pCap;
-
+	
 	char* sampleVideo = "thermalSample.mp4";
 	pCap = initializeVideo(sampleVideo); // Defined in videoHelper.cpp
 

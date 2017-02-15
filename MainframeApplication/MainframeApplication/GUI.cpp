@@ -177,16 +177,11 @@ void initializeGUI() {
 	//namedWindow("Object Detection", WINDOW_NORMAL);
 
 	//-- Trackbars to set thresholds for hue values
-	createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
-	createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
+	//createTrackbar("Hue min", "Object Detection", &lowHue, 255, on_low_hue_thresh_trackbar);
+	//createTrackbar("Hue max", "Object Detection", &highHue, 255, on_high_hue_thresh_trackbar);
 
-	createTrackbar("Erosion", "Object Detection", &erosionVal, 25, erodeTrackbar);
-	createTrackbar("Dilation", "Object Detection", &dilationVal, 100, dilateTrackbar);
-
-
-
-
-
+	//createTrackbar("Erosion", "Object Detection", &erosionVal, 25, erodeTrackbar);
+	//createTrackbar("Dilation", "Object Detection", &dilationVal, 100, dilateTrackbar);
 
 	//-- Trackbars to set thresholds for RGB values -- NOT CURRENTLY USED, SWITCHED TO HSV THRESHOLDING
 	/*
@@ -197,11 +192,19 @@ void initializeGUI() {
 	createTrackbar("Low B", "Object Detection", &low_b, 255, on_low_b_thresh_trackbar);
 	createTrackbar("High B", "Object Detection", &high_b, 255, on_high_b_thresh_trackbar);
 	*/
-
+	namedWindow("Trackbar", WINDOW_AUTOSIZE);
+	resizeWindow("Trackbar", 800, 400);
+	createTrackbar("Hue min", "Trackbar", &lowHue, 255, on_low_hue_thresh_trackbar);
+	createTrackbar("Hue max", "Trackbar", &highHue, 255, on_high_hue_thresh_trackbar);
+	createTrackbar("Object Detection Hue min", "Trackbar", &lowHue, 255, on_low_hue_thresh_trackbar);
+	createTrackbar("Object Detection Hue max", "Trackbar", &highHue, 255, on_high_hue_thresh_trackbar);
+	createTrackbar("Object Detection Erosion", "Trackbar", &erosionVal, 25, erodeTrackbar);
+	createTrackbar("Object Detectino Dilation", "Trackbar", &dilationVal, 100, dilateTrackbar);
 
 	namedWindow("Master Window");
-	createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
-	createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
+	//createTrackbar("Hue min", "Master Window", &lowHue, 255, on_low_hue_thresh_trackbar);
+	//createTrackbar("Hue max", "Master Window", &highHue, 255, on_high_hue_thresh_trackbar);
+
 /* putting both trackbars on the master window, when built I think that this is why they show up on the first 
 window that popps up. If you close out of the window, a new master window will appear- this time without the 
 trackbars. Is this a bug? */
