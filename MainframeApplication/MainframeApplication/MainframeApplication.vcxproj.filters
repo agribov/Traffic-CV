@@ -36,6 +36,9 @@
     <ClCompile Include="vehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IdentifyVehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helperFunctions.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vehicle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IdentifyVehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
