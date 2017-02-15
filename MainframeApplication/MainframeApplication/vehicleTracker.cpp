@@ -119,6 +119,7 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 	vector<Point> center;
 	Rect rect;
 	const Scalar GREEN = Scalar(0, 255, 0);  //Assuming BGR color space.
+
 	for (int i = 0; i < getVehiclePositions().size(); i++)
 	{
 		Point temp;
