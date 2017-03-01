@@ -112,6 +112,16 @@ void VehicleTracker::update(Mat currentFrame) {
 	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
 }
+//For update for visible light camera
+void VehicleTracker::updatevl(Mat liveFrame){
+	//Step 1: Save current frame to liveFrame.
+	//Step 2: Perform thresholding.
+	//Step 3: Perform errosion.
+	//Step 4: Perform dilation.
+	//Step 5: Find contours in processed frame to create blobs.
+	//Step 6: Determine number and dimensions of blobs.
+	//Step 7: Determine centroid of blobs.
+}
 
 void VehicleTracker::drawBoxes(Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
