@@ -215,6 +215,10 @@ trackbars. Is this a bug? */
 	int master_window_h = 400;
 
 	//resizeWindow("Master Window", master_window_w, master_window_h);
+
+	//**TODO**: Add separate windows for visible light camera processing.
+	//			-This windows will have two frames including one from the unprocessed video and one for the processed video.
+	//			-A separate window will house the trackbar control for the visible light camera unless Qt is used for GUI.
 }
 
 
@@ -326,6 +330,8 @@ void erodeTrackbar(int, void *) {
 void dilateTrackbar(int, void *) {
 	setTrackbarPos("Dilation", "Object Detection", dilationVal);
 }
+
+// **TODO**: Add Trackbars for visible light so thresholding for the visible light camera and thermal camera can be controlled separately.
 
 
 // BELOW: NOT USED

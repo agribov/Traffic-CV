@@ -23,6 +23,8 @@ void on_high_hue_thresh_trackbar(int, void *);
 void erodeTrackbar(int, void *);
 void dilateTrackbar(int, void *);
 
+// **TODO**: Add Trackbars for visible light so thresholding for the visible light camera and thermal camera can be controlled separately.
+
 //NOT IN USE:
 void on_low_r_thresh_trackbar(int, void *);
 void on_high_r_thresh_trackbar(int, void *);
