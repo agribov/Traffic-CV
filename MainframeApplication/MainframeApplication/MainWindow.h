@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "globals.h"
+#include "vehicleTracker.h"
 
 namespace Ui {
 	class MainWindow;
@@ -14,7 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
 	explicit MainWindow(QWidget *parent = 0);
-	void updateFrames(Mat top, Mat bottom);
+	void updateFrames(cv::Mat top, cv::Mat bottom);
 	~MainWindow();
 
 private slots:
@@ -22,14 +23,14 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;
-	Mat topFrameMat;
-	Mat bottomFrameMat;
+	cv::Mat topFrameMat;
+	cv::Mat bottomFrameMat;
 
-	Mat inputFrame;
-	Mat outputFrame;
-	Mat debugFrame;
+	cv::Mat inputFrame;
+	cv::Mat outputFrame;
+	cv::Mat debugFrame;
 	
-	VideoCapture *pCap;
+	cv::VideoCapture *pCap;
 	VehicleTracker tracker;
 
 protected:

@@ -9,7 +9,6 @@
 /* All Right Reserved (c) 2017                                                  */
 /*                                                                              */
 /********************************************************************************/
-
 /*
 WHAT WE NEED TO DO FOR THE GUI:
 
@@ -153,7 +152,11 @@ ________________________________________________________________________________
 
 */
 
+#include "GUI.h"
 #include "globals.h"
+
+using namespace std;
+using namespace cv;
 
 // Variable declaration
 char keyboard; //input from keyboard
@@ -212,10 +215,6 @@ trackbars. Is this a bug? */
 
 	//resizeWindow("Master Window", master_window_w, master_window_h);
 }
-
-
-
-
 
 
 cv::Mat makeCanvas(std::vector<cv::Mat>& vecMat, int windowHeight, size_t nRows, cv::Mat original) {

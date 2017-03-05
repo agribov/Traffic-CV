@@ -1,4 +1,10 @@
 #include "globals.h"
+#include "MainWindow.h"
+#include "ui_mainwindow.h"
+#include "videoHelper.h"
+
+using namespace std;
+using namespace cv;
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),

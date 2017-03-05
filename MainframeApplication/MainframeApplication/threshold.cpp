@@ -12,6 +12,9 @@
 
 #include "globals.h"
 
+using namespace std;
+using namespace cv;
+
 int colorThreshold(Mat &frame, Mat* p_frame_threshold) {
 	Mat hsvFrame;
 	// Convert frame to HSV space, to threshold color

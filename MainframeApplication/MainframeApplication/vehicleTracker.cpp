@@ -14,6 +14,9 @@
 #include "vehicleTracker.h"
 #include "vehicle.h"
 
+using namespace std;
+using namespace cv;
+
 //PUBLIC FUNCTIONS:
 
 VehicleTracker::VehicleTracker() {

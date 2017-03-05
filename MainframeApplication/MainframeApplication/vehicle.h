@@ -17,18 +17,18 @@
 
 class Vehicle {
 private:
-	Point position;	// Current position of vehicle
+	cv::Point position;	// Current position of vehicle
 	float velocity;	// Velocity of vehicle
 	int totalTime; // Holds how long vehicle has been in video.
 	int waitingTime; // Amount of time vehicle has been sitting still (IGNORE FOR NOW)
 public:
 	//VehicleTracker(); // DEFINE ME
-	Vehicle(Point2f pos) {
-		position = (Point)pos;
+	Vehicle(cv::Point2f pos) {
+		position = (cv::Point)pos;
 		velocity = 0;
 	}
-	void update(Point pos); // Updates all information about vehicle, given new location.
-	Point getPosition() { return position; }
+	void update(cv::Point pos); // Updates all information about vehicle, given new location.
+	cv::Point getPosition() { return position; }
 };
 
 #endif

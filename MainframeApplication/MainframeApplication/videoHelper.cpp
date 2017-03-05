@@ -12,6 +12,9 @@
 
 #include "globals.h"
 
+using namespace std;
+using namespace cv;
+
 VideoCapture* initializeVideo(char* videoFilename) {
 	//create the capture object
 	VideoCapture* capture = new VideoCapture(videoFilename);
