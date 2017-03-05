@@ -15,41 +15,61 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
+#include "cqtopencvviewergl.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
+    QAction *actionStart_Stream;
     QWidget *centralwidget;
     QPushButton *pushButton;
+    CQtOpenCVViewerGl *topFrameWidget;
+    CQtOpenCVViewerGl *bottomFrameWidget;
     QMenuBar *menubar;
+    QMenu *menuFile;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(792, 565);
+        actionStart_Stream = new QAction(MainWindow);
+        actionStart_Stream->setObjectName(QStringLiteral("actionStart_Stream"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(280, 170, 75, 24));
+        pushButton->setGeometry(QRect(150, 500, 75, 24));
+        topFrameWidget = new CQtOpenCVViewerGl(centralwidget);
+        topFrameWidget->setObjectName(QStringLiteral("topFrameWidget"));
+        topFrameWidget->setGeometry(QRect(20, 10, 341, 231));
+        bottomFrameWidget = new CQtOpenCVViewerGl(centralwidget);
+        bottomFrameWidget->setObjectName(QStringLiteral("bottomFrameWidget"));
+        bottomFrameWidget->setGeometry(QRect(20, 250, 341, 241));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 792, 21));
+        menuFile = new QMenu(menubar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
+        menubar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionStart_Stream);
+
         retranslateUi(MainWindow);
+        QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(onStart()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -57,7 +77,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "PushButton", Q_NULLPTR));
+        actionStart_Stream->setText(QApplication::translate("MainWindow", "Start Stream", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
     } // retranslateUi
 
 };

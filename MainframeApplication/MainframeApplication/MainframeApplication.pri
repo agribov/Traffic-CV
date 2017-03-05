@@ -16,7 +16,8 @@ HEADERS += ./globals.h \
     ./vehicle.h \
     ./vehicleTracker.h \
     ./videoHelper.h \
-    ./mainwindow.h
+    ./MainWindow.h \
+    ./CQtOpenCVViewerGl.h
 SOURCES += ./GUI.cpp \
     ./helperFunctions.cpp \
     ./IdentifyVehicle.cpp \
@@ -25,4 +26,7 @@ SOURCES += ./GUI.cpp \
     ./vehicle.cpp \
     ./vehicleTracker.cpp \
     ./videoHelper.cpp \
-    ./mainwindow.cpp
+    ./CQtOpenCVViewerGl.cpp \
+    ./MainWindow.cpp
+FORMS += ./MainWindow.ui \
+    ./CQtOpenCVViewerGl.ui

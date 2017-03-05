@@ -9,6 +9,8 @@ QT += core multimedia opengl axserver axcontainer uitools widgets gui multimedia
 CONFIG += debug console
 DEFINES += _CONSOLE QT_MULTIMEDIA_LIB QT_OPENGL_LIB QT_UITOOLS_LIB QT_WIDGETS_LIB QT_MULTIMEDIAWIDGETS_LIB
 INCLUDEPATH += ../../../../../../../../Program Files/OpenCV 3-1/opencv/build/include \
+    . \
+    ./GeneratedFiles \
     $(NOINHERIT)
 LIBS += -L"../../../../../../../../Program Files/OpenCV 3-1/opencv/build/x64/vc14/lib" \
     -L"$(NOINHERIT)" \

@@ -154,7 +154,6 @@ ________________________________________________________________________________
 */
 
 #include "globals.h"
-#include "GUI.h"
 
 // Variable declaration
 char keyboard; //input from keyboard

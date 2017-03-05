@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>792</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,34 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>170</y>
+      <x>150</x>
+      <y>500</y>
       <width>75</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="CQtOpenCVViewerGl" name="topFrameWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>341</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>250</y>
+      <width>341</width>
+      <height>241</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -33,13 +53,52 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>792</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionStart_Stream"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionStart_Stream">
+   <property name="text">
+    <string>Start Stream</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CQtOpenCVViewerGl</class>
+   <extends>QOpenGLWidget</extends>
+   <header>cqtopencvviewergl.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onStart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>99</x>
+     <y>528</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onStart()</slot>
+ </slots>
 </ui>

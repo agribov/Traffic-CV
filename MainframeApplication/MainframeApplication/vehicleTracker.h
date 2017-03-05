@@ -14,7 +14,6 @@
 #define _vehicleTracker
 
 #include "globals.h"
-#include "vehicle.h"
 
 class VehicleTracker {
 private:
