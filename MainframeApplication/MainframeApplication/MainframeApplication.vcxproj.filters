@@ -13,11 +13,28 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{89e9b5f5-4c43-4b64-ab07-fe49f6e1a19b}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{32a4beff-9a25-4dc8-8bd4-b52334fe488f}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="helperFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,39 +56,66 @@
     <ClCompile Include="IdentifyVehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MainWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="helperFunctions.h">
+    <CustomBuild Include="globals.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="subtractionMethod.h">
+    </CustomBuild>
+    <CustomBuild Include="GUI.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="globals.h">
+    </CustomBuild>
+    <CustomBuild Include="helperFunctions.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
+    </CustomBuild>
+    <CustomBuild Include="IdentifyVehicle.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="threshold.h">
+    </CustomBuild>
+    <CustomBuild Include="subtractionMethod.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="videoHelper.h">
+    </CustomBuild>
+    <CustomBuild Include="threshold.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vehicleTracker.h">
+    </CustomBuild>
+    <CustomBuild Include="vehicle.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vehicle.h">
+    </CustomBuild>
+    <CustomBuild Include="vehicleTracker.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IdentifyVehicle.h">
+    </CustomBuild>
+    <CustomBuild Include="videoHelper.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="thermalSample.mp4">
+    </CustomBuild>
+    <CustomBuild Include="thermalSample.mp4">
       <Filter>Resource Files</Filter>
-    </Media>
+    </CustomBuild>
+    <CustomBuild Include="QtGui.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MainWindow.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MainWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_QtGui.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
