@@ -41,37 +41,40 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="helperFunctions.h">
+    <CustomBuild Include="globals.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="subtractionMethod.h">
+    </CustomBuild>
+    <CustomBuild Include="GUI.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="globals.h">
+    </CustomBuild>
+    <CustomBuild Include="helperFunctions.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
+    </CustomBuild>
+    <CustomBuild Include="IdentifyVehicle.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="threshold.h">
+    </CustomBuild>
+    <CustomBuild Include="subtractionMethod.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="videoHelper.h">
+    </CustomBuild>
+    <CustomBuild Include="threshold.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vehicleTracker.h">
+    </CustomBuild>
+    <CustomBuild Include="vehicle.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vehicle.h">
+    </CustomBuild>
+    <CustomBuild Include="vehicleTracker.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IdentifyVehicle.h">
+    </CustomBuild>
+    <CustomBuild Include="videoHelper.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
+    <CustomBuild Include="thermalSample.mp4">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="thermalSample.mp4">
-      <Filter>Resource Files</Filter>
-    </Media>
+    <ClInclude Include="cvimagewidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
