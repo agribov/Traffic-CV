@@ -30,6 +30,7 @@
 #include <opencv2/opencv.hpp>
 #include "opencv2/highgui.hpp"
 #include <opencv2/core/mat.hpp>
+#include "CQtOpenCVViewerGl.h"
 
 // C includes
 #include <stdio.h>
