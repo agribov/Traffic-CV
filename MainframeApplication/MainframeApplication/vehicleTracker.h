@@ -30,6 +30,15 @@ private:
 	Mat dilatedFrame; // Stores frame after dilation
 	vector < vector<Point>> vehicleContours; // stores the contours of the vehicles in the current frame
 	Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
+	//For VL Camera
+	vector<Vehicle> vlvehicles;
+	Mat vlframe; //Stores current frame from VL camera
+	Mat vlhighThFrame; // Stores thresholded image for hot-spots
+	Mat vlforegroundFrame; // Stores foreground image after background subtraction
+	Mat vlerodedFrame; // Stores eroded frame
+	Mat vldilatedFrame; // Stores dilated frame
+	vector <vector<Point>> vlvehicleContours; // stores the contours of the vehicle in the current vl camera frame
+	Mat vloutputFrame; //Original vl frame, with boxes overlayed on vehicles
 	
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
@@ -50,11 +59,13 @@ public:
 	VehicleTracker(); // This is the initializer for the VehicleTracker object
 	vector<Point> getVehiclePositions(); // This function returns a vector of the current vehicle centroids
 	void update(Mat currentFrame); // This function is called to update the algorithm when a new frame is available
-	void updatevl(Mat liveFrame); // For visible light camera: This function is called to update the algorithm when a new frame is available
 	Mat getTrackedFrame() { return outputFrame;}
 	Mat getThresholded() { return highThFrame; }
 	Mat getEroded() { return erodedFrame; }
 	Mat getDilated() { return dilatedFrame; }
+	//For VL Camera
+	void updatevl(Mat vlcurrentFrame); // For visible light camera: This function is called to update the algorithm when a new frame is available
+
 };
 
 #endif
