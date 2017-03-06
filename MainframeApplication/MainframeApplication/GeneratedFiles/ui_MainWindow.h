@@ -33,7 +33,10 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionStart_Stream;
+    QAction *actionStream;
+    QAction *actionFile;
+    QAction *actionDebug_Layout;
+    QAction *actionRelease_Layout;
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
     QGroupBox *groupParameters;
@@ -59,6 +62,8 @@ public:
     CQtOpenCVViewerGl *topFrameWidget;
     QMenuBar *menubar;
     QMenu *menuFile;
+    QMenu *menuOpen;
+    QMenu *menuView;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -66,12 +71,21 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(809, 593);
+        MainWindow->resize(780, 467);
         MainWindow->setAcceptDrops(false);
         MainWindow->setDocumentMode(false);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
-        actionStart_Stream = new QAction(MainWindow);
-        actionStart_Stream->setObjectName(QStringLiteral("actionStart_Stream"));
+        actionStream = new QAction(MainWindow);
+        actionStream->setObjectName(QStringLiteral("actionStream"));
+        actionFile = new QAction(MainWindow);
+        actionFile->setObjectName(QStringLiteral("actionFile"));
+        actionDebug_Layout = new QAction(MainWindow);
+        actionDebug_Layout->setObjectName(QStringLiteral("actionDebug_Layout"));
+        actionDebug_Layout->setCheckable(true);
+        actionDebug_Layout->setChecked(true);
+        actionRelease_Layout = new QAction(MainWindow);
+        actionRelease_Layout->setObjectName(QStringLiteral("actionRelease_Layout"));
+        actionRelease_Layout->setCheckable(true);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
@@ -193,16 +207,25 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 809, 21));
+        menubar->setGeometry(QRect(0, 0, 780, 21));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuOpen = new QMenu(menuFile);
+        menuOpen->setObjectName(QStringLiteral("menuOpen"));
+        menuView = new QMenu(menubar);
+        menuView->setObjectName(QStringLiteral("menuView"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
         menubar->addAction(menuFile->menuAction());
-        menuFile->addAction(actionStart_Stream);
+        menubar->addAction(menuView->menuAction());
+        menuFile->addAction(menuOpen->menuAction());
+        menuOpen->addAction(actionStream);
+        menuOpen->addAction(actionFile);
+        menuView->addAction(actionDebug_Layout);
+        menuView->addAction(actionRelease_Layout);
 
         retranslateUi(MainWindow);
         QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(onStart()));
@@ -217,7 +240,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        actionStart_Stream->setText(QApplication::translate("MainWindow", "Start Stream", Q_NULLPTR));
+        actionStream->setText(QApplication::translate("MainWindow", "Stream", Q_NULLPTR));
+        actionFile->setText(QApplication::translate("MainWindow", "File", Q_NULLPTR));
+        actionDebug_Layout->setText(QApplication::translate("MainWindow", "Debug Layout", Q_NULLPTR));
+        actionRelease_Layout->setText(QApplication::translate("MainWindow", "Release Layout", Q_NULLPTR));
         groupParameters->setTitle(QApplication::translate("MainWindow", "Parameters", Q_NULLPTR));
         lowThLabel->setText(QApplication::translate("MainWindow", "Threshold Low", Q_NULLPTR));
         erodeLabel->setText(QApplication::translate("MainWindow", "Erode", Q_NULLPTR));
@@ -231,6 +257,8 @@ public:
         radioButton_4->setText(QApplication::translate("MainWindow", "Dilated Image", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
+        menuOpen->setTitle(QApplication::translate("MainWindow", "Open", Q_NULLPTR));
+        menuView->setTitle(QApplication::translate("MainWindow", "View", Q_NULLPTR));
     } // retranslateUi
 
 };

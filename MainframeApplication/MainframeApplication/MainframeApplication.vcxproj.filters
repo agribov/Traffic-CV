@@ -33,12 +33,12 @@
       <Extensions>ui</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
+    <Filter Include="QT GUI Files">
+      <UniqueIdentifier>{fe964867-026d-4a25-b488-950c499a3ea3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videoHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="threshold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vehicleTracker.cpp">
@@ -48,12 +48,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CQtOpenCVViewerGl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_CQtOpenCVViewerGl.cpp">
@@ -68,24 +62,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MainWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CQtOpenCVViewerGl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="globals.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GUI.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="helperFunctions.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="IdentifyVehicle.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="subtractionMethod.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="threshold.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="vehicle.h">
@@ -100,17 +85,17 @@
     <CustomBuild Include="thermalSample.mp4">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="MainWindow.ui">
-      <Filter>Source Files</Filter>
+    <CustomBuild Include="CQtOpenCVViewerGl.ui">
+      <Filter>QT GUI Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="MainWindow.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="MainWindow.ui">
+      <Filter>QT GUI Files</Filter>
     </CustomBuild>
     <CustomBuild Include="CQtOpenCVViewerGl.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="CQtOpenCVViewerGl.ui">
-      <Filter>Source Files</Filter>
+    <CustomBuild Include="MainWindow.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +107,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MainframeApplication.pro" />
-    <None Include="ClassDiagram.cd" />
+    <None Include="MainframeApplication.pro">
+      <Filter>QT GUI Files</Filter>
+    </None>
+    <None Include="ClassDiagram.cd">
+      <Filter>QT GUI Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="4th_floor_ball_2-23-2017.mp4">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

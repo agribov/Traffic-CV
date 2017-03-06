@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>809</width>
-    <height>593</height>
+    <width>780</width>
+    <height>467</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -193,7 +193,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>809</width>
+     <width>780</width>
      <height>21</height>
     </rect>
    </property>
@@ -201,14 +201,53 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionStart_Stream"/>
+    <widget class="QMenu" name="menuOpen">
+     <property name="title">
+      <string>Open</string>
+     </property>
+     <addaction name="actionStream"/>
+     <addaction name="actionFile"/>
+    </widget>
+    <addaction name="menuOpen"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionDebug_Layout"/>
+    <addaction name="actionRelease_Layout"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionStart_Stream">
+  <action name="actionStream">
    <property name="text">
-    <string>Start Stream</string>
+    <string>Stream</string>
+   </property>
+  </action>
+  <action name="actionFile">
+   <property name="text">
+    <string>File</string>
+   </property>
+  </action>
+  <action name="actionDebug_Layout">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Debug Layout</string>
+   </property>
+  </action>
+  <action name="actionRelease_Layout">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Release Layout</string>
    </property>
   </action>
  </widget>

@@ -69,8 +69,9 @@ void MainWindow::updateFrames(Mat top, Mat bottom) {
 
 void MainWindow::onStart() {
 
-	char* sampleVideo = "thermalSample.mp4";
-	pCap = initializeVideo(sampleVideo); // Defined in videoHelper.cpp
+	char* sampleVideo1 = "thermalSample.mp4";
+	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
+	pCap = initializeVideo(sampleVideo1); // This functions defined in videoHelper.cpp
 
 	startTimer(50);
 
