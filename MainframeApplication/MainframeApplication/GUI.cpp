@@ -160,10 +160,8 @@ using namespace cv;
 
 // Variable declaration
 char keyboard; //input from keyboard
-int erosionVal= 0, dilationVal = 0;
 int low_r = 30, low_g = 30, low_b = 30;
 int high_r = 100, high_g = 100, high_b = 100;
-int lowHue = 0, highHue = 50;
 
 void initializeGUI() {
 

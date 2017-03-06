@@ -37,6 +37,10 @@ private:
 	const int MIN_VEHICLE_AREA = 5 * 5; // Unit is pixels
 	const int MAX_VEHICLE_AREA = 200 * 200; // Unit is pixels
 
+	int erosionVal, dilationVal;
+	int lowHue, highHue;
+
+
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
 	cv::Mat thresholdFrame(cv::Mat inputFrame, int lowH, int highH);
@@ -47,13 +51,19 @@ private:
 	void updateVehicleList();
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
 public:
-	VehicleTracker(); // This is the initializer for the VehicleTracker object
+	VehicleTracker::VehicleTracker();
+	VehicleTracker(int lHue, int hHue, int er, int dil); // This is the initializer for the VehicleTracker object
 	std::vector<cv::Point> getVehiclePositions(); // This function returns a vector of the current vehicle centroids
 	void update(cv::Mat currentFrame); // This function is called to update the algorithm when a new frame is available
 	cv::Mat getTrackedFrame() { return outputFrame;}
 	cv::Mat getThresholded() { return highThFrame; }
 	cv::Mat getEroded() { return erodedFrame; }
 	cv::Mat getDilated() { return dilatedFrame; }
+
+	void setLowThVal(int val) { lowHue = val; };
+	void setHighThVal(int val) { highHue = val; };
+	void setErosionVal(int val) { erosionVal = val; };
+	void setDilationVal(int val) { dilationVal = val; };
 };
 
 #endif

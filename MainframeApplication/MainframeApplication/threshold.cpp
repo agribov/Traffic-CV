@@ -9,7 +9,7 @@
 /* All Right Reserved (c) 2017                                                  */
 /*                                                                              */
 /********************************************************************************/
-
+/*
 #include "globals.h"
 
 using namespace std;
@@ -41,3 +41,4 @@ int thresholding(Mat &frame, Mat* p_frame_threshold) {
 }
 
 //Testing github
+*/

@@ -20,6 +20,10 @@ public:
 
 private slots:
 	void onStart();
+	void onLowThValueChanged(int val);
+	void onHighThValueChanged(int val);
+	void onDilateValueChanged(int val);
+	void onErodeValueChanged(int val);
 
 private:
 	Ui::MainWindow *ui;
@@ -31,7 +35,12 @@ private:
 	cv::Mat debugFrame;
 	
 	cv::VideoCapture *pCap;
-	VehicleTracker tracker;
+	VehicleTracker *tracker;
+
+	int lowHueVal;
+	int highHueVal;
+	int dilateVal;
+	int erodeVal;
 
 protected:
 	void timerEvent(QTimerEvent *Event);
