@@ -20,10 +20,26 @@ public:
 
 private slots:
 	void onStart();
+	void buttonOriginalWindow();
+	void buttonThreshold();
+	void buttonErode();
+	void buttonDialated();
+	void releaseThreshold(int val);
+	void releaseErode(int val);
+	void releaseDilated(int val);
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
 	void onDilateValueChanged(int val);
 	void onErodeValueChanged(int val);
+
+	//void setThreshVal(int val);
+	//void setErodeVal(int val);
+	//void setDilateVal(int val);
+
+	//int getThreshVal();
+	//int getErodeVal();
+	//int getDilateVal();
+
 
 private:
 	Ui::MainWindow *ui;

@@ -40,7 +40,7 @@ public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
     QGroupBox *groupParameters;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QSlider *thresholdLowSlider;
     QSlider *erodeSlider;
@@ -51,6 +51,8 @@ public:
     QLabel *highThLabel;
     QLabel *dilateLabel;
     QGroupBox *groupBox;
+    CQtOpenCVViewerGl *bottomFrameWidget;
+    CQtOpenCVViewerGl *topFrameWidget;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout;
     QRadioButton *radioButton;
@@ -58,8 +60,6 @@ public:
     QRadioButton *radioButton_3;
     QRadioButton *radioButton_4;
     QPushButton *pushButton;
-    CQtOpenCVViewerGl *bottomFrameWidget;
-    CQtOpenCVViewerGl *topFrameWidget;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuOpen;
@@ -94,20 +94,20 @@ public:
         groupParameters->setObjectName(QStringLiteral("groupParameters"));
         groupParameters->setEnabled(true);
         groupParameters->setCheckable(false);
-        widget = new QWidget(groupParameters);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 27, 281, 161));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(groupParameters);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 27, 281, 161));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        thresholdLowSlider = new QSlider(widget);
+        thresholdLowSlider = new QSlider(layoutWidget);
         thresholdLowSlider->setObjectName(QStringLiteral("thresholdLowSlider"));
         thresholdLowSlider->setOrientation(Qt::Horizontal);
         thresholdLowSlider->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(thresholdLowSlider, 0, 0, 1, 1);
 
-        erodeSlider = new QSlider(widget);
+        erodeSlider = new QSlider(layoutWidget);
         erodeSlider->setObjectName(QStringLiteral("erodeSlider"));
         erodeSlider->setTracking(true);
         erodeSlider->setOrientation(Qt::Horizontal);
@@ -115,36 +115,36 @@ public:
 
         gridLayout->addWidget(erodeSlider, 3, 0, 1, 1);
 
-        lowThLabel = new QLabel(widget);
+        lowThLabel = new QLabel(layoutWidget);
         lowThLabel->setObjectName(QStringLiteral("lowThLabel"));
 
         gridLayout->addWidget(lowThLabel, 0, 1, 1, 1);
 
-        thresholdHighSlider = new QSlider(widget);
+        thresholdHighSlider = new QSlider(layoutWidget);
         thresholdHighSlider->setObjectName(QStringLiteral("thresholdHighSlider"));
         thresholdHighSlider->setOrientation(Qt::Horizontal);
         thresholdHighSlider->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(thresholdHighSlider, 1, 0, 1, 1);
 
-        erodeLabel = new QLabel(widget);
+        erodeLabel = new QLabel(layoutWidget);
         erodeLabel->setObjectName(QStringLiteral("erodeLabel"));
 
         gridLayout->addWidget(erodeLabel, 3, 1, 1, 1);
 
-        dilateSlider = new QSlider(widget);
+        dilateSlider = new QSlider(layoutWidget);
         dilateSlider->setObjectName(QStringLiteral("dilateSlider"));
         dilateSlider->setOrientation(Qt::Horizontal);
         dilateSlider->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(dilateSlider, 2, 0, 1, 1);
 
-        highThLabel = new QLabel(widget);
+        highThLabel = new QLabel(layoutWidget);
         highThLabel->setObjectName(QStringLiteral("highThLabel"));
 
         gridLayout->addWidget(highThLabel, 1, 1, 1, 1);
 
-        dilateLabel = new QLabel(widget);
+        dilateLabel = new QLabel(layoutWidget);
         dilateLabel->setObjectName(QStringLiteral("dilateLabel"));
 
         gridLayout->addWidget(dilateLabel, 2, 1, 1, 1);
@@ -156,6 +156,16 @@ public:
         groupBox->setObjectName(QStringLiteral("groupBox"));
 
         gridLayout_2->addWidget(groupBox, 1, 2, 1, 1);
+
+        bottomFrameWidget = new CQtOpenCVViewerGl(centralwidget);
+        bottomFrameWidget->setObjectName(QStringLiteral("bottomFrameWidget"));
+
+        gridLayout_2->addWidget(bottomFrameWidget, 1, 0, 1, 1);
+
+        topFrameWidget = new CQtOpenCVViewerGl(centralwidget);
+        topFrameWidget->setObjectName(QStringLiteral("topFrameWidget"));
+
+        gridLayout_2->addWidget(topFrameWidget, 0, 0, 1, 1);
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
@@ -194,16 +204,6 @@ public:
 
         gridLayout_2->addWidget(groupBox_2, 1, 1, 1, 1);
 
-        bottomFrameWidget = new CQtOpenCVViewerGl(centralwidget);
-        bottomFrameWidget->setObjectName(QStringLiteral("bottomFrameWidget"));
-
-        gridLayout_2->addWidget(bottomFrameWidget, 1, 0, 1, 1);
-
-        topFrameWidget = new CQtOpenCVViewerGl(centralwidget);
-        topFrameWidget->setObjectName(QStringLiteral("topFrameWidget"));
-
-        gridLayout_2->addWidget(topFrameWidget, 0, 0, 1, 1);
-
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -233,6 +233,12 @@ public:
         QObject::connect(erodeSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChanged(int)));
         QObject::connect(thresholdHighSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onHighThValueChanged(int)));
         QObject::connect(thresholdLowSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onLowThValueChanged(int)));
+        QObject::connect(radioButton_2, SIGNAL(pressed()), MainWindow, SLOT(buttonThreshold()));
+        QObject::connect(radioButton_3, SIGNAL(pressed()), MainWindow, SLOT(buttonErode()));
+        QObject::connect(radioButton_4, SIGNAL(pressed()), MainWindow, SLOT(buttonDilated()));
+        QObject::connect(radioButton_4, SIGNAL(released()), MainWindow, SLOT(releaseDilated()));
+        QObject::connect(radioButton_3, SIGNAL(released()), MainWindow, SLOT(releaseErode()));
+        QObject::connect(radioButton_2, SIGNAL(released()), MainWindow, SLOT(releaseThreshold()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

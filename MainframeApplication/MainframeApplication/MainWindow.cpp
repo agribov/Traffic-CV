@@ -78,6 +78,43 @@ void MainWindow::onStart() {
 	return;
 }
 
+void MainWindow::buttonOriginalWindow(){
+	char* sampleVideo1 = "thermalSample.mp4";
+	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
+	pCap = initializeVideo(sampleVideo1); // This functions defined in videoHelper.cpp
+
+	startTimer(50);
+
+	return;
+}
+
+void MainWindow::buttonThreshold(){
+
+	tracker->setLowThVal(75);
+}
+
+void MainWindow::buttonErode(){
+
+	tracker->setErosionVal(75);
+}
+
+void MainWindow::buttonDialated(){
+
+	tracker->setDilationVal(75);
+}
+
+void MainWindow::releaseThreshold(int val) {
+	tracker->setLowThVal(lowHueVal);
+}
+
+void MainWindow::releaseErode(int val) {
+	tracker->setLowThVal(erodeVal);
+}
+
+void MainWindow::releaseDilated(int val) {
+	tracker->setLowThVal(dilateVal);
+}
+
 void MainWindow::onLowThValueChanged(int val) {
 	lowHueVal = val;
 	tracker->setLowThVal(val);
@@ -96,3 +133,11 @@ void MainWindow::onErodeValueChanged(int val) {
 	erodeVal = val;
 	tracker->setErosionVal(val);
 }
+
+//void MainWindow::setThreshVal(int val);
+//void MainWindow::setErodeVal(int val);
+//void MainWindow::setDilateVal(int val);
+//
+//int MainWindow::getThreshVal();
+//int MainWindow::getErodeVal();
+//int MainWindow::getDilateVal();

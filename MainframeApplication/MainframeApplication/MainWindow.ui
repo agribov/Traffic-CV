@@ -38,7 +38,7 @@
       <property name="checkable">
        <bool>false</bool>
       </property>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -130,6 +130,12 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="CQtOpenCVViewerGl" name="topFrameWidget"/>
+    </item>
     <item row="1" column="1">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="sizePolicy">
@@ -179,12 +185,6 @@
        </item>
       </layout>
      </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="CQtOpenCVViewerGl" name="topFrameWidget"/>
     </item>
    </layout>
   </widget>
@@ -267,8 +267,8 @@
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>189</x>
-     <y>539</y>
+     <x>447</x>
+     <y>414</y>
     </hint>
     <hint type="destinationlabel">
      <x>99</x>
@@ -299,8 +299,8 @@
    <slot>onErodeValueChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>218</y>
+     <x>535</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
      <x>347</x>
@@ -340,6 +340,102 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonThreshold()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>439</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>460</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_3</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonErode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>417</x>
+     <y>334</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>462</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_4</sender>
+   <signal>pressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonDilated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>386</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>459</x>
+     <y>376</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_4</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>releaseDilated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>386</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>432</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_3</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>releaseErode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>405</x>
+     <y>337</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>released()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>releaseThreshold()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>367</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onStart()</slot>
@@ -347,5 +443,12 @@
   <slot>onHighThValueChanged(int)</slot>
   <slot>onErodeValueChanged(int)</slot>
   <slot>onDilateValueChanged(int)</slot>
+  <slot>buttonThreshold()</slot>
+  <slot>buttonErode()</slot>
+  <slot>buttonDialated()</slot>
+  <slot>buttonDilated()</slot>
+  <slot>releaseDilated()</slot>
+  <slot>releaseErode()</slot>
+  <slot>releaseThreshold()</slot>
  </slots>
 </ui>
