@@ -18,14 +18,21 @@ public:
 	void updateFrames(cv::Mat top, cv::Mat bottom);
 	~MainWindow();
 	void setButtonVal(int);
+	void setViewVal(int);
 	int getButtonVal();
+	int getViewVal();
 
 private slots:
 	void onStart();
+
 	void buttonOriginalWindow(bool val);
 	void buttonThreshold(bool val);
 	void buttonErode(bool val);
 	void buttonDilate(bool val);
+
+	void showView1(bool val);
+	void showView2(bool val);
+
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
 	void onDilateValueChanged(int val);
@@ -49,6 +56,7 @@ private:
 	int erodeVal;
 
 	int buttonVal = 0;
+	int viewVal = 0;
 
 protected:
 	void timerEvent(QTimerEvent *Event);

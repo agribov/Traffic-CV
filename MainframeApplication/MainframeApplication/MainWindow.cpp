@@ -67,7 +67,7 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		break;
 	case 4: debugFrame = tracker->getDilated();
 		break;
-	default: cerr << "switch value invalid, exiting..." << endl;
+	default: cerr << "switch button value invalid, exiting..." << endl;
 		exit(EXIT_FAILURE);
 		break;
 	}
@@ -89,7 +89,19 @@ void MainWindow::onStart() {
 
 	char* sampleVideo1 = "thermalSample.mp4";
 	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
-	pCap = initializeVideo(sampleVideo1); // This functions defined in videoHelper.cpp
+
+	int vVal = getViewVal();
+	switch (vVal) {
+	case 0: pCap = initializeVideo(sampleVideo2);
+		break;
+	case 1: pCap = initializeVideo(sampleVideo2);
+		break;
+	case 2: pCap = initializeVideo(sampleVideo2);
+		break;
+	default: cerr << "switch view value invalid, exiting..." << endl;
+		exit(EXIT_FAILURE);
+		break;
+	}
 
 	startTimer(50);
 
@@ -116,6 +128,17 @@ void MainWindow::buttonDilate(bool val){
 	if (val == TRUE)
 		setButtonVal(4);
 }
+// Setting up buttons to change views in debug
+
+void MainWindow::showView1(bool val) {
+	if (val == TRUE)
+		setViewVal(1);
+}
+void MainWindow::showView2(bool val) {
+	if (val == TRUE)
+		setViewVal(2);
+}
+
 // trackbar ui 
 void MainWindow::onLowThValueChanged(int val) {
 	lowHueVal = val;
@@ -136,10 +159,18 @@ void MainWindow::onErodeValueChanged(int val) {
 	tracker->setErosionVal(val);
 }
 //switch statement setters and getters
-void MainWindow::setButtonVal(int val)
-{
+void MainWindow::setButtonVal(int val){
 	buttonVal = val;
 }
+
 int MainWindow::getButtonVal() {
 	return buttonVal;
+}
+
+void MainWindow::setViewVal(int val) {
+	viewVal = val;
+}
+
+int MainWindow::getViewVal() {
+	return viewVal;
 }
