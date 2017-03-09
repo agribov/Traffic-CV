@@ -17,29 +17,19 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	void updateFrames(cv::Mat top, cv::Mat bottom);
 	~MainWindow();
+	void setButtonVal(int);
+	int getButtonVal();
 
 private slots:
 	void onStart();
-	void buttonOriginalWindow();
-	void buttonThreshold();
-	void buttonErode();
-	void buttonDialated();
-	void releaseThreshold(int val);
-	void releaseErode(int val);
-	void releaseDilated(int val);
+	void buttonOriginalWindow(bool val);
+	void buttonThreshold(bool val);
+	void buttonErode(bool val);
+	void buttonDilate(bool val);
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
 	void onDilateValueChanged(int val);
 	void onErodeValueChanged(int val);
-
-	//void setThreshVal(int val);
-	//void setErodeVal(int val);
-	//void setDilateVal(int val);
-
-	//int getThreshVal();
-	//int getErodeVal();
-	//int getDilateVal();
-
 
 private:
 	Ui::MainWindow *ui;
@@ -57,6 +47,8 @@ private:
 	int highHueVal;
 	int dilateVal;
 	int erodeVal;
+
+	int buttonVal = 0;
 
 protected:
 	void timerEvent(QTimerEvent *Event);

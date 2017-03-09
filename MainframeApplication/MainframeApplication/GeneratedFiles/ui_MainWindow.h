@@ -233,12 +233,9 @@ public:
         QObject::connect(erodeSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChanged(int)));
         QObject::connect(thresholdHighSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onHighThValueChanged(int)));
         QObject::connect(thresholdLowSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onLowThValueChanged(int)));
-        QObject::connect(radioButton_2, SIGNAL(pressed()), MainWindow, SLOT(buttonThreshold()));
-        QObject::connect(radioButton_3, SIGNAL(pressed()), MainWindow, SLOT(buttonErode()));
-        QObject::connect(radioButton_4, SIGNAL(pressed()), MainWindow, SLOT(buttonDilated()));
-        QObject::connect(radioButton_4, SIGNAL(released()), MainWindow, SLOT(releaseDilated()));
-        QObject::connect(radioButton_3, SIGNAL(released()), MainWindow, SLOT(releaseErode()));
-        QObject::connect(radioButton_2, SIGNAL(released()), MainWindow, SLOT(releaseThreshold()));
+        QObject::connect(radioButton_2, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonThreshold(bool)));
+        QObject::connect(radioButton_3, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonErode(bool)));
+        QObject::connect(radioButton_4, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonDilate(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

@@ -54,6 +54,24 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 	outputFrame = tracker->getTrackedFrame();
 	debugFrame = tracker->getEroded();
 
+	//begin switch statement
+	int sVal = getButtonVal();
+	switch (sVal) {
+	case 0: debugFrame = tracker->getEroded();
+		break;
+	case 1: debugFrame = tracker->getTrackedFrame();
+		break;
+	case 2: debugFrame = tracker->getThresholded();
+		break;
+	case 3: debugFrame = tracker->getEroded();
+		break;
+	case 4: debugFrame = tracker->getDilated();
+		break;
+	default: cerr << "switch value invalid, exiting..." << endl;
+		exit(EXIT_FAILURE);
+		break;
+	}
+	
 	// Show the image
 	ui->topFrameWidget->showImage(outputFrame);
 	ui->bottomFrameWidget->showImage(debugFrame);
@@ -77,44 +95,28 @@ void MainWindow::onStart() {
 
 	return;
 }
-
-void MainWindow::buttonOriginalWindow(){
-	char* sampleVideo1 = "thermalSample.mp4";
-	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
-	pCap = initializeVideo(sampleVideo1); // This functions defined in videoHelper.cpp
-
-	startTimer(50);
-
-	return;
+//buttons for the ui, setting booleans to numerical 
+//values to use in a switch statement.
+void MainWindow::buttonOriginalWindow(bool val){
+	if (val == TRUE)
+		setButtonVal(1);
 }
 
-void MainWindow::buttonThreshold(){
-
-	tracker->setLowThVal(75);
+void MainWindow::buttonThreshold(bool val){
+	if (val == TRUE)
+		setButtonVal(2);
 }
 
-void MainWindow::buttonErode(){
-
-	tracker->setErosionVal(75);
+void MainWindow::buttonErode(bool val){
+	if (val == TRUE)
+		setButtonVal(3);
 }
 
-void MainWindow::buttonDialated(){
-
-	tracker->setDilationVal(75);
+void MainWindow::buttonDilate(bool val){
+	if (val == TRUE)
+		setButtonVal(4);
 }
-
-void MainWindow::releaseThreshold(int val) {
-	tracker->setLowThVal(lowHueVal);
-}
-
-void MainWindow::releaseErode(int val) {
-	tracker->setLowThVal(erodeVal);
-}
-
-void MainWindow::releaseDilated(int val) {
-	tracker->setLowThVal(dilateVal);
-}
-
+// trackbar ui 
 void MainWindow::onLowThValueChanged(int val) {
 	lowHueVal = val;
 	tracker->setLowThVal(val);
@@ -133,11 +135,11 @@ void MainWindow::onErodeValueChanged(int val) {
 	erodeVal = val;
 	tracker->setErosionVal(val);
 }
-
-//void MainWindow::setThreshVal(int val);
-//void MainWindow::setErodeVal(int val);
-//void MainWindow::setDilateVal(int val);
-//
-//int MainWindow::getThreshVal();
-//int MainWindow::getErodeVal();
-//int MainWindow::getDilateVal();
+//switch statement setters and getters
+void MainWindow::setButtonVal(int val)
+{
+	buttonVal = val;
+}
+int MainWindow::getButtonVal() {
+	return buttonVal;
+}

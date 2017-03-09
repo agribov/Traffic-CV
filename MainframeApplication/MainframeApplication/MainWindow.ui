@@ -342,9 +342,9 @@
   </connection>
   <connection>
    <sender>radioButton_2</sender>
-   <signal>pressed()</signal>
+   <signal>toggled(bool)</signal>
    <receiver>MainWindow</receiver>
-   <slot>buttonThreshold()</slot>
+   <slot>buttonThreshold(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>439</x>
@@ -358,9 +358,9 @@
   </connection>
   <connection>
    <sender>radioButton_3</sender>
-   <signal>pressed()</signal>
+   <signal>toggled(bool)</signal>
    <receiver>MainWindow</receiver>
-   <slot>buttonErode()</slot>
+   <slot>buttonErode(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>417</x>
@@ -374,65 +374,17 @@
   </connection>
   <connection>
    <sender>radioButton_4</sender>
-   <signal>pressed()</signal>
+   <signal>toggled(bool)</signal>
    <receiver>MainWindow</receiver>
-   <slot>buttonDilated()</slot>
+   <slot>buttonDilate(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
-     <y>367</y>
+     <x>416</x>
+     <y>371</y>
     </hint>
     <hint type="destinationlabel">
-     <x>459</x>
-     <y>376</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_4</sender>
-   <signal>released()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>releaseDilated()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>386</x>
-     <y>372</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>461</x>
-     <y>432</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_3</sender>
-   <signal>released()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>releaseErode()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>405</x>
-     <y>337</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>461</x>
-     <y>408</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_2</sender>
-   <signal>released()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>releaseThreshold()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>367</x>
-     <y>310</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>461</x>
-     <y>309</y>
+     <x>460</x>
+     <y>378</y>
     </hint>
    </hints>
   </connection>
@@ -443,12 +395,9 @@
   <slot>onHighThValueChanged(int)</slot>
   <slot>onErodeValueChanged(int)</slot>
   <slot>onDilateValueChanged(int)</slot>
-  <slot>buttonThreshold()</slot>
-  <slot>buttonErode()</slot>
-  <slot>buttonDialated()</slot>
   <slot>buttonDilated()</slot>
-  <slot>releaseDilated()</slot>
-  <slot>releaseErode()</slot>
-  <slot>releaseThreshold()</slot>
+  <slot>buttonThreshold(bool)</slot>
+  <slot>buttonErode(bool)</slot>
+  <slot>buttonDilate(bool)</slot>
  </slots>
 </ui>
