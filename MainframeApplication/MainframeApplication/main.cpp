@@ -24,15 +24,18 @@ int main(int argc, char* argv[]) {
 	//		- MainWindow::onStart() contains the code to set up the app.
 	//		- MainWindow::timerEvent() contains all of the code that runs tracking
 	//		  and displays the results
+	//		- These two functions are original code
 
 	// MainWindow.h contains the class definition which contains the declarations of
 	// all objects and variables used by the above functions
 
 	// VehicleTracker.h defines the class which actively does the tracking (called by 
 	// the above functions). VehicleTracker.cpp contains the class function definitions.
+	// VehicleTracker references the Vehicle class (.cpp and .h). 
+	//		- All four of these files are entirely original work.
 
 	// CQtOpenCVViewerGl(.cpp and .h) contains the code to create a widget that displays
-	// an cv::Mat object. These files were not written by us (see files for reference).
+	// a cv::Mat object. These were not written by us (see files for references).
 
 	QApplication a(argc, argv);
 	MainWindow w;
