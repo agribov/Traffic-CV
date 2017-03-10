@@ -184,48 +184,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QGroupBox" name="groupBox_3">
-       <property name="geometry">
-        <rect>
-         <x>300</x>
-         <y>20</y>
-         <width>131</width>
-         <height>171</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>View</string>
-       </property>
-       <widget class="QRadioButton" name="radioButton_5">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>82</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Test Video</string>
-        </property>
-       </widget>
-       <widget class="QRadioButton" name="radioButton_6">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>91</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>University Ave</string>
-        </property>
-       </widget>
-      </widget>
-      <zorder>layoutWidget</zorder>
-      <zorder>groupBox_3</zorder>
-      <zorder>groupBox_3</zorder>
      </widget>
     </item>
    </layout>
@@ -443,38 +401,6 @@
     <hint type="destinationlabel">
      <x>462</x>
      <y>279</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_5</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>showView1(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>656</x>
-     <y>85</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>763</x>
-     <y>66</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_6</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>showView2(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>701</x>
-     <y>108</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>762</x>
-     <y>106</y>
     </hint>
    </hints>
   </connection>
