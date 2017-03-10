@@ -89,19 +89,8 @@ void MainWindow::onStart() {
 
 	char* sampleVideo1 = "thermalSample.mp4";
 	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
-
-	int vVal = getViewVal();
-	switch (vVal) {
-	case 0: pCap = initializeVideo(sampleVideo2);
-		break;
-	case 1: pCap = initializeVideo(sampleVideo2);
-		break;
-	case 2: pCap = initializeVideo(sampleVideo2);
-		break;
-	default: cerr << "switch view value invalid, exiting..." << endl;
-		exit(EXIT_FAILURE);
-		break;
-	}
+	
+	pCap = initializeVideo(sampleVideo1);
 
 	startTimer(50);
 
