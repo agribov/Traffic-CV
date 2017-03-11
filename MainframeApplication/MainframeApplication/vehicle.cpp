@@ -14,6 +14,9 @@
 #include "vehicleTracker.h"
 #include "vehicle.h"
 
+using namespace std;
+using namespace cv;
+
 void Vehicle::update(Point pos) {
 	// Updates all information about vehicle, given new location.
 	return;

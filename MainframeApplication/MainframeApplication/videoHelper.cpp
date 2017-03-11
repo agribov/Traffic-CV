@@ -11,50 +11,9 @@
 /********************************************************************************/
 
 #include "globals.h"
-#include "videoHelper.h"
-#include "vehicle.h"
-#include "vehicleTracker.h"
-#include "GUI.h"
 
-void processVideo(VideoCapture* pCap) {
-
-	//read input data. ESC or 'q' for quitting
-	keyboard = 0;
-	VehicleTracker tracker;
-
-	Mat frame, outputFrame;
-
-	while (keyboard != 'q' && keyboard != 27) {
-		vector<Mat> testing;
-
-		//read the current frame
-		if (!(*pCap).read(frame)) {
-			cerr << "Unable to read next frame." << endl;
-			cerr << "Exiting..." << endl;
-			exit(EXIT_FAILURE);
-		}
-
-		tracker.update(frame);
-		outputFrame = tracker.getTrackedFrame();
-		addFrameNumber(outputFrame, pCap);
-		addCarCount(outputFrame, pCap);
-
-		
-		//imshow("Debug 1", tracker.getDilated());
-		//imshow("Debug 2", tracker.getEroded());
-
-		imshow("Video Capture", outputFrame);
-		testing.push_back(outputFrame);
-		testing.push_back(outputFrame);
-		testing.push_back(tracker.getDilated());
-		testing.push_back(tracker.getEroded());
-
-		imshow("Master Window", makeCanvas(testing, 400, 2, frame));
-
-		//get the input from the keyboard
-		keyboard = (char)waitKey(30);
-	}
-}
+using namespace std;
+using namespace cv;
 
 VideoCapture* initializeVideo(char* videoFilename) {
 	//create the capture object
@@ -87,13 +46,55 @@ void addCarCount(Mat &frame, VideoCapture *pCap) {
 	string result;				//contains result of converting int --> string
 	ostringstream convert;		// stream used for the conversion
 	convert << currentCarCount; // insert the textual representation of 'currentCarCount' in the characters in the stream
+
 	result = convert.str();		// set 'result' to the contents of the stream. result is now "currentCarCount"
 	result += " cars";			// append "cars" to "currentCarCount"
 	putText(frame, result , cv::Point(15, 40), FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
 }
 
-// NOT USED, here as a historic monument
+// NOT USED, here as historic monuments
+
 /*
+void processVideoDEPRECATED(VideoCapture* pCap) {
+
+//read input data. ESC or 'q' for quitting
+keyboard = 0;
+VehicleTracker tracker;
+
+Mat frame, outputFrame;
+
+while (keyboard != 'q' && keyboard != 27) {
+vector<Mat> testing;
+
+//read the current frame
+if (!(*pCap).read(frame)) {
+cerr << "Unable to read next frame." << endl;
+cerr << "Exiting..." << endl;
+exit(EXIT_FAILURE);
+}
+
+tracker.update(frame);
+outputFrame = tracker.getTrackedFrame();
+addFrameNumber(outputFrame, pCap);
+addCarCount(outputFrame, pCap);
+
+
+//imshow("Debug 1", tracker.getDilated());
+//imshow("Debug 2", tracker.getEroded());
+
+imshow("Video Capture", outputFrame);
+testing.push_back(outputFrame);
+testing.push_back(outputFrame);
+testing.push_back(tracker.getDilated());
+testing.push_back(tracker.getEroded());
+
+imshow("Master Window", makeCanvas(testing, 400, 2, frame));
+
+//get the input from the keyboard
+keyboard = (char)waitKey(30);
+}
+}
+
 void OLDprocessVideo(VideoCapture* pCap) {
 
 	//read input data. ESC or 'q' for quitting

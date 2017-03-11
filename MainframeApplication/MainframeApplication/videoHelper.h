@@ -15,13 +15,12 @@
 
 #include "globals.h"
 
-void processVideo(VideoCapture* pCap);
 
-VideoCapture* initializeVideo(char* videoFilename);
-void releaseVideo(VideoCapture* pCap);
+cv::VideoCapture* initializeVideo(char* videoFilename);
+void releaseVideo(cv::VideoCapture* pCap);
 
-void addFrameNumber(Mat &frame, VideoCapture *pCap); // Adds the current frame number to the display
-void addCarCount(Mat &frame, VideoCapture *pCap);
+void addFrameNumber(cv::Mat &frame, cv::VideoCapture *pCap); // Adds the current frame number to the display
+void addCarCount(cv::Mat &frame, cv::VideoCapture *pCap);
 
 
 #endif // !_videoHelper

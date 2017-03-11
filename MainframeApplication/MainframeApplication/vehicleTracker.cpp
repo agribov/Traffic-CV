@@ -14,10 +14,24 @@
 #include "vehicleTracker.h"
 #include "vehicle.h"
 
-//PUBLIC FUNCTIONS:
+using namespace std;
+using namespace cv;
 
+//PUBLIC FUNCTIONS:
 VehicleTracker::VehicleTracker() {
 	// Initialize the class. 
+	lowHue = 0;
+	highHue = 50;
+	erosionVal = 0;
+	dilationVal = 0;
+}
+
+VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil = 0) {
+	// Initialize the class. 
+	lowHue = lHue;
+	highHue = hHue;
+	erosionVal = er;
+	dilationVal = dil;
 }
 
 vector<Point> VehicleTracker::getVehiclePositions() {
@@ -57,6 +71,7 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
 	// Step 3c: Background subtraction? (**SPIF)
 	erodedFrame = erodeFrame(highThFrame, erosionVal);
+	//printf("%d\n", highHue);
 	
 	// Step 4: Dilate the eroded image (to make cars very clear)
 	// Step 4b: Other clarity functions? (**SPIF)
@@ -102,7 +117,7 @@ void VehicleTracker::update(Mat currentFrame) {
 
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 	vector<Vehicle> tempList;
-	printf("%d\n", centroids.size());
+	//printf("%d\n", centroids.size());
 	for (i = 0; i < centroids.size(); i++) {
 		Vehicle x(centroids[i]);
 		tempList.push_back(x);
