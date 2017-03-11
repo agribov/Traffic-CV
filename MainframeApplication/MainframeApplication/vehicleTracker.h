@@ -30,7 +30,16 @@ private:
 	cv::Mat dilatedFrame; // Stores frame after dilation
 	std::vector < std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
-	
+	//For VL Camera
+	std::vector<Vehicle> vlvehicles;
+	cv::Mat vlframe; //Stores current frame from VL camera
+	cv::Mat vlhighThFrame; // Stores thresholded image for hot-spots
+	cv::Mat vlforegroundFrame; // Stores foreground image after background subtraction
+	cv::Mat vlerodedFrame; // Stores eroded frame
+	cv::Mat vldilatedFrame; // Stores dilated frame
+	std::vector < std::vector<cv::Point>> vlvehicleContours; // stores the contours of the vehicle in the current vl camera frame
+	cv::Mat vloutputFrame; //Original vl frame, with boxes overlayed on vehicles
+	//end VL Camera
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
 	const int MAX_NUMBER_VEHICLES = 10; // Constant value: If number is more than this, algorithm will assume there is noise.
@@ -59,7 +68,9 @@ public:
 	cv::Mat getThresholded() { return highThFrame; }
 	cv::Mat getEroded() { return erodedFrame; }
 	cv::Mat getDilated() { return dilatedFrame; }
-
+	//For VL Camera
+	void updatevl(cv::Mat vlcurrentFrame); // For visible light camera: This function is called to update the algorithm when a new frame is available
+	//End VL Camera
 	void setLowThVal(int val) { lowHue = val; };
 	void setHighThVal(int val) { highHue = val; };
 	void setErosionVal(int val) { erosionVal = val; };
