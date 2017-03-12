@@ -67,6 +67,9 @@ void VehicleTracker::update(Mat currentFrame) {
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
 	highThFrame = thresholdFrame(frame, lowHue, highHue);	
 
+	//For testing background subtraction
+	//highThFrame = bgSubtractionMOG2(frame);
+
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
 	// Step 3c: Background subtraction? (**SPIF)
@@ -136,11 +139,16 @@ void VehicleTracker::updatevl(Mat vlcurrentFrame) {
 	int i;
 	Point2f vlcenter;
 	vector<Point2f> vlcentroids;
+	///Move
+
+
 
 	//Step 1: Save current frame to liveFrame.
 	vlframe = vlcurrentFrame;
+	//Step 2: Perform background subtraction.
+	vlforegroundMask = bgSubtractionMOG2(vlframe);
 	//Step 2: Perform thresholding.
-	vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
+	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
 	//Step 3: Perform errosion.
 	vlerodedFrame = erodeFrame(vlhighThFrame, erosionVal);
 	//Step 4: Perform dilation.
@@ -225,8 +233,13 @@ Mat VehicleTracker::dilateFrame(Mat inputFrame, int sliderVal) {
 
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
 	//Returns bgSubtracted version of inputFrame, using MOG2 method
-	return inputFrame;
+	Mat fgMaskMOG2;
+	Ptr<BackgroundSubtractor> pMOG2;
+	pMOG2 = createBackgroundSubtractorMOG2();
+	pMOG2->apply(inputFrame, fgMaskMOG2);
+	return fgMaskMOG2;
 }
+
 
 void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
 	// Find the contours of the input frame and store them in self.vehicleContours

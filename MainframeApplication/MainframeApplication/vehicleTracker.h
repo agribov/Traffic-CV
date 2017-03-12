@@ -39,6 +39,7 @@ private:
 	cv::Mat vldilatedFrame; // Stores dilated frame
 	std::vector < std::vector<cv::Point>> vlvehicleContours; // stores the contours of the vehicle in the current vl camera frame
 	cv::Mat vloutputFrame; //Original vl frame, with boxes overlayed on vehicles
+	cv::Mat vlforegroundMask; //Foreground mask created from background subtraction
 	//end VL Camera
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
