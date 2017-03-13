@@ -32,6 +32,7 @@ private:
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
 	//For VL Camera
 	std::vector<Vehicle> vlvehicles;
+	cv::Mat fgMaskMOG2; //Foreground mask for MOG2
 	cv::Mat vlframe; //Stores current frame from VL camera
 	cv::Mat vlhighThFrame; // Stores thresholded image for hot-spots
 	cv::Mat vlforegroundFrame; // Stores foreground image after background subtraction
@@ -49,14 +50,19 @@ private:
 
 	int erosionVal, dilationVal;
 	int lowHue, highHue;
-
+	//For VL Camera
+	int mog2thVal; //Threshold value for MOG2
+	//End VL Camera
 
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
 	cv::Mat thresholdFrame(cv::Mat inputFrame, int lowH, int highH);
 	cv::Mat erodeFrame(cv::Mat inputFrame, int sliderVal);
 	cv::Mat dilateFrame(cv::Mat inputFrame, int sliderVal);
+	//For VL Camera
 	cv::Mat bgSubtractionMOG2(cv::Mat inputFrame);
+	//cv::Mat bgSubtractionMOG(cv::Mat inputFrame); //Maybe nolonger in OpenCV core.
+	//End VL Camera
 	void findVehicleContours(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
 	void updateVehicleList();
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
@@ -76,6 +82,9 @@ public:
 	void setHighThVal(int val) { highHue = val; };
 	void setErosionVal(int val) { erosionVal = val; };
 	void setDilationVal(int val) { dilationVal = val; };
+	//For VL Camera
+	void setMOG2ThVal(int val) { mog2thVal = val; }; //Threshold value for MOG2
+	//End VL Camera
 };
 
 #endif

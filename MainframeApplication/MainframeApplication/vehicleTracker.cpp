@@ -17,6 +17,8 @@
 using namespace std;
 using namespace cv;
 
+Ptr<BackgroundSubtractorMOG2> pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
+
 //PUBLIC FUNCTIONS:
 VehicleTracker::VehicleTracker() {
 	// Initialize the class. 
@@ -65,10 +67,12 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	highThFrame = thresholdFrame(frame, lowHue, highHue);	
+	//highThFrame = thresholdFrame(frame, lowHue, highHue);
 
 	//For testing background subtraction
-	//highThFrame = bgSubtractionMOG2(frame);
+	imshow("No Subtraction", frame);
+	highThFrame = bgSubtractionMOG2(frame);
+	imshow("MOG2", highThFrame);
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
@@ -139,14 +143,12 @@ void VehicleTracker::updatevl(Mat vlcurrentFrame) {
 	int i;
 	Point2f vlcenter;
 	vector<Point2f> vlcentroids;
+
 	///Move
-
-
-
 	//Step 1: Save current frame to liveFrame.
 	vlframe = vlcurrentFrame;
 	//Step 2: Perform background subtraction.
-	vlforegroundMask = bgSubtractionMOG2(vlframe);
+	fgMaskMOG2 = bgSubtractionMOG2(vlframe);
 	//Step 2: Perform thresholding.
 	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
 	//Step 3: Perform errosion.
@@ -233,13 +235,18 @@ Mat VehicleTracker::dilateFrame(Mat inputFrame, int sliderVal) {
 
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
 	//Returns bgSubtracted version of inputFrame, using MOG2 method
-	Mat fgMaskMOG2;
-	Ptr<BackgroundSubtractor> pMOG2;
-	pMOG2 = createBackgroundSubtractorMOG2();
 	pMOG2->apply(inputFrame, fgMaskMOG2);
 	return fgMaskMOG2;
 }
-
+//BackgroundsubtractionMOG is nolonger in the opencv core. Maybe
+//Mat VehicleTracker::bgSubtractionMOG(Mat inputFrame) {
+//	//Returns bgSubtracted version of inputFrame, using MOG method
+//	Mat fgMaskMOG;
+//	Ptr<BackgroundSubtractor> pMOG;
+//	pMOG = createBackgroundSubtractorMOG()
+//	pMOG->apply(inputFrame, fgMaskMOG);
+//	return fgMaskMOG;
+//}
 
 void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
 	// Find the contours of the input frame and store them in self.vehicleContours
