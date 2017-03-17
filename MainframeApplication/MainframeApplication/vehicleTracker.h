@@ -21,14 +21,14 @@ private:
 	// Private variables
 	// NOTE: Most variables are updated during the update(Mat frame) function. 
 	// Please see it's definition in vehicleTracker.cpp for more info
-	std::vector<Vehicle> vehicles;
+	std::vector<std::vector<Vehicle>> vehicles;
 	cv::Mat frame; // Stores current frame
 	cv::Mat lowThFrame; // UNUSED CURRENTLY
 	cv::Mat highThFrame; // Stores image thresholded for hot-spots
 	cv::Mat foregroundFrame; // Stores frame after background subtraction
 	cv::Mat erodedFrame; // Stores frame after erosion
 	cv::Mat dilatedFrame; // Stores frame after dilation
-	std::vector < std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
+	std::vector<std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
 	
 	int numCarsCurrent; // Number of cars currently in the intersection
@@ -40,6 +40,10 @@ private:
 	int erosionVal, dilationVal;
 	int lowHue, highHue;
 
+	std::vector<std::vector<cv::Point>> borders;
+	std::vector<cv::Point> inboundBorder;
+	std::vector<cv::Point> outboundBorder;
+
 
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
@@ -48,7 +52,7 @@ private:
 	cv::Mat dilateFrame(cv::Mat inputFrame, int sliderVal);
 	cv::Mat bgSubtractionMOG2(cv::Mat inputFrame);
 	void findVehicleContours(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
-	void updateVehicleList();
+	void updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary);
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
 public:
 	VehicleTracker::VehicleTracker();

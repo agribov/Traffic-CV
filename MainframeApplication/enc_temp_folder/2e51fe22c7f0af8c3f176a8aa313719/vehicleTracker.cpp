@@ -141,7 +141,7 @@ void VehicleTracker::update(Mat currentFrame) {
 		Vehicle x(centroids[i]);
 		tempList.push_back(x);
 	}
-	vehicles[1] = tempList;
+	vehicles.push_back(tempList);
 	currentCarCount = 0;
 	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
