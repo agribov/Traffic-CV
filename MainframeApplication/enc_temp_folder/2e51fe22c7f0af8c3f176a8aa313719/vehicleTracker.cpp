@@ -17,8 +17,6 @@
 using namespace std;
 using namespace cv;
 
-Ptr<BackgroundSubtractorMOG2> pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
-
 //PUBLIC FUNCTIONS:
 VehicleTracker::VehicleTracker() {
 	// Initialize the class. 
@@ -86,12 +84,7 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	//highThFrame = thresholdFrame(frame, lowHue, highHue);
-
-	//For testing background subtraction
-	imshow("No Subtraction", frame);
-	highThFrame = bgSubtractionMOG2(frame);
-	imshow("MOG2", highThFrame);
+	highThFrame = thresholdFrame(frame, lowHue, highHue);	
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
@@ -148,59 +141,12 @@ void VehicleTracker::update(Mat currentFrame) {
 		Vehicle x(centroids[i]);
 		tempList.push_back(x);
 	}
-	vehicles[1] = tempList;
+	vehicles.push_back(tempList);
 	currentCarCount = 0;
 	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
 }
-//For visible light camera
-void VehicleTracker::updatevl(Mat vlcurrentFrame) {
-	size_t vlnumContours;
-	double vlarea;
-	Moments vlblobMoment;
-	vector<vector<Point>>::iterator vlfirstContour;
-	int i;
-	Point2f vlcenter;
-	vector<Point2f> vlcentroids;
 
-	///Move
-	//Step 1: Save current frame to liveFrame.
-	vlframe = vlcurrentFrame;
-	//Step 2: Perform background subtraction.
-	fgMaskMOG2 = bgSubtractionMOG2(vlframe);
-	//Step 2: Perform thresholding.
-	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
-	//Step 3: Perform errosion.
-	vlerodedFrame = erodeFrame(vlhighThFrame, erosionVal);
-	//Step 4: Perform dilation.
-	vldilatedFrame = dilateFrame(vlerodedFrame, dilationVal);
-	//Step 5: Find contours of blobs.
-	findVehicleContours(vldilatedFrame, vlvehicleContours);
-	//Step 6: Determine number and dimensions of blobs.
-	vlnumContours = (size_t)vlvehicleContours.size();
-	while (vlnumContours > MAX_NUMBER_VEHICLES) {
-		//ERROR: Too many objects
-		//Insert additional filtering here
-		break; //Remove this when above filtering is implemented
-	}
-	//Step 7: Determine centroid of blobs.
-	vlfirstContour = vlvehicleContours.begin();
-	for (i = 0; i < vlnumContours; i++) {
-		vlblobMoment = moments((Mat)vlvehicleContours[i]);
-		vlarea = vlblobMoment.m00;
-		if (vlarea < MIN_VEHICLE_AREA) {
-			//vehicleContours.erase(firstContour + i);
-			//i--;
-			//numContours--;
-		}
-		// Step 7: Find centroids of contours that have not been eliminated
-		else {
-			vlcenter = Point2f(vlblobMoment.m10 / vlarea, vlblobMoment.m01 / vlarea);
-			vlcentroids.push_back(vlcenter);
-		}
-	}
-}
-//End visible light camera
 void VehicleTracker::drawBoxes(Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
 	// drawBoxes may be unnecessary as meanshift and camshift draw boxes. -AZS
@@ -260,18 +206,8 @@ Mat VehicleTracker::dilateFrame(Mat inputFrame, int sliderVal) {
 
 Mat VehicleTracker::bgSubtractionMOG2(Mat inputFrame) {
 	//Returns bgSubtracted version of inputFrame, using MOG2 method
-	pMOG2->apply(inputFrame, fgMaskMOG2);
-	return fgMaskMOG2;
+	return inputFrame;
 }
-//BackgroundsubtractionMOG is nolonger in the opencv core. Maybe
-//Mat VehicleTracker::bgSubtractionMOG(Mat inputFrame) {
-//	//Returns bgSubtracted version of inputFrame, using MOG method
-//	Mat fgMaskMOG;
-//	Ptr<BackgroundSubtractor> pMOG;
-//	pMOG = createBackgroundSubtractorMOG()
-//	pMOG->apply(inputFrame, fgMaskMOG);
-//	return fgMaskMOG;
-//}
 
 void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &outputContours) {
 	// Find the contours of the input frame and store them in self.vehicleContours
