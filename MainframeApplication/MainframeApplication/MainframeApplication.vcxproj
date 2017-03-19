@@ -360,7 +360,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files\OpenCV 3-1\opencv\build\x64\vc14\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world310d.lib;C:\Program;Qt5Cored.lib;Qt5Guid.lib;Qt5Multimediad.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;Qt5MultimediaWidgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world310d.lib;C:\Program;Qt5Cored.lib;Qt5Guid.lib;Qt5Multimediad.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;Qt5MultimediaWidgetsd.lib;Qt5AxBase.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -376,7 +376,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\azeno\Documents\OpenCV\opencv\build\x64\vc14\lib;C:\Program Files\OpenCV\opencv\build\x64\vc14\lib;C:\Program Files\opencv\build\x64\vc14\lib;$(QTDIR)\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world320d.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Multimediad.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;Qt5MultimediaWidgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world320d.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Multimediad.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5OpenGLd.lib;opengl32.lib;glu32.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;Qt5MultimediaWidgetsd.lib;Qt5AxBase.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -422,7 +422,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Qt5Version_x0020_x64="5.8" />
+      <UserProperties Qt5Version_x0020_x64="msvc2015_64" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
