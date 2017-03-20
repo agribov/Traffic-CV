@@ -69,7 +69,7 @@ private:
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
 public:
 	VehicleTracker::VehicleTracker();
-	VehicleTracker(int lHue, int hHue, int er, int dil); // This is the initializer for the VehicleTracker object
+	VehicleTracker(int lHue, int hHue, int er, int dil, int erVL, int dilVL); // This is the initializer for the VehicleTracker object
 	std::vector<cv::Point> getVehiclePositions(); // This function returns a vector of the current vehicle centroids
 	void update(cv::Mat currentFrame); // This function is called to update the algorithm when a new frame is available
 	cv::Mat getTrackedFrame() { return outputFrame;}

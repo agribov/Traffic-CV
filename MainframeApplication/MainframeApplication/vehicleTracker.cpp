@@ -26,14 +26,19 @@ VehicleTracker::VehicleTracker() {
 	highHue = 50;
 	erosionVal = 0;
 	dilationVal = 0;
+	//For VL Camera
+	erosionValVL = 0;
+	dilationValVL = 0;
 }
 
-VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil = 0) {
+VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil = 0, int erVL = 0, int dilVL = 0) {
 	// Initialize the class. 
 	lowHue = lHue;
 	highHue = hHue;
 	erosionVal = er;
 	dilationVal = dil;
+	erosionValVL = erVL;
+	dilationValVL = dilVL;
 }
 
 vector<Point> VehicleTracker::getVehiclePositions() {
@@ -152,9 +157,9 @@ void VehicleTracker::updatevl(Mat vlcurrentFrame) {
 	//Step 2: Perform thresholding.
 	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
 	//Step 3: Perform errosion.
-	vlerodedFrame = erodeFrame(vlhighThFrame, erosionVal);
+	vlerodedFrame = erodeFrame(vlhighThFrame, erosionValVL);
 	//Step 4: Perform dilation.
-	vldilatedFrame = dilateFrame(vlerodedFrame, dilationVal);
+	vldilatedFrame = dilateFrame(vlerodedFrame, dilationValVL);
 	//Step 5: Find contours of blobs.
 	findVehicleContours(vldilatedFrame, vlvehicleContours);
 	//Step 6: Determine number and dimensions of blobs.

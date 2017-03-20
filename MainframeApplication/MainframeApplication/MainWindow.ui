@@ -123,6 +123,9 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
          </widget>
         </item>
         <item row="2" column="0">
@@ -143,9 +146,9 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="erodeLabelVL">
           <property name="text">
-           <string>TextLabel</string>
+           <string>VL Erode</string>
           </property>
          </widget>
         </item>
@@ -207,6 +210,9 @@
          <widget class="QSlider" name="erodeSliderVL">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
           </property>
          </widget>
         </item>
@@ -365,6 +371,38 @@
     <hint type="destinationlabel">
      <x>346</x>
      <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>erodeSliderVL</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onDilateValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>434</x>
+     <y>235</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilateSliderVL</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onDilateValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>434</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>

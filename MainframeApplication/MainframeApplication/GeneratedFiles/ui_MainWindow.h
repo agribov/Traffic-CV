@@ -56,7 +56,7 @@ public:
     QSlider *dilateSliderVL;
     QSlider *dilateSlider;
     QLabel *dilateLabel;
-    QLabel *label;
+    QLabel *erodeLabelVL;
     QSlider *erodeSlider;
     QLabel *erodeLabel;
     QSlider *thresholdLowSlider;
@@ -164,6 +164,7 @@ public:
         dilateSliderVL = new QSlider(layoutWidget);
         dilateSliderVL->setObjectName(QStringLiteral("dilateSliderVL"));
         dilateSliderVL->setOrientation(Qt::Horizontal);
+        dilateSliderVL->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(dilateSliderVL, 4, 0, 1, 1);
 
@@ -179,10 +180,10 @@ public:
 
         gridLayout->addWidget(dilateLabel, 2, 1, 1, 1);
 
-        label = new QLabel(layoutWidget);
-        label->setObjectName(QStringLiteral("label"));
+        erodeLabelVL = new QLabel(layoutWidget);
+        erodeLabelVL->setObjectName(QStringLiteral("erodeLabelVL"));
 
-        gridLayout->addWidget(label, 5, 1, 1, 1);
+        gridLayout->addWidget(erodeLabelVL, 5, 1, 1, 1);
 
         erodeSlider = new QSlider(layoutWidget);
         erodeSlider->setObjectName(QStringLiteral("erodeSlider"));
@@ -224,6 +225,7 @@ public:
         erodeSliderVL = new QSlider(layoutWidget);
         erodeSliderVL->setObjectName(QStringLiteral("erodeSliderVL"));
         erodeSliderVL->setOrientation(Qt::Horizontal);
+        erodeSliderVL->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(erodeSliderVL, 5, 0, 1, 1);
 
@@ -259,6 +261,8 @@ public:
         QObject::connect(erodeSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChanged(int)));
         QObject::connect(thresholdLowSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onLowThValueChanged(int)));
         QObject::connect(dilateSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
+        QObject::connect(erodeSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
+        QObject::connect(dilateSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -280,7 +284,7 @@ public:
         groupParameters->setTitle(QApplication::translate("MainWindow", "Parameters", Q_NULLPTR));
         dilateLabelVL->setText(QApplication::translate("MainWindow", "VL Dilate", Q_NULLPTR));
         dilateLabel->setText(QApplication::translate("MainWindow", "Dilate", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "TextLabel", Q_NULLPTR));
+        erodeLabelVL->setText(QApplication::translate("MainWindow", "VL Erode", Q_NULLPTR));
         erodeLabel->setText(QApplication::translate("MainWindow", "Erode", Q_NULLPTR));
         highThLabel->setText(QApplication::translate("MainWindow", "Threshold High", Q_NULLPTR));
         lowThLabel->setText(QApplication::translate("MainWindow", "Threshold Low", Q_NULLPTR));

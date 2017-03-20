@@ -9,7 +9,7 @@ using namespace cv;
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow),
-	tracker(new VehicleTracker(0, 50, 0, 0))
+	tracker(new VehicleTracker(0, 50, 0, 0, 0, 0))
 {
 	//tracker = new VehicleTracker(lowHueVal, highHueVal, dilateVal, erodeVal);
 	//tracker = new VehicleTracker();
@@ -24,10 +24,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->erodeSlider->setMinimum(0);
 	ui->erodeSlider->setMaximum(100);
 	//For VL Camera
-	//ui->dilateVLSlider->setMinimum(0);
-	//ui->dilateVLSlider->setMaximum(100);
-	//ui->erodeVLSlider->setMinimum(0);
-	//ui->erodeVLSlider->setMaximum(100);
+	ui->dilateSliderVL->setMinimum(0);
+	ui->dilateSliderVL->setMaximum(100);
+	ui->erodeSliderVL->setMinimum(0);
+	ui->erodeSliderVL->setMaximum(100);
 	//End VL Camera
 
 
@@ -45,10 +45,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->dilateSlider->setValue(dilateVal);
 	ui->erodeSlider->setValue(erodeVal);
 	//For VL Camera
-	//ui->dilateVLSlider->setValue(dilateValVL);
-	//ui->erodeVLSlider->setValue(erodeValVL);
+	ui->dilateSliderVL->setValue(dilateValVL);
+	ui->erodeSliderVL->setValue(erodeValVL);
 	//End VL Camera
-
 }
 
 MainWindow::~MainWindow()
@@ -117,7 +116,6 @@ void MainWindow::onErodeValueChanged(int val) {
 void MainWindow::onDilateValueChangedVL(int val) {
 	erodeValVL = val;
 	tracker->setDilationValVL(val);
-
 }
 
 void MainWindow::onErodeValueChangedVL(int val) {
