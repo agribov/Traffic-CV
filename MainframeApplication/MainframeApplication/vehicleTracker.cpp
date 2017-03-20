@@ -86,12 +86,12 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	//highThFrame = thresholdFrame(frame, lowHue, highHue);
+	highThFrame = thresholdFrame(frame, lowHue, highHue);
 
 	//For testing background subtraction
-	imshow("No Subtraction", frame);
-	highThFrame = bgSubtractionMOG2(frame);
-	imshow("MOG2", highThFrame);
+	//imshow("No Subtraction", frame);
+	//highThFrame = bgSubtractionMOG2(frame);
+	//imshow("MOG2", highThFrame);
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)
