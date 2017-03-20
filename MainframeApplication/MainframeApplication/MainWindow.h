@@ -24,6 +24,10 @@ private slots:
 	void onHighThValueChanged(int val);
 	void onDilateValueChanged(int val);
 	void onErodeValueChanged(int val);
+	//For VL Camera
+	void onDilateValueChangedVL(int val);
+	void onErodeValueChangedVL(int val);
+	//End VL Camera
 
 private:
 	Ui::MainWindow *ui;
@@ -41,6 +45,11 @@ private:
 	int highHueVal;
 	int dilateVal;
 	int erodeVal;
+
+	//For VL Camera
+	int dilateValVL;
+	int erodeValVL;
+	//End VL Camera
 
 protected:
 	void timerEvent(QTimerEvent *Event);

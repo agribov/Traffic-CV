@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>780</width>
-    <height>467</height>
+    <height>559</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -27,101 +27,11 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1" colspan="2">
-     <widget class="QGroupBox" name="groupParameters">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="title">
-       <string>Parameters</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>27</y>
-         <width>281</width>
-         <height>161</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QSlider" name="thresholdLowSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QSlider" name="erodeSlider">
-          <property name="tracking">
-           <bool>true</bool>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="lowThLabel">
-          <property name="text">
-           <string>Threshold Low</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QSlider" name="thresholdHighSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="erodeLabel">
-          <property name="text">
-           <string>Erode</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QSlider" name="dilateSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="highThLabel">
-          <property name="text">
-           <string>Threshold High</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="dilateLabel">
-          <property name="text">
-           <string>Dilate</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
+    <item row="1" column="0">
+     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="CQtOpenCVViewerGl" name="topFrameWidget"/>
     </item>
     <item row="1" column="2">
      <widget class="QGroupBox" name="groupBox">
@@ -180,11 +90,135 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="CQtOpenCVViewerGl" name="topFrameWidget"/>
+    <item row="0" column="1" colspan="2">
+     <widget class="QGroupBox" name="groupParameters">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="title">
+       <string>Parameters</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>281</width>
+         <height>203</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="4" column="1">
+         <widget class="QLabel" name="dilateLabelVL">
+          <property name="text">
+           <string>VL Dilate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QSlider" name="dilateSliderVL">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QSlider" name="dilateSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="dilateLabel">
+          <property name="text">
+           <string>Dilate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="erodeLabelVL">
+          <property name="text">
+           <string>VL Erode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QSlider" name="erodeSlider">
+          <property name="tracking">
+           <bool>true</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="erodeLabel">
+          <property name="text">
+           <string>Erode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QSlider" name="thresholdLowSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QSlider" name="thresholdHighSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="highThLabel">
+          <property name="text">
+           <string>Threshold High</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="lowThLabel">
+          <property name="text">
+           <string>Threshold Low</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QSlider" name="erodeSliderVL">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -277,18 +311,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>dilateSlider</sender>
+   <sender>thresholdHighSlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>onDilateValueChanged(int)</slot>
+   <slot>onHighThValueChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>383</x>
-     <y>165</y>
+     <x>388</x>
+     <y>119</y>
     </hint>
     <hint type="destinationlabel">
-     <x>346</x>
-     <y>160</y>
+     <x>344</x>
+     <y>118</y>
     </hint>
    </hints>
   </connection>
@@ -309,22 +343,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>thresholdHighSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onHighThValueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>388</x>
-     <y>119</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>344</x>
-     <y>118</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>thresholdLowSlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
@@ -337,6 +355,54 @@
     <hint type="destinationlabel">
      <x>344</x>
      <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilateSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onDilateValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>383</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>erodeSliderVL</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onDilateValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>434</x>
+     <y>235</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilateSliderVL</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onDilateValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>434</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>

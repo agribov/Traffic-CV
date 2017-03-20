@@ -39,17 +39,8 @@ public:
     QAction *actionRelease_Layout;
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
-    QGroupBox *groupParameters;
-    QWidget *widget;
-    QGridLayout *gridLayout;
-    QSlider *thresholdLowSlider;
-    QSlider *erodeSlider;
-    QLabel *lowThLabel;
-    QSlider *thresholdHighSlider;
-    QLabel *erodeLabel;
-    QSlider *dilateSlider;
-    QLabel *highThLabel;
-    QLabel *dilateLabel;
+    CQtOpenCVViewerGl *bottomFrameWidget;
+    CQtOpenCVViewerGl *topFrameWidget;
     QGroupBox *groupBox;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout;
@@ -58,8 +49,21 @@ public:
     QRadioButton *radioButton_3;
     QRadioButton *radioButton_4;
     QPushButton *pushButton;
-    CQtOpenCVViewerGl *bottomFrameWidget;
-    CQtOpenCVViewerGl *topFrameWidget;
+    QGroupBox *groupParameters;
+    QWidget *layoutWidget;
+    QGridLayout *gridLayout;
+    QLabel *dilateLabelVL;
+    QSlider *dilateSliderVL;
+    QSlider *dilateSlider;
+    QLabel *dilateLabel;
+    QLabel *erodeLabelVL;
+    QSlider *erodeSlider;
+    QLabel *erodeLabel;
+    QSlider *thresholdLowSlider;
+    QSlider *thresholdHighSlider;
+    QLabel *highThLabel;
+    QLabel *lowThLabel;
+    QSlider *erodeSliderVL;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuOpen;
@@ -71,7 +75,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(780, 467);
+        MainWindow->resize(780, 559);
         MainWindow->setAcceptDrops(false);
         MainWindow->setDocumentMode(false);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
@@ -90,67 +94,15 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        groupParameters = new QGroupBox(centralwidget);
-        groupParameters->setObjectName(QStringLiteral("groupParameters"));
-        groupParameters->setEnabled(true);
-        groupParameters->setCheckable(false);
-        widget = new QWidget(groupParameters);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 27, 281, 161));
-        gridLayout = new QGridLayout(widget);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        thresholdLowSlider = new QSlider(widget);
-        thresholdLowSlider->setObjectName(QStringLiteral("thresholdLowSlider"));
-        thresholdLowSlider->setOrientation(Qt::Horizontal);
-        thresholdLowSlider->setTickPosition(QSlider::TicksBelow);
+        bottomFrameWidget = new CQtOpenCVViewerGl(centralwidget);
+        bottomFrameWidget->setObjectName(QStringLiteral("bottomFrameWidget"));
 
-        gridLayout->addWidget(thresholdLowSlider, 0, 0, 1, 1);
+        gridLayout_2->addWidget(bottomFrameWidget, 1, 0, 1, 1);
 
-        erodeSlider = new QSlider(widget);
-        erodeSlider->setObjectName(QStringLiteral("erodeSlider"));
-        erodeSlider->setTracking(true);
-        erodeSlider->setOrientation(Qt::Horizontal);
-        erodeSlider->setTickPosition(QSlider::TicksBelow);
+        topFrameWidget = new CQtOpenCVViewerGl(centralwidget);
+        topFrameWidget->setObjectName(QStringLiteral("topFrameWidget"));
 
-        gridLayout->addWidget(erodeSlider, 3, 0, 1, 1);
-
-        lowThLabel = new QLabel(widget);
-        lowThLabel->setObjectName(QStringLiteral("lowThLabel"));
-
-        gridLayout->addWidget(lowThLabel, 0, 1, 1, 1);
-
-        thresholdHighSlider = new QSlider(widget);
-        thresholdHighSlider->setObjectName(QStringLiteral("thresholdHighSlider"));
-        thresholdHighSlider->setOrientation(Qt::Horizontal);
-        thresholdHighSlider->setTickPosition(QSlider::TicksBelow);
-
-        gridLayout->addWidget(thresholdHighSlider, 1, 0, 1, 1);
-
-        erodeLabel = new QLabel(widget);
-        erodeLabel->setObjectName(QStringLiteral("erodeLabel"));
-
-        gridLayout->addWidget(erodeLabel, 3, 1, 1, 1);
-
-        dilateSlider = new QSlider(widget);
-        dilateSlider->setObjectName(QStringLiteral("dilateSlider"));
-        dilateSlider->setOrientation(Qt::Horizontal);
-        dilateSlider->setTickPosition(QSlider::TicksBelow);
-
-        gridLayout->addWidget(dilateSlider, 2, 0, 1, 1);
-
-        highThLabel = new QLabel(widget);
-        highThLabel->setObjectName(QStringLiteral("highThLabel"));
-
-        gridLayout->addWidget(highThLabel, 1, 1, 1, 1);
-
-        dilateLabel = new QLabel(widget);
-        dilateLabel->setObjectName(QStringLiteral("dilateLabel"));
-
-        gridLayout->addWidget(dilateLabel, 2, 1, 1, 1);
-
-
-        gridLayout_2->addWidget(groupParameters, 0, 1, 1, 2);
+        gridLayout_2->addWidget(topFrameWidget, 0, 0, 1, 1);
 
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
@@ -194,15 +146,91 @@ public:
 
         gridLayout_2->addWidget(groupBox_2, 1, 1, 1, 1);
 
-        bottomFrameWidget = new CQtOpenCVViewerGl(centralwidget);
-        bottomFrameWidget->setObjectName(QStringLiteral("bottomFrameWidget"));
+        groupParameters = new QGroupBox(centralwidget);
+        groupParameters->setObjectName(QStringLiteral("groupParameters"));
+        groupParameters->setEnabled(true);
+        groupParameters->setCheckable(false);
+        layoutWidget = new QWidget(groupParameters);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 20, 281, 203));
+        gridLayout = new QGridLayout(layoutWidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        dilateLabelVL = new QLabel(layoutWidget);
+        dilateLabelVL->setObjectName(QStringLiteral("dilateLabelVL"));
 
-        gridLayout_2->addWidget(bottomFrameWidget, 1, 0, 1, 1);
+        gridLayout->addWidget(dilateLabelVL, 4, 1, 1, 1);
 
-        topFrameWidget = new CQtOpenCVViewerGl(centralwidget);
-        topFrameWidget->setObjectName(QStringLiteral("topFrameWidget"));
+        dilateSliderVL = new QSlider(layoutWidget);
+        dilateSliderVL->setObjectName(QStringLiteral("dilateSliderVL"));
+        dilateSliderVL->setOrientation(Qt::Horizontal);
+        dilateSliderVL->setTickPosition(QSlider::TicksBelow);
 
-        gridLayout_2->addWidget(topFrameWidget, 0, 0, 1, 1);
+        gridLayout->addWidget(dilateSliderVL, 4, 0, 1, 1);
+
+        dilateSlider = new QSlider(layoutWidget);
+        dilateSlider->setObjectName(QStringLiteral("dilateSlider"));
+        dilateSlider->setOrientation(Qt::Horizontal);
+        dilateSlider->setTickPosition(QSlider::TicksBelow);
+
+        gridLayout->addWidget(dilateSlider, 2, 0, 1, 1);
+
+        dilateLabel = new QLabel(layoutWidget);
+        dilateLabel->setObjectName(QStringLiteral("dilateLabel"));
+
+        gridLayout->addWidget(dilateLabel, 2, 1, 1, 1);
+
+        erodeLabelVL = new QLabel(layoutWidget);
+        erodeLabelVL->setObjectName(QStringLiteral("erodeLabelVL"));
+
+        gridLayout->addWidget(erodeLabelVL, 5, 1, 1, 1);
+
+        erodeSlider = new QSlider(layoutWidget);
+        erodeSlider->setObjectName(QStringLiteral("erodeSlider"));
+        erodeSlider->setTracking(true);
+        erodeSlider->setOrientation(Qt::Horizontal);
+        erodeSlider->setTickPosition(QSlider::TicksBelow);
+
+        gridLayout->addWidget(erodeSlider, 3, 0, 1, 1);
+
+        erodeLabel = new QLabel(layoutWidget);
+        erodeLabel->setObjectName(QStringLiteral("erodeLabel"));
+
+        gridLayout->addWidget(erodeLabel, 3, 1, 1, 1);
+
+        thresholdLowSlider = new QSlider(layoutWidget);
+        thresholdLowSlider->setObjectName(QStringLiteral("thresholdLowSlider"));
+        thresholdLowSlider->setOrientation(Qt::Horizontal);
+        thresholdLowSlider->setTickPosition(QSlider::TicksBelow);
+
+        gridLayout->addWidget(thresholdLowSlider, 0, 0, 1, 1);
+
+        thresholdHighSlider = new QSlider(layoutWidget);
+        thresholdHighSlider->setObjectName(QStringLiteral("thresholdHighSlider"));
+        thresholdHighSlider->setOrientation(Qt::Horizontal);
+        thresholdHighSlider->setTickPosition(QSlider::TicksBelow);
+
+        gridLayout->addWidget(thresholdHighSlider, 1, 0, 1, 1);
+
+        highThLabel = new QLabel(layoutWidget);
+        highThLabel->setObjectName(QStringLiteral("highThLabel"));
+
+        gridLayout->addWidget(highThLabel, 1, 1, 1, 1);
+
+        lowThLabel = new QLabel(layoutWidget);
+        lowThLabel->setObjectName(QStringLiteral("lowThLabel"));
+
+        gridLayout->addWidget(lowThLabel, 0, 1, 1, 1);
+
+        erodeSliderVL = new QSlider(layoutWidget);
+        erodeSliderVL->setObjectName(QStringLiteral("erodeSliderVL"));
+        erodeSliderVL->setOrientation(Qt::Horizontal);
+        erodeSliderVL->setTickPosition(QSlider::TicksBelow);
+
+        gridLayout->addWidget(erodeSliderVL, 5, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupParameters, 0, 1, 1, 2);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -229,10 +257,12 @@ public:
 
         retranslateUi(MainWindow);
         QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(onStart()));
-        QObject::connect(dilateSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
-        QObject::connect(erodeSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChanged(int)));
         QObject::connect(thresholdHighSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onHighThValueChanged(int)));
+        QObject::connect(erodeSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChanged(int)));
         QObject::connect(thresholdLowSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onLowThValueChanged(int)));
+        QObject::connect(dilateSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
+        QObject::connect(erodeSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
+        QObject::connect(dilateSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChanged(int)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -244,11 +274,6 @@ public:
         actionFile->setText(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         actionDebug_Layout->setText(QApplication::translate("MainWindow", "Debug Layout", Q_NULLPTR));
         actionRelease_Layout->setText(QApplication::translate("MainWindow", "Release Layout", Q_NULLPTR));
-        groupParameters->setTitle(QApplication::translate("MainWindow", "Parameters", Q_NULLPTR));
-        lowThLabel->setText(QApplication::translate("MainWindow", "Threshold Low", Q_NULLPTR));
-        erodeLabel->setText(QApplication::translate("MainWindow", "Erode", Q_NULLPTR));
-        highThLabel->setText(QApplication::translate("MainWindow", "Threshold High", Q_NULLPTR));
-        dilateLabel->setText(QApplication::translate("MainWindow", "Dilate", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("MainWindow", "Output Values", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "GroupBox", Q_NULLPTR));
         radioButton->setText(QApplication::translate("MainWindow", "Original Image", Q_NULLPTR));
@@ -256,6 +281,13 @@ public:
         radioButton_3->setText(QApplication::translate("MainWindow", "Eroded Image", Q_NULLPTR));
         radioButton_4->setText(QApplication::translate("MainWindow", "Dilated Image", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        groupParameters->setTitle(QApplication::translate("MainWindow", "Parameters", Q_NULLPTR));
+        dilateLabelVL->setText(QApplication::translate("MainWindow", "VL Dilate", Q_NULLPTR));
+        dilateLabel->setText(QApplication::translate("MainWindow", "Dilate", Q_NULLPTR));
+        erodeLabelVL->setText(QApplication::translate("MainWindow", "VL Erode", Q_NULLPTR));
+        erodeLabel->setText(QApplication::translate("MainWindow", "Erode", Q_NULLPTR));
+        highThLabel->setText(QApplication::translate("MainWindow", "Threshold High", Q_NULLPTR));
+        lowThLabel->setText(QApplication::translate("MainWindow", "Threshold Low", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuOpen->setTitle(QApplication::translate("MainWindow", "Open", Q_NULLPTR));
         menuView->setTitle(QApplication::translate("MainWindow", "View", Q_NULLPTR));

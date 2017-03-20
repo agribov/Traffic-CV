@@ -9,7 +9,7 @@ using namespace cv;
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow),
-	tracker(new VehicleTracker(0, 50, 0, 0))
+	tracker(new VehicleTracker(0, 50, 0, 0, 0, 0))
 {
 	//tracker = new VehicleTracker(lowHueVal, highHueVal, dilateVal, erodeVal);
 	//tracker = new VehicleTracker();
@@ -23,16 +23,31 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->dilateSlider->setMaximum(100);
 	ui->erodeSlider->setMinimum(0);
 	ui->erodeSlider->setMaximum(100);
+	//For VL Camera
+	ui->dilateSliderVL->setMinimum(0);
+	ui->dilateSliderVL->setMaximum(100);
+	ui->erodeSliderVL->setMinimum(0);
+	ui->erodeSliderVL->setMaximum(100);
+	//End VL Camera
+
 
 	lowHueVal = 0;
 	highHueVal = 50;
 	dilateVal = 0;
 	erodeVal = 0;
+	//For VL Camera
+	dilateValVL = 0;
+	erodeValVL = 0;
+	//End VL Camera
 
 	ui->thresholdLowSlider->setValue(lowHueVal);
 	ui->thresholdHighSlider->setValue(highHueVal);
 	ui->dilateSlider->setValue(dilateVal);
 	ui->erodeSlider->setValue(erodeVal);
+	//For VL Camera
+	ui->dilateSliderVL->setValue(dilateValVL);
+	ui->erodeSliderVL->setValue(erodeValVL);
+	//End VL Camera
 }
 
 MainWindow::~MainWindow()
@@ -71,7 +86,8 @@ void MainWindow::onStart() {
 
 	char* sampleVideo1 = "thermalSample.mp4";
 	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
-	pCap = initializeVideo(sampleVideo1); // This functions defined in videoHelper.cpp
+	char* vlsampleVideo1 = "FroggerHighway.mp4"; //visual light test video.
+	pCap = initializeVideo(sampleVideo2); // This functions defined in videoHelper.cpp
 
 	startTimer(50);
 
@@ -96,3 +112,14 @@ void MainWindow::onErodeValueChanged(int val) {
 	erodeVal = val;
 	tracker->setErosionVal(val);
 }
+//For VL Camera
+void MainWindow::onDilateValueChangedVL(int val) {
+	erodeValVL = val;
+	tracker->setDilationValVL(val);
+}
+
+void MainWindow::onErodeValueChangedVL(int val) {
+	dilateValVL = val;
+	tracker->setErosionValVL(val);
+}
+//End VL Camera
