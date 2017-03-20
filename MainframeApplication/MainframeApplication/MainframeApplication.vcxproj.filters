@@ -105,6 +105,9 @@
     <ClInclude Include="GeneratedFiles\ui_CQtOpenCVViewerGl.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MainframeApplication.pro">
@@ -118,5 +121,22 @@
     <Media Include="4th_floor_ball_2-23-2017.mp4">
       <Filter>Resource Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTemplate.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomLeft.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTopLeft.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTopRight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -41,14 +41,6 @@ public:
     QGridLayout *gridLayout_2;
     CQtOpenCVViewerGl *topFrameWidget;
     CQtOpenCVViewerGl *bottomFrameWidget;
-    QGroupBox *groupBox_2;
-    QVBoxLayout *verticalLayout;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton_3;
-    QRadioButton *radioButton_4;
-    QPushButton *pushButton;
-    QGroupBox *groupBox;
     QGroupBox *groupParameters;
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
@@ -60,9 +52,19 @@ public:
     QLabel *erodeLabel;
     QSlider *thresholdHighSlider;
     QSlider *thresholdLowSlider;
-    QGroupBox *groupBox_3;
     QRadioButton *radioButton_5;
     QRadioButton *radioButton_6;
+    QRadioButton *radioButton_7;
+    QRadioButton *radioButton_8;
+    QGroupBox *groupBox;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout;
+    QRadioButton *radioButton;
+    QRadioButton *radioButton_2;
+    QRadioButton *radioButton_3;
+    QRadioButton *radioButton_4;
+    QPushButton *pushButton;
+    QLabel *mylabel;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuOpen;
@@ -74,7 +76,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(768, 535);
+        MainWindow->resize(770, 598);
         MainWindow->setAcceptDrops(false);
         MainWindow->setDocumentMode(false);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
@@ -84,11 +86,12 @@ public:
         actionFile->setObjectName(QStringLiteral("actionFile"));
         actionDebug_Layout = new QAction(MainWindow);
         actionDebug_Layout->setObjectName(QStringLiteral("actionDebug_Layout"));
-        actionDebug_Layout->setCheckable(true);
-        actionDebug_Layout->setChecked(true);
+        actionDebug_Layout->setCheckable(false);
+        actionDebug_Layout->setChecked(false);
         actionRelease_Layout = new QAction(MainWindow);
         actionRelease_Layout->setObjectName(QStringLiteral("actionRelease_Layout"));
-        actionRelease_Layout->setCheckable(true);
+        actionRelease_Layout->setCheckable(false);
+        actionRelease_Layout->setMenuRole(QAction::ApplicationSpecificRole);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
@@ -102,48 +105,6 @@ public:
         bottomFrameWidget->setObjectName(QStringLiteral("bottomFrameWidget"));
 
         gridLayout_2->addWidget(bottomFrameWidget, 1, 0, 1, 1);
-
-        groupBox_2 = new QGroupBox(centralwidget);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy);
-        verticalLayout = new QVBoxLayout(groupBox_2);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        radioButton = new QRadioButton(groupBox_2);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-
-        verticalLayout->addWidget(radioButton);
-
-        radioButton_2 = new QRadioButton(groupBox_2);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-
-        verticalLayout->addWidget(radioButton_2);
-
-        radioButton_3 = new QRadioButton(groupBox_2);
-        radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
-
-        verticalLayout->addWidget(radioButton_3);
-
-        radioButton_4 = new QRadioButton(groupBox_2);
-        radioButton_4->setObjectName(QStringLiteral("radioButton_4"));
-
-        verticalLayout->addWidget(radioButton_4);
-
-        pushButton = new QPushButton(groupBox_2);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        verticalLayout->addWidget(pushButton);
-
-
-        gridLayout_2->addWidget(groupBox_2, 1, 1, 1, 1);
-
-        groupBox = new QGroupBox(centralwidget);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-
-        gridLayout_2->addWidget(groupBox, 1, 2, 1, 1);
 
         groupParameters = new QGroupBox(centralwidget);
         groupParameters->setObjectName(QStringLiteral("groupParameters"));
@@ -204,25 +165,72 @@ public:
 
         gridLayout->addWidget(thresholdLowSlider, 0, 0, 1, 1);
 
-        groupBox_3 = new QGroupBox(groupParameters);
-        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setGeometry(QRect(300, 20, 131, 171));
-        radioButton_5 = new QRadioButton(groupBox_3);
+        radioButton_5 = new QRadioButton(groupParameters);
         radioButton_5->setObjectName(QStringLiteral("radioButton_5"));
-        radioButton_5->setGeometry(QRect(10, 20, 82, 17));
-        radioButton_6 = new QRadioButton(groupBox_3);
+        radioButton_5->setGeometry(QRect(10, 210, 131, 17));
+        radioButton_6 = new QRadioButton(groupParameters);
         radioButton_6->setObjectName(QStringLiteral("radioButton_6"));
-        radioButton_6->setGeometry(QRect(10, 50, 91, 17));
-        layoutWidget->raise();
-        groupBox_3->raise();
-        groupBox_3->raise();
+        radioButton_6->setGeometry(QRect(10, 240, 121, 17));
+        radioButton_7 = new QRadioButton(groupParameters);
+        radioButton_7->setObjectName(QStringLiteral("radioButton_7"));
+        radioButton_7->setGeometry(QRect(10, 270, 131, 17));
+        radioButton_8 = new QRadioButton(groupParameters);
+        radioButton_8->setObjectName(QStringLiteral("radioButton_8"));
+        radioButton_8->setGeometry(QRect(10, 300, 101, 17));
 
-        gridLayout_2->addWidget(groupParameters, 0, 1, 1, 2);
+        gridLayout_2->addWidget(groupParameters, 0, 1, 2, 2);
+
+        groupBox = new QGroupBox(centralwidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+
+        gridLayout_2->addWidget(groupBox, 2, 2, 1, 1);
+
+        groupBox_2 = new QGroupBox(centralwidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy);
+        verticalLayout = new QVBoxLayout(groupBox_2);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        radioButton = new QRadioButton(groupBox_2);
+        radioButton->setObjectName(QStringLiteral("radioButton"));
+
+        verticalLayout->addWidget(radioButton);
+
+        radioButton_2 = new QRadioButton(groupBox_2);
+        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
+
+        verticalLayout->addWidget(radioButton_2);
+
+        radioButton_3 = new QRadioButton(groupBox_2);
+        radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
+
+        verticalLayout->addWidget(radioButton_3);
+
+        radioButton_4 = new QRadioButton(groupBox_2);
+        radioButton_4->setObjectName(QStringLiteral("radioButton_4"));
+
+        verticalLayout->addWidget(radioButton_4);
+
+        pushButton = new QPushButton(groupBox_2);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        verticalLayout->addWidget(pushButton);
+
+
+        gridLayout_2->addWidget(groupBox_2, 2, 1, 1, 1);
+
+        mylabel = new QLabel(centralwidget);
+        mylabel->setObjectName(QStringLiteral("mylabel"));
+
+        gridLayout_2->addWidget(mylabel, 2, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 768, 21));
+        menubar->setGeometry(QRect(0, 0, 770, 21));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOpen = new QMenu(menuFile);
@@ -252,8 +260,12 @@ public:
         QObject::connect(radioButton_3, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonErode(bool)));
         QObject::connect(radioButton_4, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonDilate(bool)));
         QObject::connect(radioButton, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonOriginalImage(bool)));
-        QObject::connect(radioButton_5, SIGNAL(toggled(bool)), MainWindow, SLOT(showView1(bool)));
-        QObject::connect(radioButton_6, SIGNAL(toggled(bool)), MainWindow, SLOT(showView2(bool)));
+        QObject::connect(menubar, SIGNAL(triggered(QAction*)), MainWindow, SLOT(onStart()));
+        QObject::connect(mylabel, SIGNAL(linkActivated(QString)), MainWindow, SLOT(onStart()));
+        QObject::connect(radioButton_5, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView1(bool)));
+        QObject::connect(radioButton_7, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView3(bool)));
+        QObject::connect(radioButton_6, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView2(bool)));
+        QObject::connect(radioButton_8, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView4(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -265,21 +277,23 @@ public:
         actionFile->setText(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         actionDebug_Layout->setText(QApplication::translate("MainWindow", "Debug Layout", Q_NULLPTR));
         actionRelease_Layout->setText(QApplication::translate("MainWindow", "Release Layout", Q_NULLPTR));
+        groupParameters->setTitle(QApplication::translate("MainWindow", "Parameters", Q_NULLPTR));
+        lowThLabel->setText(QApplication::translate("MainWindow", "Threshold Low", Q_NULLPTR));
+        highThLabel->setText(QApplication::translate("MainWindow", "Threshold High", Q_NULLPTR));
+        dilateLabel->setText(QApplication::translate("MainWindow", "Dilate", Q_NULLPTR));
+        erodeLabel->setText(QApplication::translate("MainWindow", "Erode", Q_NULLPTR));
+        radioButton_5->setText(QApplication::translate("MainWindow", "View 1 (Bottom Right)", Q_NULLPTR));
+        radioButton_6->setText(QApplication::translate("MainWindow", "View 2 (Bottom Left)", Q_NULLPTR));
+        radioButton_7->setText(QApplication::translate("MainWindow", "View 3 (Top Right)", Q_NULLPTR));
+        radioButton_8->setText(QApplication::translate("MainWindow", "View 4 (Top Left)", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Output Values", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Debug Output", Q_NULLPTR));
         radioButton->setText(QApplication::translate("MainWindow", "Original Image", Q_NULLPTR));
         radioButton_2->setText(QApplication::translate("MainWindow", "Thresholded Image", Q_NULLPTR));
         radioButton_3->setText(QApplication::translate("MainWindow", "Eroded Image", Q_NULLPTR));
         radioButton_4->setText(QApplication::translate("MainWindow", "Dilated Image", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("MainWindow", "Output Values", Q_NULLPTR));
-        groupParameters->setTitle(QApplication::translate("MainWindow", "Parameters", Q_NULLPTR));
-        lowThLabel->setText(QApplication::translate("MainWindow", "Threshold Low", Q_NULLPTR));
-        highThLabel->setText(QApplication::translate("MainWindow", "Threshold High", Q_NULLPTR));
-        dilateLabel->setText(QApplication::translate("MainWindow", "Dilate", Q_NULLPTR));
-        erodeLabel->setText(QApplication::translate("MainWindow", "Erode", Q_NULLPTR));
-        groupBox_3->setTitle(QApplication::translate("MainWindow", "View", Q_NULLPTR));
-        radioButton_5->setText(QApplication::translate("MainWindow", "Test Video", Q_NULLPTR));
-        radioButton_6->setText(QApplication::translate("MainWindow", "University Ave", Q_NULLPTR));
+        mylabel->setText(QApplication::translate("MainWindow", "TextLabel", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuOpen->setTitle(QApplication::translate("MainWindow", "Open", Q_NULLPTR));
         menuView->setTitle(QApplication::translate("MainWindow", "View", Q_NULLPTR));

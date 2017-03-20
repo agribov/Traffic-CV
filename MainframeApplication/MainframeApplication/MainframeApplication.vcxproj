@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_CQtOpenCVViewerGl.h" />
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="CQtOpenCVViewerGl.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CQtOpenCVViewerGl.h...</Message>
@@ -280,6 +281,13 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="4th_floor_ball_2-23-2017.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomLeft.png" />
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomRight.png" />
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTemplate.png" />
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTopLeft.png" />
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTopRight.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07132E0C-A9DB-4EDA-ABF2-B3E1D68ED4FC}</ProjectGuid>

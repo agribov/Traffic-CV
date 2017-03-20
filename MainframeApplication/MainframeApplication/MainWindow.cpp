@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->thresholdHighSlider->setValue(highHueVal);
 	ui->dilateSlider->setValue(dilateVal);
 	ui->erodeSlider->setValue(erodeVal);
+	ui->mylabel->show();
+
 }
 
 MainWindow::~MainWindow()
@@ -53,8 +55,8 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 	tracker->update(inputFrame);
 	outputFrame = tracker->getTrackedFrame();
 	debugFrame = tracker->getEroded();
-
-	//begin switch statement
+	
+	//begin switch statement for filters
 	int sVal = getButtonVal();
 	switch (sVal) {
 	case 0: debugFrame = tracker->getEroded();
@@ -71,10 +73,50 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		exit(EXIT_FAILURE);
 		break;
 	}
+
+	//set up local files so show to display temporarily
+	//these need to be used as resource files but I'm having troubles
+	char* mapTemp = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapTemplate.png";
+	char* mapBR = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapBottomRight.png";
+	char* mapBL = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapBottomLeft.png";
+	char* mapTR = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapTopRight.png";
+	char* mapTL = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapTopLeft.png";
+
+	char* sampleVideo1 = "thermalSample.mp4";
+	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
+
+	char* mapObj;
+	char* videoObj;
+
+	int vVal = getViewVal();
+	switch (vVal) {
+	case 0: mapObj = mapTemp;
+		//videoObj = sampleVideo1;	
+		break;
+	case 1: mapObj = mapBR;
+	//	videoObj = sampleVideo1;
+		break;
+	case 2: mapObj = mapBL;
+	//	videoObj = sampleVideo2;
+		break;
+	case 3: mapObj = mapTR; 
+	//	videoObj = sampleVideo1;
+		break;
+	case 4: mapObj = mapTL;
+	//	videoObj = sampleVideo2;
+		break;
+	default: cerr << "view button value invalid, exiting..." << endl;
+		exit(EXIT_FAILURE);
+		break;
+	}
+
+	QPixmap pixmapObject(mapObj);
+	//pCap = initializeVideo(videoObj);
 	
 	// Show the image
 	ui->topFrameWidget->showImage(outputFrame);
 	ui->bottomFrameWidget->showImage(debugFrame);
+	ui->mylabel->setPixmap(pixmapObject);
 
 }
 
@@ -89,13 +131,23 @@ void MainWindow::onStart() {
 
 	char* sampleVideo1 = "thermalSample.mp4";
 	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
+	char* mapTemp = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapTemplate.png";
+	char* mapBR = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapBottomRight.png";
+	char* mapBL = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapBottomLeft.png";
+	char* mapTR = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapTopRight.png";
+	char* mapTL = "C:/Users/Shawn/Documents/Molly's Stuff/School/Capstone/mapTopLeft.png";
+	char* rsTemp = "mapTemplate.png";// using a direct path works but including a resource file does not
 	
 	pCap = initializeVideo(sampleVideo1);
 
 	startTimer(50);
 
+	QPixmap pixmapObject(mapTemp);
+	ui->mylabel->setPixmap(pixmapObject);
+	
 	return;
 }
+
 //buttons for the ui, setting booleans to numerical 
 //values to use in a switch statement.
 void MainWindow::buttonOriginalWindow(bool val){
@@ -119,13 +171,21 @@ void MainWindow::buttonDilate(bool val){
 }
 // Setting up buttons to change views in debug
 
-void MainWindow::showView1(bool val) {
+void MainWindow::buttonView1(bool val) {
 	if (val == TRUE)
 		setViewVal(1);
 }
-void MainWindow::showView2(bool val) {
+void MainWindow::buttonView2(bool val) {
 	if (val == TRUE)
 		setViewVal(2);
+}
+void MainWindow::buttonView3(bool val) {
+	if (val == TRUE)
+		setViewVal(3);
+}
+void MainWindow::buttonView4(bool val) {
+	if (val == TRUE)
+		setViewVal(4);
 }
 
 // trackbar ui 

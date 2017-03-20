@@ -25,13 +25,15 @@ public:
 private slots:
 	void onStart();
 
+	void buttonView1(bool val);
+	void buttonView2(bool val);
+	void buttonView3(bool val);
+	void buttonView4(bool val);
+
 	void buttonOriginalWindow(bool val);
 	void buttonThreshold(bool val);
 	void buttonErode(bool val);
 	void buttonDilate(bool val);
-
-	void showView1(bool val);
-	void showView2(bool val);
 
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);

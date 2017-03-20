@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>768</width>
-    <height>535</height>
+    <width>770</width>
+    <height>598</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -33,64 +33,7 @@
     <item row="1" column="0">
      <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
     </item>
-    <item row="1" column="1">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="title">
-       <string>Debug Output</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="text">
-          <string>Original Image</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_2">
-         <property name="text">
-          <string>Thresholded Image</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_3">
-         <property name="text">
-          <string>Eroded Image</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_4">
-         <property name="text">
-          <string>Dilated Image</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string>Output Values</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="2">
+    <item row="0" column="1" rowspan="2" colspan="2">
      <widget class="QGroupBox" name="groupParameters">
       <property name="enabled">
        <bool>true</bool>
@@ -184,6 +127,122 @@
         </item>
        </layout>
       </widget>
+      <widget class="QRadioButton" name="radioButton_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>210</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 1 (Bottom Right)</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>240</y>
+         <width>121</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 2 (Bottom Left)</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>270</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 3 (Top Right)</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>300</y>
+         <width>101</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 4 (Top Left)</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Output Values</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="title">
+       <string>Debug Output</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QRadioButton" name="radioButton">
+         <property name="text">
+          <string>Original Image</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_2">
+         <property name="text">
+          <string>Thresholded Image</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_3">
+         <property name="text">
+          <string>Eroded Image</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_4">
+         <property name="text">
+          <string>Dilated Image</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Start</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="mylabel">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -193,7 +252,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>768</width>
+     <width>770</width>
      <height>21</height>
     </rect>
    </property>
@@ -233,10 +292,10 @@
   </action>
   <action name="actionDebug_Layout">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Debug Layout</string>
@@ -244,10 +303,13 @@
   </action>
   <action name="actionRelease_Layout">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Release Layout</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>
@@ -268,11 +330,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>441</x>
-     <y>478</y>
+     <y>546</y>
     </hint>
     <hint type="destinationlabel">
-     <x>99</x>
-     <y>528</y>
+     <x>314</x>
+     <y>559</y>
     </hint>
    </hints>
   </connection>
@@ -347,8 +409,8 @@
    <slot>buttonThreshold(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>433</x>
-     <y>350</y>
+     <x>441</x>
+     <y>459</y>
     </hint>
     <hint type="destinationlabel">
      <x>460</x>
@@ -363,8 +425,8 @@
    <slot>buttonErode(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>411</x>
-     <y>386</y>
+     <x>441</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
@@ -379,8 +441,8 @@
    <slot>buttonDilate(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>410</x>
-     <y>429</y>
+     <x>441</x>
+     <y>513</y>
     </hint>
     <hint type="destinationlabel">
      <x>460</x>
@@ -395,12 +457,108 @@
    <slot>buttonOriginalImage(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>416</x>
-     <y>317</y>
+     <x>441</x>
+     <y>432</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
      <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>menubar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onStart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>356</x>
+     <y>27</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mylabel</sender>
+   <signal>linkActivated(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onStart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>398</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>251</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_7</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView3(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>332</x>
+     <y>309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_6</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>378</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_8</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView4(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>314</x>
+     <y>340</y>
     </hint>
    </hints>
   </connection>
@@ -418,5 +576,9 @@
   <slot>buttonOriginalImage(bool)</slot>
   <slot>showView1(bool)</slot>
   <slot>showView2(bool)</slot>
+  <slot>buttonView1(bool)</slot>
+  <slot>buttonView2(bool)</slot>
+  <slot>buttonView3(bool)</slot>
+  <slot>buttonView4(bool)</slot>
  </slots>
 </ui>
