@@ -21,14 +21,14 @@ private:
 	// Private variables
 	// NOTE: Most variables are updated during the update(Mat frame) function. 
 	// Please see it's definition in vehicleTracker.cpp for more info
-	std::vector<std::vector<Vehicle>> vehicles;
+	std::vector<Vehicle> vehicles;
 	cv::Mat frame; // Stores current frame
 	cv::Mat lowThFrame; // UNUSED CURRENTLY
 	cv::Mat highThFrame; // Stores image thresholded for hot-spots
 	cv::Mat foregroundFrame; // Stores frame after background subtraction
 	cv::Mat erodedFrame; // Stores frame after erosion
 	cv::Mat dilatedFrame; // Stores frame after dilation
-	std::vector<std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
+	std::vector < std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
 	//For VL Camera
 	std::vector<Vehicle> vlvehicles;
@@ -50,15 +50,9 @@ private:
 
 	int erosionVal, dilationVal;
 	int lowHue, highHue;
-
-	std::vector<std::vector<cv::Point>> borders;
-	std::vector<cv::Point> inboundBorder;
-	std::vector<cv::Point> outboundBorder;
-
 	//For VL Camera
 	int mog2thVal; //Threshold value for MOG2
 	//End VL Camera
-
 
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
@@ -70,7 +64,7 @@ private:
 	//cv::Mat bgSubtractionMOG(cv::Mat inputFrame); //Maybe nolonger in OpenCV core.
 	//End VL Camera
 	void findVehicleContours(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
-	void updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary);
+	void updateVehicleList();
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
 public:
 	VehicleTracker::VehicleTracker();
