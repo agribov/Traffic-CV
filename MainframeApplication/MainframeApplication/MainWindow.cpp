@@ -23,16 +23,32 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->dilateSlider->setMaximum(100);
 	ui->erodeSlider->setMinimum(0);
 	ui->erodeSlider->setMaximum(100);
+	//For VL Camera
+	//ui->dilateVLSlider->setMinimum(0);
+	//ui->dilateVLSlider->setMaximum(100);
+	//ui->erodeVLSlider->setMinimum(0);
+	//ui->erodeVLSlider->setMaximum(100);
+	//End VL Camera
+
 
 	lowHueVal = 0;
 	highHueVal = 50;
 	dilateVal = 0;
 	erodeVal = 0;
+	//For VL Camera
+	dilateValVL = 0;
+	erodeValVL = 0;
+	//End VL Camera
 
 	ui->thresholdLowSlider->setValue(lowHueVal);
 	ui->thresholdHighSlider->setValue(highHueVal);
 	ui->dilateSlider->setValue(dilateVal);
 	ui->erodeSlider->setValue(erodeVal);
+	//For VL Camera
+	//ui->dilateVLSlider->setValue(dilateValVL);
+	//ui->erodeVLSlider->setValue(erodeValVL);
+	//End VL Camera
+
 }
 
 MainWindow::~MainWindow()
@@ -97,3 +113,15 @@ void MainWindow::onErodeValueChanged(int val) {
 	erodeVal = val;
 	tracker->setErosionVal(val);
 }
+//For VL Camera
+void MainWindow::onDilateValueChangedVL(int val) {
+	erodeValVL = val;
+	tracker->setDilationValVL(val);
+
+}
+
+void MainWindow::onErodeValueChangedVL(int val) {
+	dilateValVL = val;
+	tracker->setErosionValVL(val);
+}
+//End VL Camera

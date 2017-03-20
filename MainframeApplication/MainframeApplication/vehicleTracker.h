@@ -51,6 +51,7 @@ private:
 	int erosionVal, dilationVal;
 	int lowHue, highHue;
 	//For VL Camera
+	int erosionValVL, dilationValVL;
 	int mog2thVal; //Threshold value for MOG2
 	//End VL Camera
 
@@ -83,6 +84,8 @@ public:
 	void setErosionVal(int val) { erosionVal = val; };
 	void setDilationVal(int val) { dilationVal = val; };
 	//For VL Camera
+	void setErosionValVL(int val) { erosionValVL = val; };
+	void setDilationValVL(int val) { dilationValVL = val; };
 	void setMOG2ThVal(int val) { mog2thVal = val; }; //Threshold value for MOG2
 	//End VL Camera
 };
