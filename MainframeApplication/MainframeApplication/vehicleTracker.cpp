@@ -30,30 +30,11 @@ VehicleTracker::VehicleTracker() {
 
 VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil = 0) {
 	// Initialize the class. 
-	Point temp;
-
 	lowHue = lHue;
 	highHue = hHue;
 	erosionVal = er;
 	dilationVal = dil;
-
-	temp.x = 500;
-	temp.y = 250;
-	inboundBorder.push_back(temp);
-	temp.x = 0;
-	temp.y = 30;
-	inboundBorder.push_back(temp);
-
-	temp.x = 0;
-	temp.y = 150;
-	inboundBorder.push_back(temp);
-
-	temp.x = 200;
-	temp.y = 400;
-	inboundBorder.push_back(temp);
-
-	borders.push_back(inboundBorder);
-} 
+}
 
 vector<Point> VehicleTracker::getVehiclePositions() {
 	// From list of vehicles in self.vehicles:
@@ -62,7 +43,7 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 	vector<Point> positions;
 	//printf("%d\n", vehicles.size());
 	for (int i = 0; i < vehicles.size(); i++)
-		positions.push_back(vehicles[0][i].getPosition());
+		positions.push_back(vehicles[i].getPosition());
 
 	return positions;
 }
@@ -148,7 +129,7 @@ void VehicleTracker::update(Mat currentFrame) {
 		Vehicle x(centroids[i]);
 		tempList.push_back(x);
 	}
-	vehicles[1] = tempList;
+	vehicles = tempList;
 	currentCarCount = 0;
 	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
@@ -207,22 +188,16 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 	vector<Point> center;
 	Rect rect;
 	const Scalar GREEN = Scalar(0, 255, 0);  //Assuming BGR color space.
-	const Scalar RED = Scalar(0, 0, 255);  //Assuming BGR color space.
-	Scalar COLOR;
 
 	for (int i = 0; i < getVehiclePositions().size(); i++)
 	{
 		Point temp;
 		temp.x = getVehiclePositions()[i].x;	//find more efficient method
 		temp.y = getVehiclePositions()[i].y;
-		COLOR = (pointPolygonTest(inboundBorder, temp, false) >= 0) ? GREEN : RED;
-		rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), COLOR, 3);	//Rectangle vertices are arbitrarily set.
+		rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), GREEN, 3);	//Rectangle vertices are arbitrarily set.
 		currentCarCount++;
 	}
 	//printf("%d\n", getVehiclePositions().size());
-
-	arrowedLine(frame, inboundBorder[0], inboundBorder[1], GREEN, 3);
-	arrowedLine(frame, inboundBorder[2], inboundBorder[3], GREEN, 3);
 
 }
 //PRIVATE FUNCTIONS:
@@ -280,8 +255,6 @@ void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &
 	return;
 }
 
-void VehicleTracker::updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary) {
-	
-
+void VehicleTracker::updateVehicleList() {
 	return;
 }
