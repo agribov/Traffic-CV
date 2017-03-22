@@ -29,6 +29,7 @@ VehicleTracker::VehicleTracker() {
 	//For VL Camera
 	erosionValVL = 0;
 	dilationValVL = 0;
+	//End VL Camera
 }
 
 VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil = 0, int erVL = 0, int dilVL = 0) {
@@ -78,6 +79,8 @@ void VehicleTracker::update(Mat currentFrame) {
 	imshow("No Subtraction", frame);
 	highThFrame = bgSubtractionMOG2(frame);
 	imshow("MOG2", highThFrame);
+	//erodedFrame = erodeFrame(highThFrame, erosionValVL);
+
 
 	// Step 3: Use erode function (built into this class) to eliminate noise
 	// Step 3b: Other noise-eliminating functions? (**SPIF)

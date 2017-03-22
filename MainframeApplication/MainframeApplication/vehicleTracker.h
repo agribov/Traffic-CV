@@ -78,6 +78,7 @@ public:
 	cv::Mat getDilated() { return dilatedFrame; }
 	//For VL Camera
 	void updatevl(cv::Mat vlcurrentFrame); // For visible light camera: This function is called to update the algorithm when a new frame is available
+	//cv::Mat getEroded() {return vlerodedFrame} //
 	//End VL Camera
 	void setLowThVal(int val) { lowHue = val; };
 	void setHighThVal(int val) { highHue = val; };
