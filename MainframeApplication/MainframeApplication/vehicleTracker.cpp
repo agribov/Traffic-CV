@@ -57,9 +57,15 @@ void onMouse(int event, int x, int y, int flags, void* userData)
 {
 	if (event != EVENT_LBUTTONDOWN)
 		return;
-//Save coordinates of left button click
+	//Save coordinates of left button click
 	if (event == EVENT_LBUTTONDOWN)
+	{
+		static vector<Point> vCoordinates;
+		vCoordinates.push_back(Point(x, y));
+
 		cout << "Left Button of mouse was clicked at position(" << x << "," << y << ")" << endl;
+		cout << "Vector coordinates" << vCoordinates << endl;
+	}
 }
 /////////////////////////////////////////////////////////////////////////////////
 void VehicleTracker::update(Mat currentFrame) {
