@@ -285,3 +285,30 @@ void VehicleTracker::updateVehicleList(std::vector<Vehicle> &vehicleList, std::v
 
 	return;
 }
+
+void VehicleTracker::updateLaneBounds(int n, std::vector<std::vector<cv::Point>> b) {
+	int i;
+	double slope;
+	double slopeBound[2];
+	
+	if (n != b.size()) {
+		perror("Error: numLanes provided not equal to actual number of lanes.");
+		exit(1);
+	}
+
+	numLanes = n;
+	laneBounds = b;
+	
+	laneSlopeBounds.clear();
+	for (i = 0; i < n; i++) {
+		slope = (b[n][1].y - b[n][2].y) / (b[n][1].x - b[n][2].x);
+		slope += (b[n][4].y - b[n][3].y) / (b[n][4].x - b[n][3].x);
+		slope /= 2;
+
+		slopeBound[0] = tan(atan(slope) - thetaDB);
+		slopeBound[1] = tan(atan(slope) + thetaDB);
+		laneSlopeBounds.push_back(slopeBound);
+	}
+	
+	return;
+}
