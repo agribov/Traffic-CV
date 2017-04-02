@@ -59,6 +59,13 @@ private:
 
 	int buttonVal = 0;
 	int viewVal = 0;
+	
+	void viewOne();
+	void viewTwo();
+	void viewThree();
+	void viewFour();
+
+	void viewChange(int val);
 
 protected:
 	void timerEvent(QTimerEvent *Event);
