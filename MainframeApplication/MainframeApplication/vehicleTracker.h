@@ -51,12 +51,11 @@ private:
 	const int MAX_VEHICLE_AREA = 200 * 200; // Unit is pixels
 	std::vector<std::vector<Vehicle>> vehicles;
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
+	int frameCount;
 
 	int numLanes;
 	std::vector<std::vector<cv::Point>> laneBounds;
-	std::vector<double[2]> laneSlopeBounds;
-	double thetaDB;
-	
+	std::vector<double> laneSlopeBounds[2];	
 
 	int erosionVal, dilationVal;
 	int lowHue, highHue;
@@ -102,7 +101,7 @@ public:
 	void setMOG2ThVal(int val) { mog2thVal = val; }; //Threshold value for MOG2
 	//End VL Camera
 
-	void updateLaneBounds(int n, std::vector<std::vector<cv::Point>> bounds);
+	void updateLaneBounds(int n, double thetaDB, std::vector<std::vector<cv::Point>> bounds);
 };
 
 #endif

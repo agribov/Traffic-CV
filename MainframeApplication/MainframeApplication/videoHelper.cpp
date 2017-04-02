@@ -15,6 +15,21 @@
 using namespace std;
 using namespace cv;
 
+double getDist(Point A, Point B) {
+	return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
+}
+
+double getDistToLine(Point A, Point B, Point X) {
+	double size = getDist(A, B);
+	
+	B -= A;
+	X -= A;
+
+	// Cross-product (X x B) over line length
+	return ((X.x * B.y) - (X.y * B.x)) / size;
+
+}
+
 VideoCapture* initializeVideo(char* videoFilename) {
 	//create the capture object
 	VideoCapture* capture = new VideoCapture(videoFilename);

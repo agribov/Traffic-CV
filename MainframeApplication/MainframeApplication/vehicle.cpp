@@ -17,7 +17,9 @@
 using namespace std;
 using namespace cv;
 
-void Vehicle::update(Point pos) {
+void Vehicle::update(Point pos, int fc) {
 	// Updates all information about vehicle, given new location.
+	frameCount = fc;
+	position = pos;
 	return;
 }

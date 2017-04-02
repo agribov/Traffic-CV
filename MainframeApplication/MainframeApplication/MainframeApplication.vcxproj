@@ -285,7 +285,6 @@
     <ProjectGuid>{07132E0C-A9DB-4EDA-ABF2-B3E1D68ED4FC}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
     <RootNamespace>MainframeApplication</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <QTDIR>C:\Program Files\QT\5.8\msvc2015_64</QTDIR>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
