@@ -13,15 +13,16 @@
 #include "globals.h"
 #include "vehicleTracker.h"
 #include "vehicle.h"
-#include "videoHelper.h"
+#include "utilities.h"
 
 using namespace std;
 using namespace cv;
 
 Ptr<BackgroundSubtractorMOG2> pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
 
-const int MAX_FRAME_DISTANCE = 5;
-const int START_ZONE_DIST = 10;
+const int MAX_FRAME_DISTANCE = 50;
+const int START_ZONE_DIST = 30;
+const int FRAME_COUNT_TIMEOUT = 10;
 
 //PUBLIC FUNCTIONS:
 VehicleTracker::VehicleTracker() {
@@ -44,19 +45,17 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	erosionVal = er;
 	dilationVal = dil;
 
+	temp.x = 0;
+	temp.y = 150;
+	inboundBorder.push_back(temp);
+	temp.x = 200;
+	temp.y = 400;
+	inboundBorder.push_back(temp);
 	temp.x = 500;
 	temp.y = 250;
 	inboundBorder.push_back(temp);
 	temp.x = 0;
 	temp.y = 30;
-	inboundBorder.push_back(temp);
-
-	temp.x = 0;
-	temp.y = 150;
-	inboundBorder.push_back(temp);
-
-	temp.x = 200;
-	temp.y = 400;
 	inboundBorder.push_back(temp);
 	
 	bounds.push_back(inboundBorder);
@@ -157,50 +156,68 @@ void VehicleTracker::update(Mat currentFrame) {
 
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 
-	vector <vector<Point>> sortedBlobs;
-	sortedBlobs.reserve(numLanes);
+	vector<vector<Point>> sortedBlobs;
+	sortedBlobs.resize(numLanes);
 	vector<Point> blobList;
-	
+	frame.copyTo(outputFrame);
+
 	// Sort the centroids into the container for the lane they are in.
-	for (i = 0; i < centroids.size(); i++)
+	for (i = 0; i < centroids.size(); i++) {
 		for (j = 0; j < numLanes; j++)
 			if (pointPolygonTest(laneBounds[j], centroids[i], false) >= 0)
 				sortedBlobs[j].push_back(centroids[i]);
 
+	}
+	
 	double dist;
 	for (i = 0; i < numLanes; i++) {
-
-		// If they already exist, continue. Else make a new vehicle
 		size_t numVehicles = (size_t)vehicles[i].size();
+
+		// Destroy vehicles that have not been updated in a while
+		for (k = 0; k < numVehicles; k++) {
+			if (vehicles[i][k].getFrameNum() < frameCount - FRAME_COUNT_TIMEOUT) {
+				vehicles[i].erase(vehicles[i].begin() + k--);
+				numVehicles--;
+			}
+		}
+
+		drawPoints(outputFrame, sortedBlobs[i]);
+		
+		// If they already exist, continue. Else make a new vehicle		
 		for (j = 0; j < sortedBlobs[i].size(); j++) {
 			bool found = false;
-
+			
 			// Try to match the centroid to an existing vehicle
 			for (k = 0; k < numVehicles; k++) {
 				dist = getDist(vehicles[i][k].getPosition(), sortedBlobs[i][j]);
-
+				
 				// If current vehicle is near current frame, and vehicle has not been updated yet, update
 				if (dist <= MAX_FRAME_DISTANCE && vehicles[i][k].getFrameNum() < frameCount) {
 					vehicles[i][k].update(sortedBlobs[i][j], frameCount);
 					found = true;
+					//printf("Updated Vehicle %d, in lane %d.\n", k, i);
 					break;
 				}
 			}
-
+			
 			// If centroid has not been yet matched to a vehicle, then check if it's near the lane start
 			if (!found) {
 				// Distance function defined in videohelper.cpp for now
 				dist = getDistToLine(laneBounds[i][1], laneBounds[i][2], sortedBlobs[i][j]);
+				//printf("Distance to vehicle is: %lf.\n", dist);
 				if (dist < START_ZONE_DIST) {
 					// It's a new vehicle: Create an object and add it to the list
 					Vehicle x(sortedBlobs[i][j], frameCount);
 					vehicles[i].push_back(x);
 					found = true;
+					//printf("Created Vehicle, in lane %d.\n", i);
+					//printf("Distance to vehicle is: %d.\n", dist);
 				}
 
 			}
+			
 		}
-
+		
 		// If they are near the beginning of the lane, and don't exist, make a new vehicle.
 	}
 	
@@ -214,7 +231,6 @@ void VehicleTracker::update(Mat currentFrame) {
 
 	*/
 	currentCarCount = 0;
-	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
 
 }
@@ -276,7 +292,7 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 	const Scalar RED = Scalar(0, 0, 255);  //Assuming BGR color space.
 	Scalar COLOR;
 	COLOR = GREEN;
-	/*
+	
 	//for (int i = 0; i < getVehiclePositions().size(); i++)
 	for (int i = 0; i < numLanes; i++) {
 		for (int j = 0; j < vehicles[i].size(); j++) {
@@ -289,7 +305,7 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 		}
 	}
 	//printf("%d\n", getVehiclePositions().size());
-	*/
+	
 	arrowedLine(frame, inboundBorder[0], inboundBorder[1], GREEN, 3);
 	arrowedLine(frame, inboundBorder[2], inboundBorder[3], GREEN, 3);
 
@@ -380,6 +396,7 @@ void VehicleTracker::updateLaneBounds(int n, double thetaDB, std::vector<std::ve
 		//laneSlopeBounds.push_back(slopeBound);
 	}
 	
+	vehicles.resize(numLanes);
 	return;
 }
 

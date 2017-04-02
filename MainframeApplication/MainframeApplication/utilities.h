@@ -2,7 +2,7 @@
 /*                                                                              */
 /* Program: Mainframe Thermal Image Processor                                   */
 /*                                                                              */
-/* File: videoHelper.cpp                                                        */
+/* File: utilities.cpp                                                          */
 /*                                                                              */
 /* Author(s): Alex Gribov, Alexander Senckowski, Molly McGuire and Kevin Smida  */
 /*                                                                              */
@@ -10,16 +10,13 @@
 /*                                                                              */
 /********************************************************************************/
 
-#ifndef _videoHelper
-#define _videoHelper
+#ifndef _utilities
+#define _utilities
 
 #include "globals.h"
 
+double getDist(cv::Point A, cv::Point B);
+double getDistToLine(cv::Point A, cv::Point B, cv::Point X);
+void drawPoints(cv::Mat &frame, std::vector<cv::Point> points);
 
-cv::VideoCapture* initializeVideo(char* videoFilename);
-void releaseVideo(cv::VideoCapture* pCap);
-
-void addFrameNumber(cv::Mat &frame, cv::VideoCapture *pCap); // Adds the current frame number to the display
-void addCarCount(cv::Mat &frame, cv::VideoCapture *pCap);
-
-#endif // !_videoHelper
+#endif // !_utilities

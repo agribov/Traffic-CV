@@ -40,7 +40,7 @@ public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
     QGroupBox *groupParameters;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout;
     QSlider *thresholdLowSlider;
     QSlider *erodeSlider;
@@ -71,7 +71,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(780, 467);
+        MainWindow->resize(1197, 719);
         MainWindow->setAcceptDrops(false);
         MainWindow->setDocumentMode(false);
         MainWindow->setUnifiedTitleAndToolBarOnMac(false);
@@ -94,20 +94,20 @@ public:
         groupParameters->setObjectName(QStringLiteral("groupParameters"));
         groupParameters->setEnabled(true);
         groupParameters->setCheckable(false);
-        widget = new QWidget(groupParameters);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 27, 281, 161));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget = new QWidget(groupParameters);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 27, 281, 161));
+        gridLayout = new QGridLayout(layoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        thresholdLowSlider = new QSlider(widget);
+        thresholdLowSlider = new QSlider(layoutWidget);
         thresholdLowSlider->setObjectName(QStringLiteral("thresholdLowSlider"));
         thresholdLowSlider->setOrientation(Qt::Horizontal);
         thresholdLowSlider->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(thresholdLowSlider, 0, 0, 1, 1);
 
-        erodeSlider = new QSlider(widget);
+        erodeSlider = new QSlider(layoutWidget);
         erodeSlider->setObjectName(QStringLiteral("erodeSlider"));
         erodeSlider->setTracking(true);
         erodeSlider->setOrientation(Qt::Horizontal);
@@ -115,36 +115,36 @@ public:
 
         gridLayout->addWidget(erodeSlider, 3, 0, 1, 1);
 
-        lowThLabel = new QLabel(widget);
+        lowThLabel = new QLabel(layoutWidget);
         lowThLabel->setObjectName(QStringLiteral("lowThLabel"));
 
         gridLayout->addWidget(lowThLabel, 0, 1, 1, 1);
 
-        thresholdHighSlider = new QSlider(widget);
+        thresholdHighSlider = new QSlider(layoutWidget);
         thresholdHighSlider->setObjectName(QStringLiteral("thresholdHighSlider"));
         thresholdHighSlider->setOrientation(Qt::Horizontal);
         thresholdHighSlider->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(thresholdHighSlider, 1, 0, 1, 1);
 
-        erodeLabel = new QLabel(widget);
+        erodeLabel = new QLabel(layoutWidget);
         erodeLabel->setObjectName(QStringLiteral("erodeLabel"));
 
         gridLayout->addWidget(erodeLabel, 3, 1, 1, 1);
 
-        dilateSlider = new QSlider(widget);
+        dilateSlider = new QSlider(layoutWidget);
         dilateSlider->setObjectName(QStringLiteral("dilateSlider"));
         dilateSlider->setOrientation(Qt::Horizontal);
         dilateSlider->setTickPosition(QSlider::TicksBelow);
 
         gridLayout->addWidget(dilateSlider, 2, 0, 1, 1);
 
-        highThLabel = new QLabel(widget);
+        highThLabel = new QLabel(layoutWidget);
         highThLabel->setObjectName(QStringLiteral("highThLabel"));
 
         gridLayout->addWidget(highThLabel, 1, 1, 1, 1);
 
-        dilateLabel = new QLabel(widget);
+        dilateLabel = new QLabel(layoutWidget);
         dilateLabel->setObjectName(QStringLiteral("dilateLabel"));
 
         gridLayout->addWidget(dilateLabel, 2, 1, 1, 1);
@@ -207,7 +207,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 780, 21));
+        menubar->setGeometry(QRect(0, 0, 1197, 38));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOpen = new QMenu(menuFile);

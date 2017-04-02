@@ -38,6 +38,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="CQtOpenCVViewerGl.cpp" />
+    <ClCompile Include="utilities.cpp" />
     <ClCompile Include="vehicle.cpp" />
     <ClCompile Include="vehicleTracker.cpp" />
     <ClCompile Include="videoHelper.cpp" />
@@ -199,6 +200,7 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_CQtOpenCVViewerGl.h" />
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
+    <ClInclude Include="utilities.h" />
     <CustomBuild Include="CQtOpenCVViewerGl.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing CQtOpenCVViewerGl.h...</Message>

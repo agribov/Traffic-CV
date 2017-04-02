@@ -19,8 +19,7 @@ using namespace cv;
 int currentCarCount;
 
 int main(int argc, char* argv[]) {
-	int x = __cplusplus;
-	printf("%d", x);
+
 	// Go to MainWindow.cpp for all of the starter code to run the application:
 	//		- MainWindow::onStart() contains the code to set up the app.
 	//		- MainWindow::timerEvent() contains all of the code that runs tracking
@@ -41,6 +40,9 @@ int main(int argc, char* argv[]) {
 	QApplication a(argc, argv);
 	MainWindow w;
 	w.show();
+
+	//int x = __cplusplus;
+	//printf("%d", x);
 
 	return a.exec();
 	
