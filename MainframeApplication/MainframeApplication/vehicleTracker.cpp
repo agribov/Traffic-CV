@@ -52,7 +52,7 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 
 	return positions;
 }
-//////////////////////////////////////////////////////////////////////////////////
+
 void onMouse(int event, int x, int y, int flags, void* userData)
 {
 	if (event != EVENT_LBUTTONDOWN)
@@ -67,7 +67,7 @@ void onMouse(int event, int x, int y, int flags, void* userData)
 		cout << "Vector coordinates" << vCoordinates << endl;
 	}
 }
-/////////////////////////////////////////////////////////////////////////////////
+
 void VehicleTracker::update(Mat currentFrame) {
 	size_t numContours;
 	double area;
