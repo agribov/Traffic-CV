@@ -65,13 +65,22 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		exit(EXIT_FAILURE);
 	}
 
-	tracker->update(inputFrame);
+	//tracker->update(inputFrame);
+	//outputFrame = tracker->getTrackedFrame();
+	//debugFrame = tracker->getEroded();
+
+	//For VL Camera
+	tracker->updatevl(inputFrame);
 	outputFrame = tracker->getTrackedFrame();
 	debugFrame = tracker->getEroded();
 
-	// Show the image
 	ui->topFrameWidget->showImage(outputFrame);
 	ui->bottomFrameWidget->showImage(debugFrame);
+	//End VL Camera
+
+	// Show the image
+	//ui->topFrameWidget->showImage(outputFrame);
+	//ui->bottomFrameWidget->showImage(debugFrame);
 
 }
 

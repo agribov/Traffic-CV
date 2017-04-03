@@ -73,12 +73,12 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 2a: Take high threshold (isolate hot objects)
 	// Step 2b: Take low threshold (isolate cold objects) (**SPIF)
 	//		**SPIF = Solutions for Problems In the Future. Do not implement a SPIF unless we find we really need it.
-	//highThFrame = thresholdFrame(frame, lowHue, highHue);
+	highThFrame = thresholdFrame(frame, lowHue, highHue);
 
 	//For testing background subtraction
-	imshow("No Subtraction", frame);
-	highThFrame = bgSubtractionMOG2(frame);
-	imshow("MOG2", highThFrame);
+	//imshow("No Subtraction", frame);
+	//highThFrame = bgSubtractionMOG2(frame);
+	//imshow("MOG2", highThFrame);
 	//erodedFrame = erodeFrame(highThFrame, erosionValVL);
 
 
@@ -142,52 +142,116 @@ void VehicleTracker::update(Mat currentFrame) {
 	frame.copyTo(outputFrame);
 	drawBoxes(outputFrame);
 }
-//For visible light camera
-void VehicleTracker::updatevl(Mat vlcurrentFrame) {
-	size_t vlnumContours;
-	double vlarea;
-	Moments vlblobMoment;
-	vector<vector<Point>>::iterator vlfirstContour;
+//For Visible Light camera
+void VehicleTracker::updatevl(Mat currentFrameVL) {
+	//size_t vlnumContours;
+	//double vlarea;
+	//Moments vlblobMoment;
+	//vector<vector<Point>>::iterator vlfirstContour;
+	//int i;
+	//Point2f vlcenter;
+	//vector<Point2f> vlcentroids;
+	
+	//For Testing
+	size_t numContours;
+	double area;
+	Moments blobMoment;
+	vector<vector<Point>>::iterator firstContour;
 	int i;
-	Point2f vlcenter;
-	vector<Point2f> vlcentroids;
+	Point2f center;
+	vector<Point2f> centroids;
 
 	///Move
 	//Step 1: Save current frame to liveFrame.
-	vlframe = vlcurrentFrame;
+	frameVL = currentFrameVL;
 	//Step 2: Perform background subtraction.
-	fgMaskMOG2 = bgSubtractionMOG2(vlframe);
+
+	//For testing background subtraction
+	imshow("No Subtraction", frameVL);
+
+	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
+	//For testing background subtraction
+	imshow("MOG2", fgMaskMOG2);
+
 	//Step 2: Perform thresholding.
 	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
 	//Step 3: Perform errosion.
-	vlerodedFrame = erodeFrame(vlhighThFrame, erosionValVL);
+	erodedFrame = erodeFrame(fgMaskMOG2, erosionValVL);
 	//Step 4: Perform dilation.
-	vldilatedFrame = dilateFrame(vlerodedFrame, dilationValVL);
-	//Step 5: Find contours of blobs.
-	findVehicleContours(vldilatedFrame, vlvehicleContours);
-	//Step 6: Determine number and dimensions of blobs.
-	vlnumContours = (size_t)vlvehicleContours.size();
-	while (vlnumContours > MAX_NUMBER_VEHICLES) {
+	dilatedFrameVL = dilateFrame(erodedFrame, dilationValVL);
+
+	findVehicleContours(dilatedFrameVL, vehicleContours);
+
+	numContours = (size_t)vehicleContours.size();
+	while (numContours > MAX_NUMBER_VEHICLES) {
 		//ERROR: Too many objects
 		//Insert additional filtering here
 		break; //Remove this when above filtering is implemented
 	}
-	//Step 7: Determine centroid of blobs.
-	vlfirstContour = vlvehicleContours.begin();
-	for (i = 0; i < vlnumContours; i++) {
-		vlblobMoment = moments((Mat)vlvehicleContours[i]);
-		vlarea = vlblobMoment.m00;
-		if (vlarea < MIN_VEHICLE_AREA) {
+
+	firstContour = vehicleContours.begin();
+	for (i = 0; i < numContours; i++) {
+		blobMoment = moments((Mat)vehicleContours[i]);
+		area = blobMoment.m00;
+		if (area < MIN_VEHICLE_AREA) {
 			//vehicleContours.erase(firstContour + i);
 			//i--;
 			//numContours--;
 		}
 		// Step 7: Find centroids of contours that have not been eliminated
 		else {
-			vlcenter = Point2f(vlblobMoment.m10 / vlarea, vlblobMoment.m01 / vlarea);
-			vlcentroids.push_back(vlcenter);
+			center = Point2f(blobMoment.m10 / area, blobMoment.m01 / area);
+			centroids.push_back(center);
 		}
 	}
+	//***For Step 7 look into using meanshift() and camshift() to find the centroid of the blobs. -AZS ****
+	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
+	vector<Vehicle> tempList;
+	//printf("%d\n", centroids.size());
+	for (i = 0; i < centroids.size(); i++) {
+		Vehicle x(centroids[i]);
+		tempList.push_back(x);
+	}
+	vehicles = tempList;
+	currentCarCount = 0;
+	frameVL.copyTo(outputFrame);
+	drawBoxes(outputFrame);
+
+	//Step 5: Find contours of blobs.
+	//findVehicleContoursVL(vldilatedFrame, vlvehicleContours);
+	////Step 6: Determine number and dimensions of blobs.
+	//vlnumContours = (size_t)vlvehicleContours.size();
+	//while (vlnumContours > MAX_NUMBER_VEHICLES) {
+	//	//ERROR: Too many objects
+	//	//Insert additional filtering here
+	//	break; //Remove this when above filtering is implemented
+	//}
+	////Step 7: Determine centroid of blobs.
+	//vlfirstContour = vlvehicleContours.begin();
+	//for (i = 0; i < vlnumContours; i++) {
+	//	vlblobMoment = moments((Mat)vlvehicleContours[i]);
+	//	vlarea = vlblobMoment.m00;
+	//	if (vlarea < MIN_VEHICLE_AREA) {
+	//		//vehicleContours.erase(firstContour + i);
+	//		//i--;
+	//		//numContours--;
+	//	}
+	//	// Step 7: Find centroids of contours that have not been eliminated
+	//	else {
+	//		vlcenter = Point2f(vlblobMoment.m10 / vlarea, vlblobMoment.m01 / vlarea);
+	//		vlcentroids.push_back(vlcenter);
+	//	}
+	//}
+	//vector<Vehicle> vltempList;
+	////printf("%d\n", centroids.size());
+	//for (i = 0; i < vlcentroids.size(); i++) {
+	//	Vehicle x(vlcentroids[i]);
+	//	vltempList.push_back(x);
+	//}
+	//vlvehicles = vltempList;
+	//currentCarCount = 0;
+	//frame.copyTo(outputFrame);
+	//drawBoxes(outputFrame);
 }
 //End visible light camera
 void VehicleTracker::drawBoxes(Mat &frame) {
