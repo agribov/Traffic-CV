@@ -144,15 +144,6 @@ void VehicleTracker::update(Mat currentFrame) {
 }
 //For Visible Light camera
 void VehicleTracker::updatevl(Mat currentFrameVL) {
-	//size_t vlnumContours;
-	//double vlarea;
-	//Moments vlblobMoment;
-	//vector<vector<Point>>::iterator vlfirstContour;
-	//int i;
-	//Point2f vlcenter;
-	//vector<Point2f> vlcentroids;
-	
-	//For Testing
 	size_t numContours;
 	double area;
 	Moments blobMoment;
