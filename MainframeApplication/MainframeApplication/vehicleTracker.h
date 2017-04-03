@@ -38,7 +38,7 @@ private:
 	cv::Mat foregroundFrameVL; // Stores foreground image after background subtraction
 	cv::Mat erodedFrameVL; // Stores eroded frame
 	cv::Mat dilatedFrameVL; // Stores dilated frame
-	std::vector < std::vector<cv::Point>> vlvehicleContours; // stores the contours of the vehicle in the current vl camera frame
+	std::vector < std::vector<cv::Point>> vehicleContoursVL; // stores the contours of the vehicle in the current vl camera frame
 	cv::Mat outputFrameVL; //Original vl frame, with boxes overlayed on vehicles
 	cv::Mat foregroundMaskVL; //Foreground mask created from background subtraction
 	//end VL Camera
@@ -81,7 +81,9 @@ public:
 	cv::Mat getDilated() { return dilatedFrame; }
 	//For VL Camera
 	void updatevl(cv::Mat currentFrameVL); // For visible light camera: This function is called to update the algorithm when a new frame is available
-	//cv::Mat getEroded() {return vlerodedFrame} //
+	cv::Mat getTrackedFrameVL() { return outputFrameVL; }
+	cv::Mat getErodedVL() { return erodedFrameVL; }
+	cv::Mat getDilatedVL() { return dilatedFrameVL; }
 	//End VL Camera
 	void setLowThVal(int val) { lowHue = val; };
 	void setHighThVal(int val) { highHue = val; };

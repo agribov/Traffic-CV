@@ -72,7 +72,7 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 	//For VL Camera
 	tracker->updatevl(inputFrame);
 	outputFrame = tracker->getTrackedFrame();
-	debugFrame = tracker->getEroded();
+	debugFrame = tracker->getErodedVL();
 
 	ui->topFrameWidget->showImage(outputFrame);
 	ui->bottomFrameWidget->showImage(debugFrame);

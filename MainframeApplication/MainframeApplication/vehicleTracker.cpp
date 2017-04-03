@@ -176,22 +176,22 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//Step 2: Perform thresholding.
 	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
 	//Step 3: Perform errosion.
-	erodedFrame = erodeFrame(fgMaskMOG2, erosionValVL);
+	erodedFrameVL = erodeFrame(fgMaskMOG2, erosionValVL);
 	//Step 4: Perform dilation.
-	dilatedFrameVL = dilateFrame(erodedFrame, dilationValVL);
+	dilatedFrameVL = dilateFrame(erodedFrameVL, dilationValVL);
 
-	findVehicleContours(dilatedFrameVL, vehicleContours);
+	findVehicleContoursVL(dilatedFrameVL, vehicleContoursVL);
 
-	numContours = (size_t)vehicleContours.size();
+	numContours = (size_t)vehicleContoursVL.size();
 	while (numContours > MAX_NUMBER_VEHICLES) {
 		//ERROR: Too many objects
 		//Insert additional filtering here
 		break; //Remove this when above filtering is implemented
 	}
 
-	firstContour = vehicleContours.begin();
+	firstContour = vehicleContoursVL.begin();
 	for (i = 0; i < numContours; i++) {
-		blobMoment = moments((Mat)vehicleContours[i]);
+		blobMoment = moments((Mat)vehicleContoursVL[i]);
 		area = blobMoment.m00;
 		if (area < MIN_VEHICLE_AREA) {
 			//vehicleContours.erase(firstContour + i);
@@ -326,6 +326,15 @@ void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &
 	findContours(inputFrame, vehicleContours, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 	return;
 }
+
+//For VL Camera
+void VehicleTracker::findVehicleContoursVL(Mat inputFrame, vector<vector<Point>> &outputContours) {
+	// Find the contours of the input frame and store them in self.vehicleContours
+	//vector<Vec4i> heirarchy;
+	findContours(inputFrame, vehicleContoursVL, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+	return;
+}
+//End VL Camera
 
 void VehicleTracker::updateVehicleList() {
 	return;
