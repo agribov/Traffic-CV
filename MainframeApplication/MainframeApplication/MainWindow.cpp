@@ -90,28 +90,39 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		STATEMENT. I WILL TRY CALLING A FUNCTION FROM EACH STATEMENT IN ORDER TO WORK 
 		AROUND THIS. 
 	
+	the function that I want to write will have knowledge of the last state to compare the 
+	current state to. It will compare the lastState to currentState. If they are the same, 
+	do nothing. If they are different, 1)initialize the video associated with currentState
+	2) Change the last state to the value of the current state. 
+
+	This function will be called by the switch statement in update function. This is because
+	we need to know when the state changes, which is what the update function polls. We should 
+	use setters and getters to update lastState and currentState. 
+
 	***/
 	int vVal = getViewVal();
 	switch (vVal) {
 	case 0: mapObj = mapTemp;
-		//viewOne();	
+		setCurrentState(0);
 		break;
 	case 1: mapObj = mapBR;
-	//	viewOne();
+		setCurrentState(1);
 		break;
 	case 2: mapObj = mapBL;
-	//	viewTwo();
+		setCurrentState(2);
 		break;
 	case 3: mapObj = mapTR; 
-//	viewThree();
+		setCurrentState(3);
 		break;
 	case 4: mapObj = mapTL;
-	//	viewFour();
+		setCurrentState(4);
 		break;
 	default: cerr << "view button value invalid, exiting..." << endl;
 		exit(EXIT_FAILURE);
 		break;
 	}
+
+	changeImage();
 
 	QPixmap pixmapObject(mapObj);
 
@@ -221,6 +232,23 @@ int MainWindow::getViewVal() {
 	return viewVal;
 }
 
+// functions made for detecting changes in the current view of the UI
+void MainWindow::setCurrentState(int val) {
+	currentState = val;
+}
+
+void MainWindow::setLastState(int val) {
+	lastState = val;
+}
+
+int MainWindow::getCurrentState() {
+	return currentState;
+}
+int MainWindow::getLastState() {
+	return lastState;
+}
+
+// initialize video functions
 void MainWindow::viewOne() {
 	char* sampleVideo1 = "thermalSample.mp4";
 	pCap = initializeVideo(sampleVideo1);
@@ -231,18 +259,18 @@ void MainWindow::viewTwo() {
 	pCap = initializeVideo(sampleVideo2);
 }
 
-void MainWindow::viewThree() {
-	char* sampleVideo1 = "thermalSample.mp4";
-	pCap = initializeVideo(sampleVideo1);
-}
 
-void MainWindow::viewFour() {
-	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
-	pCap = initializeVideo(sampleVideo2);
-}
-
-void MainWindow::viewChange(int val) {
-
+// change image funciton
+void MainWindow::changeImage() {
+	if (getLastState() != getCurrentState()) {
+		int state = getCurrentState();
+		if (state == 1 || state == 3) {
+			viewOne();
+		}
+		else
+			viewTwo();
+		setLastState(state);
+	}
 }
 
 

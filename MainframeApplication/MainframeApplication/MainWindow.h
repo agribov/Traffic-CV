@@ -19,8 +19,13 @@ public:
 	~MainWindow();
 	void setButtonVal(int);
 	void setViewVal(int);
+	void setCurrentState(int);
+	void setLastState(int);
+	void changeImage();
 	int getButtonVal();
 	int getViewVal();
+	int getCurrentState();
+	int getLastState();
 
 private slots:
 	void onStart();
@@ -56,16 +61,14 @@ private:
 	int highHueVal;
 	int dilateVal;
 	int erodeVal;
-
+	int currentState;
+	
+	int lastState = 0;
 	int buttonVal = 0;
 	int viewVal = 0;
 	
 	void viewOne();
 	void viewTwo();
-	void viewThree();
-	void viewFour();
-
-	void viewChange(int val);
 
 protected:
 	void timerEvent(QTimerEvent *Event);
