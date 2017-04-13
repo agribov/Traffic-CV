@@ -273,6 +273,14 @@ void MainWindow::changeImage() {
 	}
 }
 
+// The following code details my attempt at opening a new window in
+// qt from the menu bar in the main window.
+
+void MainWindow::slotOpen() {
+	QWidget  *wgt = new QWidget(this);
+	wgt->show();
+}
+
 
 /// DEBUG  VERSION
 //#include "globals.h"

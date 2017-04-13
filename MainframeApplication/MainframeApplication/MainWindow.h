@@ -45,6 +45,8 @@ private slots:
 	void onDilateValueChanged(int val);
 	void onErodeValueChanged(int val);
 
+	void slotOpen();
+
 private:
 	Ui::MainWindow *ui;
 	cv::Mat topFrameMat;
