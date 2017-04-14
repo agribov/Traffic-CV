@@ -48,6 +48,9 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	highHue = hHue;
 	erosionVal = er;
 	dilationVal = dil;
+	//For VL Camera
+	erosionValVL = er;
+	dilationValVL = dil;
 
 	temp.x = 0;
 	temp.y = 150;
