@@ -37,6 +37,10 @@ private:
 	cv::Mat inputFrame;
 	cv::Mat outputFrame;
 	cv::Mat debugFrame;
+
+	//For VL Camera
+	cv::Mat outputFrameVL;
+	cv::Mat debugFrameVL;
 	
 	cv::VideoCapture *pCap;
 	VehicleTracker *tracker;

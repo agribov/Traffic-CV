@@ -34,16 +34,15 @@ private:
 	// Variables for visual light tracking
 	std::vector<Vehicle> vlvehicles;
 	cv::Mat fgMaskMOG2; //Foreground mask for MOG2
-	cv::Mat vlframe; //Stores current frame from VL camera
-	cv::Mat vlhighThFrame; // Stores thresholded image for hot-spots
-	cv::Mat vlforegroundFrame; // Stores foreground image after background subtraction
-	cv::Mat vlerodedFrame; // Stores eroded frame
-	cv::Mat vldilatedFrame; // Stores dilated frame
-	std::vector < std::vector<cv::Point>> vlvehicleContours; // stores the contours of the vehicle in the current vl camera frame
-	cv::Mat vloutputFrame; //Original vl frame, with boxes overlayed on vehicles
-	cv::Mat vlforegroundMask; //Foreground mask created from background subtraction
-
-	//Variables for filtering and vehicle identrification
+	cv::Mat frameVL; //Stores current frame from VL camera
+	cv::Mat highThFrameVL; // Stores thresholded image for hot-spots
+	cv::Mat foregroundFrameVL; // Stores foreground image after background subtraction
+	cv::Mat erodedFrameVL; // Stores eroded frame
+	cv::Mat dilatedFrameVL; // Stores dilated frame
+	std::vector < std::vector<cv::Point>> vehicleContoursVL; // stores the contours of the vehicle in the current vl camera frame
+	cv::Mat outputFrameVL; //Original vl frame, with boxes overlayed on vehicles
+	cv::Mat foregroundMaskVL; //Foreground mask created from background subtraction
+	//end VL Camera
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
 	const int MAX_NUMBER_VEHICLES = 10; // Constant value: If number is more than this, algorithm will assume there is noise.
@@ -79,6 +78,9 @@ private:
 	void findVehicleContours(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
 	void updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary);
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
+	//For VL Camera
+	void findVehicleContoursVL(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
+	//End VL Camera
 public:
 	VehicleTracker::VehicleTracker();
 	VehicleTracker(int lHue, int hHue, int er, int dil, int erVL, int dilVL); // This is the initializer for the VehicleTracker object
@@ -89,7 +91,10 @@ public:
 	cv::Mat getEroded() { return erodedFrame; }
 	cv::Mat getDilated() { return dilatedFrame; }
 	//For VL Camera
-	void updatevl(cv::Mat vlcurrentFrame); // For visible light camera: This function is called to update the algorithm when a new frame is available
+	void updatevl(cv::Mat currentFrameVL); // For visible light camera: This function is called to update the algorithm when a new frame is available
+	cv::Mat getTrackedFrameVL() { return outputFrameVL; }
+	cv::Mat getErodedVL() { return erodedFrameVL; }
+	cv::Mat getDilatedVL() { return dilatedFrameVL; }
 	//End VL Camera
 	void setLowThVal(int val) { lowHue = val; };
 	void setHighThVal(int val) { highHue = val; };
