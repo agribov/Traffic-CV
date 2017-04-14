@@ -298,10 +298,10 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	vector<Vehicle> tempList;
 	//printf("%d\n", centroids.size());
 	for (i = 0; i < centroids.size(); i++) {
-		Vehicle x(centroids[i]);
-		tempList.push_back(x);
+		//Vehicle x(centroids[i]);
+		//tempList.push_back(x);
 	}
-	vehicles = tempList;
+	//vehicles = tempList;
 	currentCarCount = 0;
 	frameVL.copyTo(outputFrame);
 	drawBoxes(outputFrame);
