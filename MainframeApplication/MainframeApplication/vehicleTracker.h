@@ -21,16 +21,17 @@ private:
 	// Private variables
 	// NOTE: Most variables are updated during the update(Mat frame) function. 
 	// Please see it's definition in vehicleTracker.cpp for more info
-	std::vector<Vehicle> vehicles;
+
+	// Variables for thermal tracking
 	cv::Mat frame; // Stores current frame
 	cv::Mat lowThFrame; // UNUSED CURRENTLY
 	cv::Mat highThFrame; // Stores image thresholded for hot-spots
 	cv::Mat foregroundFrame; // Stores frame after background subtraction
 	cv::Mat erodedFrame; // Stores frame after erosion
 	cv::Mat dilatedFrame; // Stores frame after dilation
-	std::vector < std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
-	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
-	//For VL Camera
+	std::vector<std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
+	
+	// Variables for visual light tracking
 	std::vector<Vehicle> vlvehicles;
 	cv::Mat fgMaskMOG2; //Foreground mask for MOG2
 	cv::Mat vlframe; //Stores current frame from VL camera
@@ -41,12 +42,23 @@ private:
 	std::vector < std::vector<cv::Point>> vlvehicleContours; // stores the contours of the vehicle in the current vl camera frame
 	cv::Mat vloutputFrame; //Original vl frame, with boxes overlayed on vehicles
 	cv::Mat vlforegroundMask; //Foreground mask created from background subtraction
-	//end VL Camera
+
+	//Variables for filtering and vehicle identrification
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
 	const int MAX_NUMBER_VEHICLES = 10; // Constant value: If number is more than this, algorithm will assume there is noise.
 	const int MIN_VEHICLE_AREA = 5 * 5; // Unit is pixels
 	const int MAX_VEHICLE_AREA = 200 * 200; // Unit is pixels
+	std::vector<std::vector<Vehicle>> vehicles;
+	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
+	int frameCount;
+
+	int numLanes;
+	std::vector<std::vector<cv::Point>> laneBounds;
+	std::vector<double> laneSlopeBounds[2];	
+	std::vector<std::vector<cv::Point>> borders;
+	std::vector<cv::Point> inboundBorder;
+
 
 	int erosionVal, dilationVal;
 	int lowHue, highHue;
@@ -65,7 +77,7 @@ private:
 	//cv::Mat bgSubtractionMOG(cv::Mat inputFrame); //Maybe nolonger in OpenCV core.
 	//End VL Camera
 	void findVehicleContours(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
-	void updateVehicleList();
+	void updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary);
 	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
 public:
 	VehicleTracker::VehicleTracker();
@@ -88,6 +100,8 @@ public:
 	void setDilationValVL(int val) { dilationValVL = val; };
 	void setMOG2ThVal(int val) { mog2thVal = val; }; //Threshold value for MOG2
 	//End VL Camera
+
+	void updateLaneBounds(int n, double thetaDB, std::vector<std::vector<cv::Point>> bounds);
 };
 
 #endif

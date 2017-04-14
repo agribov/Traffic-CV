@@ -22,5 +22,4 @@ void releaseVideo(cv::VideoCapture* pCap);
 void addFrameNumber(cv::Mat &frame, cv::VideoCapture *pCap); // Adds the current frame number to the display
 void addCarCount(cv::Mat &frame, cv::VideoCapture *pCap);
 
-
 #endif // !_videoHelper

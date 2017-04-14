@@ -21,14 +21,17 @@ private:
 	float velocity;	// Velocity of vehicle
 	int totalTime; // Holds how long vehicle has been in video.
 	int waitingTime; // Amount of time vehicle has been sitting still (IGNORE FOR NOW)
+	int frameCount;
 public:
 	//VehicleTracker(); // DEFINE ME
-	Vehicle(cv::Point2f pos) {
+	Vehicle(cv::Point2f pos, int fc) {
 		position = (cv::Point)pos;
 		velocity = 0;
+		frameCount = fc;
 	}
-	void update(cv::Point pos); // Updates all information about vehicle, given new location.
+	void update(cv::Point pos, int fc); // Updates all information about vehicle, given new location.
 	cv::Point getPosition() { return position; }
+	int getFrameNum() { return frameCount; }
 };
 
 #endif

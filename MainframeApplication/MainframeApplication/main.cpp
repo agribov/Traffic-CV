@@ -41,6 +41,9 @@ int main(int argc, char* argv[]) {
 	MainWindow w;
 	w.show();
 
+	//int x = __cplusplus;
+	//printf("%d", x);
+
 	return a.exec();
 	
 	return EXIT_SUCCESS;
