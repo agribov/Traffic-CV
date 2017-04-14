@@ -15,6 +15,13 @@
 #include "vehicle.h"
 #include "utilities.h"
 
+#include <opencv2/core/utility.hpp>
+#include "opencv2/imgproc.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include <cstdio>
+#include <iostream>
+
 using namespace std;
 using namespace cv;
 
@@ -83,6 +90,21 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 	return positions;
 }
 
+void onMouse(int event, int x, int y, int flags, void* userData)
+{
+	if (event != EVENT_LBUTTONDOWN)
+		return;
+	//Save coordinates of left button click
+	if (event == EVENT_LBUTTONDOWN)
+	{
+		static vector<Point> vCoordinates;
+		vCoordinates.push_back(Point(x, y));
+
+		cout << "Left Button of mouse was clicked at position(" << x << "," << y << ")" << endl;
+		cout << "Vector coordinates" << vCoordinates << endl;
+	}
+}
+
 void VehicleTracker::update(Mat currentFrame) {
 	size_t numContours;
 	double area;
@@ -91,6 +113,7 @@ void VehicleTracker::update(Mat currentFrame) {
 	int i, j, k;
 	Point2f center;
 	vector<Point2f> centroids;
+	static int frameNumber = 0;
 
 	// Increment frame counter
 	frameCount++;
@@ -306,8 +329,24 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	}
 	//vehicles = tempList;
 	currentCarCount = 0;
-	frameVL.copyTo(outputFrame);
+	frame.copyTo(outputFrame);
+
+	namedWindow("Display window", WINDOW_AUTOSIZE);
+	imshow("Display window", currentFrame);
+	setMouseCallback("Display window", onMouse, 0);
+
 	drawBoxes(outputFrame);
+	
+
+//////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/*Controls what frame comes up
+	frameNumber++;
+	if (frameNumber == 50 || frameNumber == 200) {
+
+		line(currentFrame, Point(0, 50), Point(200, 50), Scalar(255), 2, 8, 0);
+		imshow("image", currentFrame);
+	}*/
 
 	//Step 5: Find contours of blobs.
 	//findVehicleContoursVL(vldilatedFrame, vlvehicleContours);
@@ -345,7 +384,6 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//frame.copyTo(outputFrame);
 	//drawBoxes(outputFrame);
 }
-//End visible light camera
 
 void VehicleTracker::drawBoxes(Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
