@@ -87,7 +87,7 @@ testing.push_back(outputFrame);
 testing.push_back(tracker.getDilated());
 testing.push_back(tracker.getEroded());
 
-imshow("Master Window", makeCanvas(testing, 400, 2, frame));
+("Master Window", makeCanvas(testing, 400, 2, frame));
 
 //get the input from the keyboard
 keyboard = (char)waitKey(30);

@@ -1,8 +1,8 @@
 /********************************************************************************/
 /*                                                                              */
 /* Program: Mainframe Thermal Image Processor                                   */
-/*        z                                                                      */
-/* File: vehicle.cpp                                                        */
+/*                                                                              */
+/* File: utilities.cpp                                                          */
 /*                                                                              */
 /* Author(s): Alex Gribov, Alexander Senckowski, Molly McGuire and Kevin Smida  */
 /*                                                                              */
@@ -10,16 +10,13 @@
 /*                                                                              */
 /********************************************************************************/
 
+#ifndef _utilities
+#define _utilities
+
 #include "globals.h"
-#include "vehicleTracker.h"
-#include "vehicle.h"
 
-using namespace std;
-using namespace cv;
+double getDist(cv::Point A, cv::Point B);
+double getDistToLine(cv::Point A, cv::Point B, cv::Point X);
+void drawPoints(cv::Mat &frame, std::vector<cv::Point> points);
 
-void Vehicle::update(Point pos, int fc) {
-	// Updates all information about vehicle, given new location.
-	frameCount = fc;
-	position = pos;
-	return;
-}
+#endif // !_utilities

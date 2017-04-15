@@ -68,6 +68,9 @@
     <ClCompile Include="CQtOpenCVViewerGl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="globals.h">
@@ -104,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CQtOpenCVViewerGl.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
