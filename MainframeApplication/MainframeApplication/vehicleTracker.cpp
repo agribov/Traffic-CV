@@ -165,7 +165,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	imshow("MOG2", fgMaskMOG2);
 
 	//Step 2: Perform thresholding.
-	//vlhighThFrame = thresholdFrame(vlframe, lowHue, highHue);
+	//highThFrameVL = thresholdFrame(vlframe, lowHue, highHue);
 	//Step 3: Perform errosion.
 	erodedFrameVL = erodeFrame(fgMaskMOG2, erosionValVL);
 	//Step 4: Perform dilation.
@@ -261,17 +261,16 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 		currentCarCount++;
 	}
 	//printf("%d\n", getVehiclePositions().size());
-
 }
-//PRIVATE FUNCTIONS:
 
+//PRIVATE FUNCTIONS:
 Mat VehicleTracker::thresholdFrame(Mat inputFrame, int lowH, int highH) {
 	//Returns thresholded version of inputFrame
 	Mat hsvFrame;
 	Mat temp;
 	// Convert frame to HSV space, to threshold color
 	cvtColor(inputFrame, hsvFrame, COLOR_BGR2HSV);
-
+	//Checks if array elements lie between lowH and highH
 	inRange(hsvFrame, Scalar(lowH, 100, 100), Scalar(highH, 255, 255), temp);
 	return temp;
 }
