@@ -96,6 +96,8 @@ void MainWindow::onStart() {
 	char* sampleVideo1 = "thermalSample.mp4";
 	char* sampleVideo2 = "4th_floor_ball_2-23-2017.mp4";
 	char* vlsampleVideo1 = "FroggerHighway.mp4"; //visual light test video.
+
+	char* vlsampleVideo2 = "VL_Test_Footage_20170407-_DSC3557.mov"; //visual light test video.
 	pCap = initializeVideo(sampleVideo1); // This functions defined in videoHelper.cpp
 
 	startTimer(50);
