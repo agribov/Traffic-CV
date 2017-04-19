@@ -283,6 +283,10 @@ void VehicleTracker::update(Mat currentFrame) {
 	currentCarCount = 0;
 	drawBoxes(outputFrame);
 
+	namedWindow("Display window", WINDOW_AUTOSIZE);
+	imshow("Display window", currentFrame);
+	setMouseCallback("Display window", onMouse, 0);
+
 }
 //For Visible Light camera
 void VehicleTracker::updatevl(Mat currentFrameVL) {
@@ -300,11 +304,11 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//Step 2: Perform background subtraction.
 
 	//For testing background subtraction
-	imshow("No Subtraction", frameVL);
+	//imshow("No Subtraction", frameVL);
 
 	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
 	//For testing background subtraction
-	imshow("MOG2", fgMaskMOG2);
+	//imshow("MOG2", fgMaskMOG2);
 
 	//Step 2: Perform thresholding.
 	//highThFrameVL = thresholdFrame(vlframe, lowHue, highHue);
@@ -347,14 +351,11 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	}
 	//vehicles = tempList;
 	currentCarCount = 0;
-	frame.copyTo(outputFrame);
-
-	namedWindow("Display window", WINDOW_AUTOSIZE);
-	//imshow("Display window", currentFrame);
-	setMouseCallback("Display window", onMouse, 0);
+	frameVL.copyTo(outputFrame);
+	//imshow("MOG2", frameVL);
 
 	drawBoxes(outputFrame);
-	
+	//imshow("No Subtraction", outputFrame);
 
 //////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
