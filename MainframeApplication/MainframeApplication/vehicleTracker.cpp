@@ -98,12 +98,30 @@ void onMouse(int event, int x, int y, int flags, void* userData)
 	if (event == EVENT_LBUTTONDOWN)
 	{
 		static vector<Point> vCoordinates;
-		vCoordinates.push_back(Point(x, y));
+		static vector<vector<Point>> vvCoordinates;
 
+		//Stores coordinates of every left click in a vector
+		vCoordinates.push_back(Point(x, y));
+		//The coordinates of every four left clicks are stored in a vector element
+		if (vCoordinates.size() % 4 == 0 )
+			vvCoordinates.push_back(vCoordinates);
+
+		//Test code that prints vector coordinates
 		cout << "Left Button of mouse was clicked at position(" << x << "," << y << ")" << endl;
 		cout << "Vector coordinates" << vCoordinates << endl;
+		
+		//Test code that prints first three elements of the vector of vectors
+		if (vvCoordinates.size() == 1)
+			cout << "Vector of vector coordinates" << vvCoordinates[0] << endl;
+
+		if (vvCoordinates.size() == 2)
+			cout << "Vector of vector coordinates" << vvCoordinates[1] << endl;
+
+		if (vvCoordinates.size() == 3)
+			cout << "Vector of vector coordinates" << vvCoordinates[2] << endl;
 	}
 }
+
 
 void VehicleTracker::update(Mat currentFrame) {
 	size_t numContours;
