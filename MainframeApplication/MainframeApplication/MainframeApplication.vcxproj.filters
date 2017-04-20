@@ -130,6 +130,12 @@
     <Media Include="4th_floor_ball_2-23-2017.mp4">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="Alina%27s apt1.mp4">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="visualVid1.mp4">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTemplate.png">
