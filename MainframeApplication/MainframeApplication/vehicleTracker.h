@@ -42,6 +42,7 @@ private:
 	std::vector < std::vector<cv::Point>> vehicleContoursVL; // stores the contours of the vehicle in the current vl camera frame
 	cv::Mat outputFrameVL; //Original vl frame, with boxes overlayed on vehicles
 	cv::Mat foregroundMaskVL; //Foreground mask created from background subtraction
+	cv::Mat hsvFrameVL; //Converted vl frame to hsv frame
 	//end VL Camera
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total
