@@ -278,18 +278,18 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 
 
 
-	cv::RotatedRect camBox;
+	//cv::RotatedRect camBox;
 
-	float hranges[] = { 0,180 };
-	const float* phranges = hranges;
+	//float hranges[] = { 0,180 };
+	//const float* phranges = hranges;
 
-	cv::cvtColor(currentFrameVL, hsvFrameVL, CV_BGR2HSV);
+	//cv::cvtColor(currentFrameVL, hsvFrameVL, CV_BGR2HSV);
 
-	cv::inRange(hsvFrameVL, cv::Scalar(0, SMin, MIN(VMin, VMax)),
-		cv::Scalar(180, 256, MAX(VMin, VMax)), mask);
-	int ch[] = { 0, 0 };
-	hue.create(hsv.size(), hsv.depth());
-	cv::mixChannels(&hsv, 1, &hue, 1, ch, 1);
+	//cv::inRange(hsvFrameVL, cv::Scalar(0, SMin, MIN(VMin, VMax)),
+	//	cv::Scalar(180, 256, MAX(VMin, VMax)), mask);
+	//int ch[] = { 0, 0 };
+	//hue.create(hsv.size(), hsv.depth());
+	//cv::mixChannels(&hsv, 1, &hue, 1, ch, 1);
 
 	///Move
 	//Step 1: Save current frame to liveFrame.
@@ -347,7 +347,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	frame.copyTo(outputFrame);
 
 	namedWindow("Display window", WINDOW_AUTOSIZE);
-	imshow("Display window", currentFrame);
+	imshow("Display window", currentFrameVL);
 	setMouseCallback("Display window", onMouse, 0);
 
 	drawBoxes(outputFrame);
