@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->dilateSliderVL->setValue(dilateValVL);
 	ui->erodeSliderVL->setValue(erodeValVL);
 	//End VL Camera
+
 }
 
 MainWindow::~MainWindow()
@@ -67,12 +68,12 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		exit(EXIT_FAILURE);
 	}
 
-	//tracker->update(inputFrame);
+	tracker->update(inputFrame);
 	//outputFrame = tracker->getTrackedFrame();
 	//debugFrame = tracker->getEroded();
 
 	//For VL Camera
-	tracker->updatevl(inputFrame);
+	//tracker->updatevl(inputFrame);
 	outputFrame = tracker->getTrackedFrame();
 	debugFrame = tracker->getEroded();
 	

@@ -199,15 +199,23 @@ public:
         radioButton_5 = new QRadioButton(groupParameters);
         radioButton_5->setObjectName(QStringLiteral("radioButton_5"));
         radioButton_5->setGeometry(QRect(20, 280, 131, 17));
+        radioButton_5->setAutoFillBackground(true);
+        radioButton_5->setAutoRepeat(true);
         radioButton_6 = new QRadioButton(groupParameters);
         radioButton_6->setObjectName(QStringLiteral("radioButton_6"));
         radioButton_6->setGeometry(QRect(20, 310, 121, 17));
+        radioButton_6->setAutoFillBackground(true);
+        radioButton_6->setAutoRepeat(true);
         radioButton_7 = new QRadioButton(groupParameters);
         radioButton_7->setObjectName(QStringLiteral("radioButton_7"));
         radioButton_7->setGeometry(QRect(20, 340, 131, 17));
+        radioButton_7->setAutoFillBackground(true);
+        radioButton_7->setAutoRepeat(true);
         radioButton_8 = new QRadioButton(groupParameters);
         radioButton_8->setObjectName(QStringLiteral("radioButton_8"));
         radioButton_8->setGeometry(QRect(20, 370, 101, 17));
+        radioButton_8->setAutoFillBackground(true);
+        radioButton_8->setAutoRepeat(true);
 
         gridLayout_2->addWidget(groupParameters, 0, 1, 2, 2);
 

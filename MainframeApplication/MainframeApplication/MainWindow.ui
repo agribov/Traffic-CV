@@ -171,8 +171,14 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>View 1 (Bottom Right)</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QRadioButton" name="radioButton_6">
@@ -184,8 +190,14 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>View 2 (Bottom Left)</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QRadioButton" name="radioButton_7">
@@ -197,8 +209,14 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>View 3 (Top Right)</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QRadioButton" name="radioButton_8">
@@ -210,8 +228,14 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>View 4 (Top Left)</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -357,8 +381,8 @@
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>635</y>
+     <x>563</x>
+     <y>629</y>
     </hint>
     <hint type="destinationlabel">
      <x>314</x>
@@ -437,8 +461,8 @@
    <slot>buttonThreshold(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>533</y>
+     <x>563</x>
+     <y>527</y>
     </hint>
     <hint type="destinationlabel">
      <x>460</x>
@@ -453,8 +477,8 @@
    <slot>buttonErode(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>568</y>
+     <x>563</x>
+     <y>559</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
@@ -469,8 +493,8 @@
    <slot>buttonDilate(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>603</y>
+     <x>563</x>
+     <y>591</y>
     </hint>
     <hint type="destinationlabel">
      <x>460</x>
@@ -485,8 +509,8 @@
    <slot>buttonOriginalImage(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>570</x>
-     <y>498</y>
+     <x>563</x>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
