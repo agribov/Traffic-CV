@@ -200,6 +200,8 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_CQtOpenCVViewerGl.h" />
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="utilities.h" />
     <CustomBuild Include="CQtOpenCVViewerGl.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -282,6 +284,23 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="4th_floor_ball_2-23-2017.mp4" />
+    <Media Include="Alina%27s apt1.mp4" />
+    <Media Include="visualVid1.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomLeft.png" />
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomRight.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTemplate.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTopLeft.png" />
+    <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapTopRight.png" />
+    <Image Include="bitmap1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MainframeApplication1.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07132E0C-A9DB-4EDA-ABF2-B3E1D68ED4FC}</ProjectGuid>

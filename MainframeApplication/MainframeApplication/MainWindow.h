@@ -14,12 +14,30 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
+	static const int NUM_ROADS = 4;
+
 	explicit MainWindow(QWidget *parent = 0);
 	void updateFrames(cv::Mat top, cv::Mat bottom);
 	~MainWindow();
+	void setButtonVal(int);
+	void setLastState(int);
 
 private slots:
 	void onStart();
+
+	void buttonView1(bool val);
+	void buttonView2(bool val);
+	void buttonView3(bool val);
+	void buttonView4(bool val);
+
+	void buttonOriginalWindow(bool val);
+	void buttonThreshold(bool val);
+	void buttonErode(bool val);
+	void buttonDilate(bool val);
+
+	void buttonVisual(bool val);
+	void buttonThermal(bool val);
+
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
 	void onDilateValueChanged(int val);
@@ -29,26 +47,44 @@ private slots:
 	void onErodeValueChangedVL(int val);
 	//End VL Camera
 
+	void slotOpen();
+
 private:
 	Ui::MainWindow *ui;
 	cv::Mat topFrameMat;
 	cv::Mat bottomFrameMat;
 
 	cv::Mat inputFrame;
+	cv::Mat inputFrames[NUM_ROADS];
+	cv::Mat inputFramesVl[NUM_ROADS];
 	cv::Mat outputFrame;
+	cv::Mat outputFrames[NUM_ROADS];
 	cv::Mat debugFrame;
 
 	//For VL Camera
 	cv::Mat outputFrameVL;
 	cv::Mat debugFrameVL;
 	
-	cv::VideoCapture *pCap;
+	cv::VideoCapture *pCapTh[NUM_ROADS];
+	cv::VideoCapture *pCapVl[NUM_ROADS];
+
 	VehicleTracker *tracker;
+	VehicleTracker *trackers[4];
 
 	int lowHueVal;
 	int highHueVal;
 	int dilateVal;
 	int erodeVal;
+	int currentState;
+	
+	int lastState = 0;
+	int buttonVal = 0;
+	int viewVal = 0;
+
+	bool viewType; // 0 is thermal, 1 is visual
+	
+	void viewOne();
+	void viewTwo();
 
 	//For VL Camera
 	int dilateValVL;

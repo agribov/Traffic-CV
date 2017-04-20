@@ -98,12 +98,30 @@ void onMouse(int event, int x, int y, int flags, void* userData)
 	if (event == EVENT_LBUTTONDOWN)
 	{
 		static vector<Point> vCoordinates;
-		vCoordinates.push_back(Point(x, y));
+		static vector<vector<Point>> vvCoordinates;
 
+		//Stores coordinates of every left click in a vector
+		vCoordinates.push_back(Point(x, y));
+		//The coordinates of every four left clicks are stored in a vector element
+		if (vCoordinates.size() % 4 == 0 )
+			vvCoordinates.push_back(vCoordinates);
+
+		//Test code that prints vector coordinates
 		cout << "Left Button of mouse was clicked at position(" << x << "," << y << ")" << endl;
 		cout << "Vector coordinates" << vCoordinates << endl;
+		
+		//Test code that prints first three elements of the vector of vectors
+		if (vvCoordinates.size() == 1)
+			cout << "Vector of vector coordinates" << vvCoordinates[0] << endl;
+
+		if (vvCoordinates.size() == 2)
+			cout << "Vector of vector coordinates" << vvCoordinates[1] << endl;
+
+		if (vvCoordinates.size() == 3)
+			cout << "Vector of vector coordinates" << vvCoordinates[2] << endl;
 	}
 }
+
 
 void VehicleTracker::update(Mat currentFrame) {
 	size_t numContours;
@@ -265,6 +283,10 @@ void VehicleTracker::update(Mat currentFrame) {
 	currentCarCount = 0;
 	drawBoxes(outputFrame);
 
+	namedWindow("Display window", WINDOW_AUTOSIZE);
+	imshow("Display window", currentFrame);
+	setMouseCallback("Display window", onMouse, 0);
+
 }
 //For Visible Light camera
 void VehicleTracker::updatevl(Mat currentFrameVL) {
@@ -297,11 +319,11 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//Step 2: Perform background subtraction.
 
 	//For testing background subtraction
-	imshow("No Subtraction", frameVL);
+	//imshow("No Subtraction", frameVL);
 
 	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
 	//For testing background subtraction
-	imshow("MOG2", fgMaskMOG2);
+	//imshow("MOG2", fgMaskMOG2);
 
 	//Step 2: Perform thresholding.
 	//highThFrameVL = thresholdFrame(vlframe, lowHue, highHue);
@@ -344,14 +366,12 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	}
 	//vehicles = tempList;
 	currentCarCount = 0;
-	frame.copyTo(outputFrame);
 
-	namedWindow("Display window", WINDOW_AUTOSIZE);
-	imshow("Display window", currentFrameVL);
-	setMouseCallback("Display window", onMouse, 0);
+	frameVL.copyTo(outputFrame);
+	//imshow("MOG2", frameVL);
 
 	drawBoxes(outputFrame);
-	
+	//imshow("No Subtraction", outputFrame);
 
 //////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	

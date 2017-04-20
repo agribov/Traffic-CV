@@ -101,9 +101,15 @@ public:
 	void setHighThVal(int val) { highHue = val; };
 	void setErosionVal(int val) { erosionVal = val; };
 	void setDilationVal(int val) { dilationVal = val; };
+	int getLowThVal() { return lowHue; };
+	int getHighThVal() { return highHue; };
+	int getErosionVal() { return erosionVal; };
+	int getDilationVal() { return dilationVal;  };
 	//For VL Camera
 	void setErosionValVL(int val) { erosionValVL = val; };
 	void setDilationValVL(int val) { dilationValVL = val; };
+	int getErosionValVL() { return erosionVal; };
+	int getDilationValVL() { return dilationVal; };
 	void setMOG2ThVal(int val) { mog2thVal = val; }; //Threshold value for MOG2
 	//End VL Camera
 
