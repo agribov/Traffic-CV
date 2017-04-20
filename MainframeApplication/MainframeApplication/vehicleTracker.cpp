@@ -298,6 +298,21 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	Point2f center;
 	vector<Point2f> centroids;
 
+
+
+	//cv::RotatedRect camBox;
+
+	//float hranges[] = { 0,180 };
+	//const float* phranges = hranges;
+
+	//cv::cvtColor(currentFrameVL, hsvFrameVL, CV_BGR2HSV);
+
+	//cv::inRange(hsvFrameVL, cv::Scalar(0, SMin, MIN(VMin, VMax)),
+	//	cv::Scalar(180, 256, MAX(VMin, VMax)), mask);
+	//int ch[] = { 0, 0 };
+	//hue.create(hsv.size(), hsv.depth());
+	//cv::mixChannels(&hsv, 1, &hue, 1, ch, 1);
+
 	///Move
 	//Step 1: Save current frame to liveFrame.
 	frameVL = currentFrameVL;
@@ -351,6 +366,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	}
 	//vehicles = tempList;
 	currentCarCount = 0;
+
 	frameVL.copyTo(outputFrame);
 	//imshow("MOG2", frameVL);
 
