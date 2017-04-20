@@ -61,9 +61,9 @@ public:
     QGroupBox *groupBox_4;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout_5;
-    QPushButton *pushButton;
-    QRadioButton *radioButton_10;
-    QRadioButton *radioButton_9;
+    QPushButton *startButton;
+    QRadioButton *thermalButton;
+    QRadioButton *visualButton;
     QGroupBox *groupBox_2;
     QWidget *layoutWidget2;
     QGridLayout *gridLayout_3;
@@ -240,20 +240,20 @@ public:
         gridLayout_5 = new QGridLayout(layoutWidget1);
         gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
         gridLayout_5->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(layoutWidget1);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        startButton = new QPushButton(layoutWidget1);
+        startButton->setObjectName(QStringLiteral("startButton"));
 
-        gridLayout_5->addWidget(pushButton, 2, 0, 1, 1);
+        gridLayout_5->addWidget(startButton, 2, 0, 1, 1);
 
-        radioButton_10 = new QRadioButton(layoutWidget1);
-        radioButton_10->setObjectName(QStringLiteral("radioButton_10"));
+        thermalButton = new QRadioButton(layoutWidget1);
+        thermalButton->setObjectName(QStringLiteral("thermalButton"));
 
-        gridLayout_5->addWidget(radioButton_10, 1, 0, 1, 1);
+        gridLayout_5->addWidget(thermalButton, 1, 0, 1, 1);
 
-        radioButton_9 = new QRadioButton(layoutWidget1);
-        radioButton_9->setObjectName(QStringLiteral("radioButton_9"));
+        visualButton = new QRadioButton(layoutWidget1);
+        visualButton->setObjectName(QStringLiteral("visualButton"));
 
-        gridLayout_5->addWidget(radioButton_9, 0, 0, 1, 1);
+        gridLayout_5->addWidget(visualButton, 0, 0, 1, 1);
 
         groupBox_2 = new QGroupBox(groupBox_5);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
@@ -405,7 +405,7 @@ public:
         QObject::connect(menubar, SIGNAL(triggered(QAction*)), MainWindow, SLOT(slotOpen()));
         QObject::connect(dilateSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChangedVL(int)));
         QObject::connect(erodeSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChangedVL(int)));
-        QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(onStart()));
+        QObject::connect(startButton, SIGNAL(clicked()), MainWindow, SLOT(onStart()));
         QObject::connect(radioButton_2, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonThreshold(bool)));
         QObject::connect(radioButton_3, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonErode(bool)));
         QObject::connect(radioButton_4, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonDilate(bool)));
@@ -414,6 +414,8 @@ public:
         QObject::connect(radioButton_7, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView3(bool)));
         QObject::connect(radioButton_5, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView1(bool)));
         QObject::connect(radioButton_6, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonView2(bool)));
+        QObject::connect(visualButton, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonVisual(bool)));
+        QObject::connect(thermalButton, SIGNAL(clicked(bool)), MainWindow, SLOT(buttonThermal(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -435,9 +437,9 @@ public:
         dilateLabelVL->setText(QApplication::translate("MainWindow", "VL Dilate", Q_NULLPTR));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "Camera", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
-        radioButton_10->setText(QApplication::translate("MainWindow", "Thermal", Q_NULLPTR));
-        radioButton_9->setText(QApplication::translate("MainWindow", "Visual Image", Q_NULLPTR));
+        startButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        thermalButton->setText(QApplication::translate("MainWindow", "Thermal", Q_NULLPTR));
+        visualButton->setText(QApplication::translate("MainWindow", "Visual Image", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "View Selection", Q_NULLPTR));
         radioButton_5->setText(QApplication::translate("MainWindow", "Lane 1", Q_NULLPTR));
         radioButton_6->setText(QApplication::translate("MainWindow", "Lane 2", Q_NULLPTR));

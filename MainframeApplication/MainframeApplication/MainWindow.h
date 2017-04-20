@@ -14,18 +14,13 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
+	static const int NUM_ROADS = 4;
+
 	explicit MainWindow(QWidget *parent = 0);
 	void updateFrames(cv::Mat top, cv::Mat bottom);
 	~MainWindow();
 	void setButtonVal(int);
-	void setViewVal(int);
-	void setCurrentState(int);
 	void setLastState(int);
-	void changeImage();
-	int getButtonVal();
-	int getViewVal();
-	int getCurrentState();
-	int getLastState();
 
 private slots:
 	void onStart();
@@ -39,6 +34,9 @@ private slots:
 	void buttonThreshold(bool val);
 	void buttonErode(bool val);
 	void buttonDilate(bool val);
+
+	void buttonVisual(bool val);
+	void buttonThermal(bool val);
 
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
@@ -57,15 +55,21 @@ private:
 	cv::Mat bottomFrameMat;
 
 	cv::Mat inputFrame;
+	cv::Mat inputFrames[NUM_ROADS];
+	cv::Mat inputFramesVl[NUM_ROADS];
 	cv::Mat outputFrame;
+	cv::Mat outputFrames[NUM_ROADS];
 	cv::Mat debugFrame;
 
 	//For VL Camera
 	cv::Mat outputFrameVL;
 	cv::Mat debugFrameVL;
 	
-	cv::VideoCapture *pCap;
+	cv::VideoCapture *pCapTh[NUM_ROADS];
+	cv::VideoCapture *pCapVl[NUM_ROADS];
+
 	VehicleTracker *tracker;
+	VehicleTracker *trackers[4];
 
 	int lowHueVal;
 	int highHueVal;
@@ -76,6 +80,8 @@ private:
 	int lastState = 0;
 	int buttonVal = 0;
 	int viewVal = 0;
+
+	bool viewType; // 0 is thermal, 1 is visual
 	
 	void viewOne();
 	void viewTwo();

@@ -257,21 +257,21 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="2" column="0">
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="startButton">
            <property name="text">
             <string>Start</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QRadioButton" name="radioButton_10">
+          <widget class="QRadioButton" name="thermalButton">
            <property name="text">
             <string>Thermal</string>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QRadioButton" name="radioButton_9">
+          <widget class="QRadioButton" name="visualButton">
            <property name="text">
             <string>Visual Image</string>
            </property>
@@ -669,8 +669,8 @@
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>253</x>
-     <y>566</y>
+     <x>271</x>
+     <y>919</y>
     </hint>
     <hint type="destinationlabel">
      <x>315</x>
@@ -727,13 +727,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>startButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
+     <x>961</x>
      <y>556</y>
     </hint>
     <hint type="destinationlabel">
@@ -749,8 +749,8 @@
    <slot>buttonThreshold(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>463</y>
+     <x>808</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
      <x>460</x>
@@ -765,8 +765,8 @@
    <slot>buttonErode(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>495</y>
+     <x>808</x>
+     <y>529</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
@@ -781,8 +781,8 @@
    <slot>buttonDilate(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>527</y>
+     <x>808</x>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>460</x>
@@ -797,8 +797,8 @@
    <slot>buttonOriginalImage(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>431</y>
+     <x>808</x>
+     <y>447</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
@@ -813,8 +813,8 @@
    <slot>buttonView4(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>380</x>
-     <y>416</y>
+     <x>691</x>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>314</x>
@@ -829,8 +829,8 @@
    <slot>buttonView3(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>410</x>
-     <y>386</y>
+     <x>691</x>
+     <y>529</y>
     </hint>
     <hint type="destinationlabel">
      <x>316</x>
@@ -845,8 +845,8 @@
    <slot>buttonView1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>410</x>
-     <y>326</y>
+     <x>691</x>
+     <y>447</y>
     </hint>
     <hint type="destinationlabel">
      <x>316</x>
@@ -861,12 +861,44 @@
    <slot>buttonView2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>400</x>
-     <y>356</y>
+     <x>691</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
      <x>316</x>
      <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visualButton</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonVisual(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1091</x>
+     <y>435</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1170</x>
+     <y>430</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>thermalButton</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonThermal(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1050</x>
+     <y>484</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>588</x>
+     <y>487</y>
     </hint>
    </hints>
   </connection>
@@ -891,5 +923,7 @@
   <slot>slotOpen()</slot>
   <slot>onErodeValueChangedVL(int)</slot>
   <slot>onDilateValueChangedVL(int)</slot>
+  <slot>buttonThermal(bool)</slot>
+  <slot>buttonVisual(bool)</slot>
  </slots>
 </ui>
