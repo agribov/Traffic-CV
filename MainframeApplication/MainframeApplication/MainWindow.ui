@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1178</width>
-    <height>975</height>
+    <height>955</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -27,42 +27,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <widget class="CQtOpenCVViewerGl" name="topFrameWidget">
-      <property name="minimumSize">
-       <size>
-        <width>380</width>
-        <height>240</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="MapDisplay">
-      <property name="minimumSize">
-       <size>
-        <width>380</width>
-        <height>280</height>
-       </size>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget">
-      <property name="minimumSize">
-       <size>
-        <width>380</width>
-        <height>240</height>
-       </size>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="2" colspan="2">
      <widget class="QGroupBox" name="groupParameters">
       <property name="enabled">
@@ -71,7 +35,7 @@
       <property name="minimumSize">
        <size>
         <width>750</width>
-        <height>240</height>
+        <height>270</height>
        </size>
       </property>
       <property name="title">
@@ -217,183 +181,6 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="2" colspan="2">
-     <widget class="QGroupBox" name="groupBox_5">
-      <property name="minimumSize">
-       <size>
-        <width>750</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Options</string>
-      </property>
-      <widget class="QGroupBox" name="groupBox_4">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>40</y>
-         <width>201</width>
-         <height>201</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="title">
-        <string>Camera</string>
-       </property>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>181</width>
-          <height>130</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="2" column="0">
-          <widget class="QPushButton" name="startButton">
-           <property name="text">
-            <string>Start</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QRadioButton" name="thermalButton">
-           <property name="text">
-            <string>Thermal</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QRadioButton" name="visualButton">
-           <property name="text">
-            <string>Visual Image</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>40</y>
-         <width>271</width>
-         <height>201</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="title">
-        <string>View Selection</string>
-       </property>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>253</width>
-          <height>154</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="0">
-          <widget class="QRadioButton" name="radioButton_5">
-           <property name="text">
-            <string>Lane 1</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QRadioButton" name="radioButton_6">
-           <property name="text">
-            <string>Lane 2</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QRadioButton" name="radioButton_7">
-           <property name="text">
-            <string>Lane 3</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QRadioButton" name="radioButton_8">
-           <property name="text">
-            <string>Lane 4</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_3">
-       <property name="geometry">
-        <rect>
-         <x>290</x>
-         <y>40</y>
-         <width>251</width>
-         <height>201</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Process Frame</string>
-       </property>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>226</width>
-          <height>154</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="1" column="0">
-          <widget class="QRadioButton" name="radioButton_2">
-           <property name="text">
-            <string>Thresholded Image</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QRadioButton" name="radioButton_4">
-           <property name="text">
-            <string>Dilated Image</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QRadioButton" name="radioButton_3">
-           <property name="text">
-            <string>Eroded Image</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QRadioButton" name="radioButton">
-           <property name="text">
-            <string>Original Image</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-     </widget>
-    </item>
     <item row="2" column="2" colspan="2">
      <widget class="QGroupBox" name="groupBox">
       <property name="mouseTracking">
@@ -503,6 +290,228 @@
       </widget>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="MapDisplay">
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>280</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="CQtOpenCVViewerGl" name="topFrameWidget">
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>240</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget">
+      <property name="minimumSize">
+       <size>
+        <width>380</width>
+        <height>240</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2" colspan="2">
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="minimumSize">
+       <size>
+        <width>750</width>
+        <height>270</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Options</string>
+      </property>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="geometry">
+        <rect>
+         <x>540</x>
+         <y>40</y>
+         <width>221</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Camera</string>
+       </property>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>194</width>
+          <height>188</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="thermalButton">
+           <property name="text">
+            <string>Display Thermal</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPushButton" name="calibrateButton">
+           <property name="text">
+            <string>Calibrate Lanes</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QRadioButton" name="visualButton">
+           <property name="text">
+            <string>Display Visual</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="startButton">
+           <property name="text">
+            <string>Start</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>271</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>View Selection</string>
+       </property>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>251</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radioButton_5">
+           <property name="text">
+            <string>Lane 1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="radioButton_6">
+           <property name="text">
+            <string>Lane 2</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QRadioButton" name="radioButton_7">
+           <property name="text">
+            <string>Lane 3</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QRadioButton" name="radioButton_8">
+           <property name="text">
+            <string>Lane 4</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>40</y>
+         <width>251</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Process Frame</string>
+       </property>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>231</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="text">
+            <string>Thresholded Image</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QRadioButton" name="radioButton_4">
+           <property name="text">
+            <string>Dilated Image</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QRadioButton" name="radioButton_3">
+           <property name="text">
+            <string>Eroded Image</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radioButton">
+           <property name="text">
+            <string>Original Image</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <zorder>layoutWidget</zorder>
+       <zorder>groupBox_4</zorder>
+      </widget>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -583,22 +592,6 @@
  </resources>
  <connections>
   <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onStart()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>563</x>
-     <y>629</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>314</x>
-     <y>559</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>dilateSlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
@@ -669,8 +662,8 @@
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>271</x>
-     <y>919</y>
+     <x>289</x>
+     <y>899</y>
     </hint>
     <hint type="destinationlabel">
      <x>315</x>
@@ -733,8 +726,8 @@
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>961</x>
-     <y>556</y>
+     <x>1152</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>314</x>
@@ -797,8 +790,8 @@
    <slot>buttonOriginalImage(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>447</y>
+     <x>939</x>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>462</x>
@@ -813,8 +806,8 @@
    <slot>buttonView4(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>691</x>
-     <y>570</y>
+     <x>689</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>314</x>
@@ -829,8 +822,8 @@
    <slot>buttonView3(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>691</x>
-     <y>529</y>
+     <x>689</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>316</x>
@@ -845,8 +838,8 @@
    <slot>buttonView1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>691</x>
-     <y>447</y>
+     <x>689</x>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>316</x>
@@ -861,8 +854,8 @@
    <slot>buttonView2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>691</x>
-     <y>488</y>
+     <x>689</x>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel">
      <x>316</x>
@@ -877,8 +870,8 @@
    <slot>buttonVisual(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1091</x>
-     <y>435</y>
+     <x>1152</x>
+     <y>536</y>
     </hint>
     <hint type="destinationlabel">
      <x>1170</x>
@@ -899,6 +892,22 @@
     <hint type="destinationlabel">
      <x>588</x>
      <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>calibrateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonCalibrate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1056</x>
+     <y>567</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1168</x>
+     <y>608</y>
     </hint>
    </hints>
   </connection>
@@ -925,5 +934,6 @@
   <slot>onDilateValueChangedVL(int)</slot>
   <slot>buttonThermal(bool)</slot>
   <slot>buttonVisual(bool)</slot>
+  <slot>buttonCalibrate()</slot>
  </slots>
 </ui>
