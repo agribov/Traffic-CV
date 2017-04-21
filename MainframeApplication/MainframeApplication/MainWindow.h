@@ -38,6 +38,8 @@ private slots:
 	void buttonVisual(bool val);
 	void buttonThermal(bool val);
 
+	void buttonCalibrate();
+
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
 	void onDilateValueChanged(int val);
@@ -82,9 +84,8 @@ private:
 	int viewVal = 0;
 
 	bool viewType; // 0 is thermal, 1 is visual
-	
-	void viewOne();
-	void viewTwo();
+
+	bool cal;
 
 	//For VL Camera
 	int dilateValVL;
