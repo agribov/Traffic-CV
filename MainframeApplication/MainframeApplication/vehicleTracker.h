@@ -50,6 +50,7 @@ private:
 	const int MIN_VEHICLE_AREA = 5 * 5; // Unit is pixels
 	const int MAX_VEHICLE_AREA = 200 * 200; // Unit is pixels
 	std::vector<std::vector<Vehicle>> vehicles;
+	std::vector<Vehicle> vehiclesVL;
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
 	int frameCount;
 
@@ -81,7 +82,7 @@ private:
 	//End VL Camera
 	void findVehicleContours(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
 	void updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary);
-	void drawBoxes(cv::Mat &frame); // This function overlays boxes over the current location of the cars.
+	void drawBoxes(bool type, cv::Mat &frame); // This function overlays boxes over the current location of the cars.
 	//For VL Camera
 	void findVehicleContoursVL(cv::Mat inputFrame, std::vector<std::vector<cv::Point>> &outputContours);
 	//End VL Camera

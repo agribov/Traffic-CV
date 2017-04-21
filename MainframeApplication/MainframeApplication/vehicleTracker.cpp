@@ -252,7 +252,7 @@ void VehicleTracker::update(Mat currentFrame) {
 
 	*/
 	currentCarCount = 0;
-	drawBoxes(outputFrame);
+	drawBoxes(0, outputFrame);
 
 }
 //For Visible Light camera
@@ -337,7 +337,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	frameVL.copyTo(outputFrameVL);
 	//imshow("MOG2", frameVL);
 
-	drawBoxes(outputFrameVL);
+	drawBoxes(1, outputFrameVL);
 	//imshow("No Subtraction", outputFrame);
 
 //////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -387,7 +387,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//drawBoxes(outputFrame);
 }
 
-void VehicleTracker::drawBoxes(Mat &frame) {
+void VehicleTracker::drawBoxes(bool type, Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
 	// drawBoxes may be unnecessary as meanshift and camshift draw boxes. -AZS
 	vector<Point> center;
@@ -396,22 +396,33 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 	const Scalar RED = Scalar(0, 0, 255);  //Assuming BGR color space.
 	Scalar COLOR;
 	COLOR = GREEN;
-	
+
 	//for (int i = 0; i < getVehiclePositions().size(); i++)
 	for (int i = 0; i < numLanes; i++) {
 		for (int j = 0; j < vehicles[i].size(); j++) {
 			Point temp;
-			temp.x = vehicles[i][j].getPosition().x;
-			temp.y = vehicles[i][j].getPosition().y;
+			if (type) {
+				temp.x = vehiclesVL[j].getPosition().x;
+				temp.y = vehiclesVL[j].getPosition().y;
+			}
+			else {
+				temp.x = vehicles[i][j].getPosition().x;
+				temp.y = vehicles[i][j].getPosition().y;
+			}
 			//COLOR = (pointPolygonTest(inboundBorder, temp, false) >= 0) ? GREEN : RED;
 			rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), COLOR, 3);	//Rectangle vertices are arbitrarily set.
 			currentCarCount++;
 		}
 	}
 	//printf("%d\n", getVehiclePositions().size());
-
-	line(frame, laneBounds[0][0], laneBounds[0][1], GREEN, 3);
-	line(frame, laneBounds[0][2], laneBounds[0][3], GREEN, 3);
+	if (type) {
+		line(frame, laneBoundsVL[0][0], laneBoundsVL[0][1], GREEN, 3);
+		line(frame, laneBoundsVL[0][2], laneBoundsVL[0][3], GREEN, 3);
+	}
+	else {
+		line(frame, laneBounds[0][0], laneBounds[0][1], GREEN, 3);
+		line(frame, laneBounds[0][2], laneBounds[0][3], GREEN, 3);
+	}
 	//line(frame, inboundBorder[2], inboundBorder[3], GREEN, 3);
 
 }
