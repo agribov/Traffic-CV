@@ -43,6 +43,8 @@ private:
 	cv::Mat outputFrameVL; //Original vl frame, with boxes overlayed on vehicles
 	cv::Mat foregroundMaskVL; //Foreground mask created from background subtraction
 	cv::Mat hsvFrameVL; //Converted vl frame to hsv frame
+	cv::Mat hueVL; //VL Camera hue
+	cv::Mat maskVL; //Mask of VL camera frame
 	//end VL Camera
 	int numCarsCurrent; // Number of cars currently in the intersection
 	int numCarsTotal; //Number of cars that have gone through the intersection in total

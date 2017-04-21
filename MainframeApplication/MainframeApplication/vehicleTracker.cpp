@@ -264,18 +264,26 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 
 
 
-	//cv::RotatedRect camBox;
 
-	//float hranges[] = { 0,180 };
-	//const float* phranges = hranges;
+	int VMin, VMax, SMin, hsize;
+	cv::RotatedRect camBox;
 
-	//cv::cvtColor(currentFrameVL, hsvFrameVL, CV_BGR2HSV);
+	hsize = 16;
 
-	//cv::inRange(hsvFrameVL, cv::Scalar(0, SMin, MIN(VMin, VMax)),
-	//	cv::Scalar(180, 256, MAX(VMin, VMax)), mask);
-	//int ch[] = { 0, 0 };
-	//hue.create(hsv.size(), hsv.depth());
-	//cv::mixChannels(&hsv, 1, &hue, 1, ch, 1);
+	VMin = 10;
+	VMax = 256;
+	SMin = 30;
+
+	float hranges[] = { 0,180 };
+	const float* phranges = hranges;
+
+	cv::cvtColor(currentFrameVL, hsvFrameVL, CV_BGR2HSV);
+
+	cv::inRange(hsvFrameVL, cv::Scalar(0, SMin, MIN(VMin, VMax)),
+		cv::Scalar(180, 256, MAX(VMin, VMax)), maskVL);
+	int ch[] = { 0, 0 };
+	hueVL.create(hsvFrameVL.size(), hsvFrameVL.depth());
+	cv::mixChannels(&hsvFrameVL, 1, &hueVL, 1, ch, 1);
 
 	///Move
 	//Step 1: Save current frame to liveFrame.
