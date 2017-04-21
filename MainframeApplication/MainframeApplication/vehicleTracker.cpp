@@ -327,11 +327,19 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 	vector<Vehicle> tempList;
 	//printf("%d\n", centroids.size());
+
+	vector<Point2f> filtCentroids;
+	// Sort the centroids into the container for the lane they are in.
 	for (i = 0; i < centroids.size(); i++) {
-		//Vehicle x(centroids[i]);
-		//tempList.push_back(x);
+		if (pointPolygonTest(laneBoundsVL[0], centroids[i], false) >= 0)
+			filtCentroids.push_back(centroids[i]);
 	}
-	//vehicles = tempList;
+
+	for (i = 0; i < filtCentroids.size(); i++) {
+		Vehicle x(filtCentroids[i], frameCount);
+		tempList.push_back(x);
+	}
+	vehiclesVL = tempList;
 	currentCarCount = 0;
 
 	frameVL.copyTo(outputFrameVL);
