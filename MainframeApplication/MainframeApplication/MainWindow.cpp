@@ -137,7 +137,7 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 	else if (viewType) outputFrames[v] = inputFramesVl[v];
 
 	//begin switch statement for filters
-	outputFrames[v] = (viewType) ? trackers[v]->getTrackedFrameVL() : trackers[v]->getTrackedFrame();
+	//outputFrames[v] = (viewType) ? trackers[v]->getTrackedFrameVL() : trackers[v]->getTrackedFrame();
 	//trackers[v]->updatevl(inputFramesVl[v]);
 	trackers[v]->update(inputFrames[v]);
 
