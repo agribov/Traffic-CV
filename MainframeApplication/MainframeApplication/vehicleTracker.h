@@ -54,6 +54,7 @@ private:
 	int frameCount;
 
 	int numLanes;
+	int numLanesVL;
 	std::vector<std::vector<cv::Point>> laneBounds;
 	std::vector<std::vector<cv::Point>> laneBoundsVL;
 
