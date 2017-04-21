@@ -482,17 +482,17 @@ void VehicleTracker::findVehicleContoursVL(Mat inputFrame, vector<vector<Point>>
 }
 //End VL Camera
 
-void VehicleTracker::updateLaneBounds(int type,  int n, double thetaDB, std::vector<std::vector<cv::Point>> b) {
+void VehicleTracker::updateLaneBounds(int type, int n, double thetaDB, std::vector<std::vector<cv::Point>> b) {
 	int i;
 	double slope = 0;
 	//double slopeBound[2];
-	
+
 	if (n != b.size()) {
 		perror("Error: numLanes provided not equal to actual number of lanes.");
 		exit(1);
 	}
 
-	numLanes = n;
+	(type) ? numLanesVL = n : numLanes = n;
 	if (type) {
 		laneBoundsVL.clear();
 		laneBoundsVL = b;
@@ -502,22 +502,22 @@ void VehicleTracker::updateLaneBounds(int type,  int n, double thetaDB, std::vec
 		cout << "A" << endl;
 		laneBounds.clear();
 		laneBounds = b;
+		vehicles.resize(numLanes);
 	}
 
 	laneSlopeBounds[0].clear();
 	laneSlopeBounds[1].clear();
 	for (i = 0; i < b.size(); i++) {
-		slope = (b[i][0].y - b[i][1].y) / (b[i][0].x - b[i][1].x);
-		slope += (b[i][3].y - b[i][2].y) / (b[i][3].x - b[i][2].x);
-		slope /= 2;
+		//slope = (b[i][0].y - b[i][1].y) / (b[i][0].x - b[i][1].x);
+		//slope += (b[i][3].y - b[i][2].y) / (b[i][3].x - b[i][2].x);
+		//slope /= 2;
 
-		laneSlopeBounds[0].push_back(tan(atan(slope) - thetaDB));
-		laneSlopeBounds[1].push_back(tan(atan(slope) + thetaDB));
+		//laneSlopeBounds[0].push_back(tan(atan(slope) - thetaDB));
+		//laneSlopeBounds[1].push_back(tan(atan(slope) + thetaDB));
 		//laneSlopeBounds.push_back(slopeBound);
 	}
-	cout << "\n Saved points: \n" << laneBounds[0] <<  endl;
+	//cout << "\n Saved points: \n" << laneBounds[0] <<  endl;
 
-	vehicles.resize(numLanes);
 	return;
 }
 
