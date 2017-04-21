@@ -58,7 +58,7 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	//For VL Camera
 	erosionValVL = er;
 	dilationValVL = dil;
-
+	/*
 	temp.x = 0;
 	temp.y = 150;
 	inboundBorder.push_back(temp);
@@ -76,6 +76,9 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	updateLaneBounds(0, 1, 15, bounds);
 	//laneBounds.push_back(inboundBorder);
 	borders.push_back(inboundBorder);
+	*/
+	numLanes = 0;
+	numLanesVL = 0;
 } 
 
 vector<Point> VehicleTracker::getVehiclePositions() {

@@ -124,6 +124,18 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 			ui->OutputTable->setItem(i, j, cells[3 * i + j]);
 		}
 
+	if (trackers[v]->isCalibrated(0)) {
+		cout << "thermal update" << endl;
+		trackers[v]->update(inputFrames[v]);
+		if (!viewType) outputFrames[v] = trackers[v]->getTrackedFrame();
+	}
+	else if (!viewType) outputFrames[v] = inputFrames[v];
+	if (trackers[v]->isCalibrated(1)) {
+		trackers[v]->updatevl(inputFramesVl[v]);
+		if (viewType) outputFrames[v] = trackers[v]->getTrackedFrameVL();
+	}
+	else if (viewType) outputFrames[v] = inputFramesVl[v];
+
 	//begin switch statement for filters
 	outputFrames[v] = (viewType) ? trackers[v]->getTrackedFrameVL() : trackers[v]->getTrackedFrame();
 	//trackers[v]->updatevl(inputFramesVl[v]);

@@ -117,6 +117,7 @@ public:
 	//End VL Camera
 
 	void updateLaneBounds(int type, int n, double thetaDB, std::vector<std::vector<cv::Point>> bounds);
+	int isCalibrated(int type) { return (type) ? (bool)numLanesVL : (bool)numLanes; };
 };
 
 #endif
