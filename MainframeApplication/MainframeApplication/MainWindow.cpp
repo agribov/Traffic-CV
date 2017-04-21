@@ -2,6 +2,7 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "videoHelper.h"
+#include "utilities.h"
 
 using namespace std;
 using namespace cv;
@@ -59,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	viewType = FALSE;
 	viewVal = 0;
 	buttonVal = 1;
+	cal = false;
 }
 
 MainWindow::~MainWindow()
@@ -102,6 +104,13 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		//trackers[i]->update(inputFrames[i]);
 	}
 
+	int v = viewVal;
+	if (endCal) {
+		cal = endCal = false;
+		trackers[v]->updateLaneBounds(viewType, 1, 5, calPoints);
+	}
+	if (cal) (viewType)? calibrate(inputFramesVl[v]) : calibrate(inputFrames[v]);
+
 	vector<QTableWidgetItem*> cells;
 	cells.resize(12);
 	for (int i = 0; i < 3; i++)
@@ -116,7 +125,6 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		}
 
 	//begin switch statement for filters
-	int v = viewVal;
 	outputFrames[v] = (viewType) ? trackers[v]->getTrackedFrameVL() : trackers[v]->getTrackedFrame();
 	//trackers[v]->updatevl(inputFramesVl[v]);
 	trackers[v]->update(inputFrames[v]);
@@ -306,6 +314,11 @@ void MainWindow::slotOpen() {
 	QWidget  *wgt = new QWidget(this);
 	wgt->show();
 }
+
+void MainWindow::buttonCalibrate() {
+	cal = true;
+}
+
 
 //For VL Camera
 void MainWindow::onDilateValueChangedVL(int val) {

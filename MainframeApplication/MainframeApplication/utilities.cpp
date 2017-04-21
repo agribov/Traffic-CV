@@ -15,6 +15,10 @@
 using namespace std;
 using namespace cv;
 
+bool endCal = false;
+vector<vector<Point>> calPoints;
+
+
 double getDist(Point A, Point B) {
 	return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
 }
@@ -47,4 +51,49 @@ void drawPoints(Mat &frame, vector<Point> points) {
 		circle(frame, points[i], 2, GREEN, 3);
 	}
 
+}
+
+void onMouse(int event, int x, int y, int flags, void* userData) {
+	if (event != EVENT_LBUTTONDOWN)
+		return;
+	//Save coordinates of left button click
+	if (event == EVENT_LBUTTONDOWN)
+	{
+		static vector<Point> vCoordinates;
+		static vector<vector<Point>> vvCoordinates;
+
+		//Stores coordinates of every left click in a vector
+		vCoordinates.push_back(Point(x, y));
+		//The coordinates of every four left clicks are stored in a vector element
+		if (vCoordinates.size() % 4 == 0) {
+			vvCoordinates.push_back(vCoordinates);
+			endCal = true;
+			destroyWindow("Calibration");
+			calPoints = vvCoordinates;
+			vCoordinates.clear();
+			vvCoordinates.clear();
+			cout << "\nSaving points: \n" << calPoints[0] << endl;
+		}
+
+		//Test code that prints vector coordinates
+		cout << "Left Button of mouse was clicked at position(" << x << "," << y << ")" << endl;
+		cout << "Vector coordinates\n" << vCoordinates << endl;
+
+		//Test code that prints first three elements of the vector of vectors
+		if (vvCoordinates.size() == 1)
+			cout << "Vector of vector coordinates" << vvCoordinates[0] << endl;
+
+		if (vvCoordinates.size() == 2)
+			cout << "Vector of vector coordinates" << vvCoordinates[1] << endl;
+
+		if (vvCoordinates.size() == 3)
+			cout << "Vector of vector coordinates" << vvCoordinates[2] << endl;
+
+	}
+}
+
+void calibrate(cv::Mat frame) {
+	namedWindow("Calibration", WINDOW_AUTOSIZE);
+	imshow("Calibration", frame);
+	setMouseCallback("Calibration", onMouse, 0);
 }
