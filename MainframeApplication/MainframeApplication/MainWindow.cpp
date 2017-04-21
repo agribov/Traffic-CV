@@ -88,16 +88,21 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 
 	for (int i = 0; i < NUM_ROADS; i++) {
 		
-		if (!(*pCapTh[i]).read(inputFrames[i])) {
+		while (!(*pCapTh[i]).read(inputFrames[i])) {
 			cerr << "Unable to read next frame." << endl;
 			cerr << "Exiting..." << endl;
-			exit(EXIT_FAILURE);
+			//exit(EXIT_FAILURE);
+			releaseVideo(pCapTh[i]);
+			pCapTh[i] = initializeVideo(videoTh[i]);
 		}
 
-		if (!(*pCapVl[i]).read(inputFramesVl[i])) {
+		while (!(*pCapVl[i]).read(inputFramesVl[i])) {
 			cerr << "Unable to read next frame." << endl;
 			cerr << "Exiting..." << endl;
-			exit(EXIT_FAILURE);
+			//exit(EXIT_FAILURE);
+			releaseVideo(pCapVl[i]);
+			pCapVl[i] = initializeVideo(videoVl[i]);
+
 		}
 
 		//trackers[i]->updatevl(inputFramesVl[i]);
@@ -125,7 +130,7 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		}
 
 	if (trackers[v]->isCalibrated(0)) {
-		cout << "thermal update" << endl;
+		//cout << "thermal update" << endl;
 		trackers[v]->update(inputFrames[v]);
 		if (!viewType) outputFrames[v] = trackers[v]->getTrackedFrame();
 	}
@@ -208,11 +213,7 @@ void MainWindow::updateFrames(Mat top, Mat bottom) {
 // Slot function definitions
 
 void MainWindow::onStart() {
-	//Thermal video declarations
-	char* videoTh[NUM_ROADS] = { "thermalSample.mp4", "4th_floor_ball_2-23-2017.mp4", "Alina's apt1.mp4", "thermalSample.mp4" };
-	//Visual video declarations
-	char* videoVl[NUM_ROADS] = { "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4" };
-
+	//Filenames initialized as members in the .h file
 	// Other declarations
 	char* streetMap = "mapTemplate.png"; // using a direct path works but including a resource file does not
 

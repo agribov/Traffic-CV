@@ -73,6 +73,11 @@ private:
 	VehicleTracker *tracker;
 	VehicleTracker *trackers[4];
 
+	//Thermal video declarations
+	char *videoTh[NUM_ROADS] = { "thermalSample.mp4", "4th_floor_ball_2-23-2017.mp4", "Alina's apt1.mp4", "thermalSample.mp4" };
+	//Visual video declarations
+	char *videoVl[NUM_ROADS] = { "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4" };
+
 	int lowHueVal;
 	int highHueVal;
 	int dilateVal;
