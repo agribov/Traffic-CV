@@ -31,7 +31,7 @@ private:
 	cv::Mat erodedFrame; // Stores frame after erosion
 	cv::Mat dilatedFrame; // Stores frame after dilation
 	std::vector<std::vector<cv::Point>> vehicleContours; // stores the contours of the vehicles in the current frame
-	
+
 	// Variables for visual light tracking
 	std::vector<Vehicle> vlvehicles;
 	void *bgs;
@@ -66,7 +66,7 @@ private:
 	std::vector<std::vector<cv::Point>> laneBounds;
 	std::vector<std::vector<cv::Point>> laneBoundsVL;
 
-	std::vector<double> laneSlopeBounds[2];	
+	std::vector<double> laneSlopeBounds[2];
 	std::vector<std::vector<cv::Point>> borders;
 	std::vector<cv::Point> inboundBorder;
 
@@ -99,7 +99,7 @@ public:
 	VehicleTracker(int lHue, int hHue, int er, int dil, int erVL, int dilVL); // This is the initializer for the VehicleTracker object
 	std::vector<cv::Point> getVehiclePositions(); // This function returns a vector of the current vehicle centroids
 	void update(cv::Mat currentFrame); // This function is called to update the algorithm when a new frame is available
-	cv::Mat getTrackedFrame() { return outputFrame;}
+	cv::Mat getTrackedFrame() { return outputFrame; }
 	cv::Mat getThresholded() { return highThFrame; }
 	cv::Mat getEroded() { return erodedFrame; }
 	cv::Mat getDilated() { return dilatedFrame; }
@@ -117,7 +117,7 @@ public:
 	int getLowThVal() { return lowHue; };
 	int getHighThVal() { return highHue; };
 	int getErosionVal() { return erosionVal; };
-	int getDilationVal() { return dilationVal;  };
+	int getDilationVal() { return dilationVal; };
 	//For VL Camera
 	void setErosionValVL(int val) { erosionValVL = val; };
 	void setDilationValVL(int val) { dilationValVL = val; };
@@ -129,7 +129,7 @@ public:
 	void updateLaneBounds(int type, int n, double thetaDB, std::vector<std::vector<cv::Point>> bounds);
 	int isCalibrated(int type) { return (type) ? (bool)numLanesVL : (bool)numLanes; };
 
-	
+	int getNumCars() { return currentCarCount; }
 };
 
 #endif

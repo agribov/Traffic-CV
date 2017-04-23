@@ -99,6 +99,10 @@ private:
 
 	bool started = false;
 
+	int numCars[NUM_ROADS];
+	int carSpeeds[NUM_ROADS];
+	int totalCars[NUM_ROADS];
+
 protected:
 	void timerEvent(QTimerEvent *Event);
 };

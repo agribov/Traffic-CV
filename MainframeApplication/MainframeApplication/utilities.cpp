@@ -41,14 +41,14 @@ void drawPoints(Mat &frame, vector<Point> points) {
 	const Scalar GREEN = Scalar(0, 255, 0);  //Assuming BGR color space.
 	const Scalar RED = Scalar(0, 0, 255);  //Assuming BGR color space.
 	Scalar COLOR;
-	COLOR = GREEN;
+	COLOR = RED;
 
 	//for (int i = 0; i < getVehiclePositions().size(); i++)
 	for (int i = 0; i < points.size(); i++) {
 		//Point temp = points[i];
 		//COLOR = (pointPolygonTest(inboundBorder, temp, false) >= 0) ? GREEN : RED;
 		//rectangle(frame, Point(temp.x + 10, temp.y + 10), Point(temp.x - 10, temp.y - 10), COLOR, 3);	//Rectangle vertices are arbitrarily set.
-		circle(frame, points[i], 2, GREEN, 3);
+		circle(frame, points[i], 2, COLOR, 3);
 	}
 
 }

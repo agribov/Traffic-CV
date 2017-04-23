@@ -120,9 +120,9 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		for (int j = 0; j < 4; j++) {
 			cells[3 * i + j] = new QTableWidgetItem; // add this line 
 			int num;
-			if (i == 0) num = rand() % 5;
-			else if (i == 1) num = rand() % 30;
-			else if (i == 2) num = rand() % 3;
+			if (i == 0) num = numCars[j];
+			else if (i == 1) num = carSpeeds[j];
+			else if (i == 2) num = totalCars[j];
 			cells[3 * i + j]->setText(QString::number(num));
 			ui->OutputTable->setItem(i, j, cells[3 * i + j]);
 		}
@@ -150,16 +150,16 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 
 	switch (buttonVal) {
 	case 1: debugFrame = (viewType) ? inputFramesVl[v] : inputFrames[v];
-		cout << "Original" << endl;
+		//cout << "Original" << endl;
 		break;
 	case 2: debugFrame = (viewType) ? trackers[v]->getBgSub() : trackers[v]->getThresholded(); // NO VL THRESHOLDING
-		cout << "MOG" << endl;
+		//cout << "MOG" << endl;
 		break;
 	case 3: debugFrame = (viewType) ? trackers[v]->getErodedVL() : trackers[v]->getEroded();
-		cout << "Erode" << endl;
+		//cout << "Erode" << endl;
 		break;
 	case 4: debugFrame = (viewType) ? trackers[v]->getDilatedVL() : trackers[v]->getDilated();
-		cout << "Dilate" << endl;
+		//cout << "Dilate" << endl;
 		break;
 	default: cerr << "switch button value invalid, exiting..." << endl;
 		exit(EXIT_FAILURE);
@@ -224,6 +224,7 @@ void MainWindow::onStart() {
 	for (int i = 0; i < NUM_ROADS; i++) {
 		pCapTh[i] = initializeVideo(videoTh[i]);
 		pCapVl[i] = initializeVideo(videoVl[i]);
+		numCars[i] = carSpeeds[i] = totalCars[i] = 0;
 		//trackers[i] = new VehicleTracker(0, 50, 0, 0, 17, 50);
 	}
 
@@ -297,36 +298,36 @@ void MainWindow::buttonView4(bool val) {
 void MainWindow::onLowThValueChanged(int val) {
 	lowHueVal = val;
 	trackers[viewVal]->setLowThVal(val);
-	cout << "New Value: " << val << endl;
+	//cout << "New Value: " << val << endl;
 }
 void MainWindow::onHighThValueChanged(int val) {
 	highHueVal = val;
 	trackers[viewVal]->setHighThVal(val);
-	cout << "New Value: " << val << endl;
+	//cout << "New Value: " << val << endl;
 }
 
 void MainWindow::onDilateValueChanged(int val) {
 	dilateVal = val;
 	trackers[viewVal]->setDilationVal(val);
-	cout << "New Value: " << val << endl;
+	//cout << "New Value: " << val << endl;
 }
 
 void MainWindow::onErodeValueChanged(int val) {
 	erodeVal = val;
 	trackers[viewVal]->setErosionVal(val);
-	cout << "New Value: " << val << endl;
+	//cout << "New Value: " << val << endl;
 }
 
 void MainWindow::onDilateValueChangedVL(int val) {
 	dilateValVL = val;
 	trackers[viewVal]->setDilationValVL(val);
-	cout << "New Value: " << val << endl;
+	//cout << "New Value: " << val << endl;
 }
 
 void MainWindow::onErodeValueChangedVL(int val) {
 	erodeValVL = val;
 	trackers[viewVal]->setErosionValVL(val);
-	cout << "New Value: " << val << endl;
+	//cout << "New Value: " << val << endl;
 
 }
 
