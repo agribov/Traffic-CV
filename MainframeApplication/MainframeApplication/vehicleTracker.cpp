@@ -350,7 +350,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	frame.copyTo(outputFrame);
 
 	namedWindow("Display window", WINDOW_AUTOSIZE);
-	imshow("Display window", currentFrame);
+	imshow("Display window", currentFrameVL);
 	setMouseCallback("Display window", onMouse, 0);
 
 	drawBoxes(outputFrame);
