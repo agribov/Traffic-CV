@@ -284,6 +284,8 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="4th_floor_ball_2-23-2017.mp4" />
+    <Media Include="Alina%27s apt1.mp4" />
+    <Media Include="visualVid1.mp4" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\Documents\Molly%27s Stuff\School\Capstone\mapBottomLeft.png" />
@@ -356,8 +358,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\OpenCV-3.2.0\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\OpenCV-3.2.0\opencv\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\OpenCV\opencv\build\include\;C:\OpenCV-3.2.0\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenCV\opencv\build\x64\vc14\lib;C:\OpenCV-3.2.0\opencv\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

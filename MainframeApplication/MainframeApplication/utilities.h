@@ -18,5 +18,10 @@
 double getDist(cv::Point A, cv::Point B);
 double getDistToLine(cv::Point A, cv::Point B, cv::Point X);
 void drawPoints(cv::Mat &frame, std::vector<cv::Point> points);
+void onMouse(int event, int x, int y, int flags, void* userData);
+void calibrate(cv::Mat frame);
+
+extern bool endCal;
+extern std::vector<std::vector<cv::Point>> calPoints;
 
 #endif // !_utilities

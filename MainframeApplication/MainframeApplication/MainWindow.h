@@ -14,18 +14,13 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
+	static const int NUM_ROADS = 4;
+
 	explicit MainWindow(QWidget *parent = 0);
 	void updateFrames(cv::Mat top, cv::Mat bottom);
 	~MainWindow();
 	void setButtonVal(int);
-	void setViewVal(int);
-	void setCurrentState(int);
 	void setLastState(int);
-	void changeImage();
-	int getButtonVal();
-	int getViewVal();
-	int getCurrentState();
-	int getLastState();
 
 private slots:
 	void onStart();
@@ -35,10 +30,15 @@ private slots:
 	void buttonView3(bool val);
 	void buttonView4(bool val);
 
-	void buttonOriginalWindow(bool val);
+	void buttonOriginalImage(bool val);
 	void buttonThreshold(bool val);
 	void buttonErode(bool val);
 	void buttonDilate(bool val);
+
+	void buttonVisual(bool val);
+	void buttonThermal(bool val);
+
+	void buttonCalibrate();
 
 	void onLowThValueChanged(int val);
 	void onHighThValueChanged(int val);
@@ -57,15 +57,26 @@ private:
 	cv::Mat bottomFrameMat;
 
 	cv::Mat inputFrame;
+	cv::Mat inputFrames[NUM_ROADS];
+	cv::Mat inputFramesVl[NUM_ROADS];
 	cv::Mat outputFrame;
+	cv::Mat outputFrames[NUM_ROADS];
 	cv::Mat debugFrame;
 
 	//For VL Camera
 	cv::Mat outputFrameVL;
 	cv::Mat debugFrameVL;
 	
-	cv::VideoCapture *pCap;
+	cv::VideoCapture *pCapTh[NUM_ROADS];
+	cv::VideoCapture *pCapVl[NUM_ROADS];
+
 	VehicleTracker *tracker;
+	VehicleTracker *trackers[4];
+
+	//Thermal video declarations
+	char *videoTh[NUM_ROADS] = { "croppedSample.mp4", "4th_floor_ball_2-23-2017.mp4", "Alina's apt1.mp4", "croppedSample.mp4" };
+	//Visual video declarations
+	char *videoVl[NUM_ROADS] = { "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4" };
 
 	int lowHueVal;
 	int highHueVal;
@@ -76,14 +87,17 @@ private:
 	int lastState = 0;
 	int buttonVal = 0;
 	int viewVal = 0;
-	
-	void viewOne();
-	void viewTwo();
+
+	bool viewType; // 0 is thermal, 1 is visual
+
+	bool cal;
 
 	//For VL Camera
 	int dilateValVL;
 	int erodeValVL;
 	//End VL Camera
+
+	bool started = false;
 
 protected:
 	void timerEvent(QTimerEvent *Event);

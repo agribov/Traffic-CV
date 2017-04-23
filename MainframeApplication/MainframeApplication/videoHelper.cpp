@@ -28,7 +28,7 @@ VideoCapture* initializeVideo(char* videoFilename) {
 }
 
 void releaseVideo(VideoCapture* pCap) {
-	(*pCap).release();
+	if (pCap) (*pCap).release();
 }
 
 void addFrameNumber(Mat &frame, VideoCapture *pCap) {

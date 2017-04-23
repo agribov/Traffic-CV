@@ -25,9 +25,7 @@
 using namespace std;
 using namespace cv;
 
-Ptr<BackgroundSubtractorMOG2> pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
-
-const int MAX_FRAME_DISTANCE = 50;
+const int MAX_FRAME_DISTANCE = 75;
 const int START_ZONE_DIST = 30;
 const int FRAME_COUNT_TIMEOUT = 10;
 
@@ -39,6 +37,7 @@ VehicleTracker::VehicleTracker() {
 	erosionVal = 0;
 	dilationVal = 0;
 	frameCount = 0;
+	frameCountVL = 0;
 	//For VL Camera
 	erosionValVL = 0;
 	dilationValVL = 0;
@@ -50,6 +49,7 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	Point temp;
 	vector<vector<Point>> bounds;
 	frameCount = 0;
+	frameCountVL = 0;
 
 	lowHue = lHue;
 	highHue = hHue;
@@ -58,7 +58,7 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	//For VL Camera
 	erosionValVL = er;
 	dilationValVL = dil;
-
+	/*
 	temp.x = 0;
 	temp.y = 150;
 	inboundBorder.push_back(temp);
@@ -73,10 +73,18 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	inboundBorder.push_back(temp);
 	
 	bounds.push_back(inboundBorder);
-	updateLaneBounds(1, 15, bounds);
+	updateLaneBounds(0, 1, 15, bounds);
 	//laneBounds.push_back(inboundBorder);
 	borders.push_back(inboundBorder);
+	*/
+	numLanes = 0;
+	numLanesVL = 0;
+
+	pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
 } 
+
+VehicleTracker::~VehicleTracker() {
+}
 
 vector<Point> VehicleTracker::getVehiclePositions() {
 	// From list of vehicles in self.vehicles:
@@ -88,38 +96,6 @@ vector<Point> VehicleTracker::getVehiclePositions() {
 		positions.push_back(vehicles[0][i].getPosition());
 
 	return positions;
-}
-
-void onMouse(int event, int x, int y, int flags, void* userData)
-{
-	if (event != EVENT_LBUTTONDOWN)
-		return;
-	//Save coordinates of left button click
-	if (event == EVENT_LBUTTONDOWN)
-	{
-		static vector<Point> vCoordinates;
-		static vector<vector<Point>> vvCoordinates;
-
-		//Stores coordinates of every left click in a vector
-		vCoordinates.push_back(Point(x, y));
-		//The coordinates of every four left clicks are stored in a vector element
-		if (vCoordinates.size() % 4 == 0 )
-			vvCoordinates.push_back(vCoordinates);
-
-		//Test code that prints vector coordinates
-		cout << "Left Button of mouse was clicked at position(" << x << "," << y << ")" << endl;
-		cout << "Vector coordinates" << vCoordinates << endl;
-		
-		//Test code that prints first three elements of the vector of vectors
-		if (vvCoordinates.size() == 1)
-			cout << "Vector of vector coordinates" << vvCoordinates[0] << endl;
-
-		if (vvCoordinates.size() == 2)
-			cout << "Vector of vector coordinates" << vvCoordinates[1] << endl;
-
-		if (vvCoordinates.size() == 3)
-			cout << "Vector of vector coordinates" << vvCoordinates[2] << endl;
-	}
 }
 
 
@@ -281,11 +257,7 @@ void VehicleTracker::update(Mat currentFrame) {
 
 	*/
 	currentCarCount = 0;
-	drawBoxes(outputFrame);
-
-	namedWindow("Display window", WINDOW_AUTOSIZE);
-	imshow("Display window", currentFrame);
-	setMouseCallback("Display window", onMouse, 0);
+	drawBoxes(0, outputFrame);
 
 }
 //For Visible Light camera
@@ -298,6 +270,21 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	Point2f center;
 	vector<Point2f> centroids;
 
+	frameCountVL++;
+
+	//cv::RotatedRect camBox;
+
+	//float hranges[] = { 0,180 };
+	//const float* phranges = hranges;
+
+	//cv::cvtColor(currentFrameVL, hsvFrameVL, CV_BGR2HSV);
+
+	//cv::inRange(hsvFrameVL, cv::Scalar(0, SMin, MIN(VMin, VMax)),
+	//	cv::Scalar(180, 256, MAX(VMin, VMax)), mask);
+	//int ch[] = { 0, 0 };
+	//hue.create(hsv.size(), hsv.depth());
+	//cv::mixChannels(&hsv, 1, &hue, 1, ch, 1);
+
 	///Move
 	//Step 1: Save current frame to liveFrame.
 	frameVL = currentFrameVL;
@@ -307,6 +294,8 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//imshow("No Subtraction", frameVL);
 
 	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
+	//fgMaskMOG2 = thresholdFrame(frameVL, lowHue, highHue);;
+	
 	//For testing background subtraction
 	//imshow("MOG2", fgMaskMOG2);
 
@@ -315,18 +304,22 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//Step 3: Perform errosion.
 	erodedFrameVL = erodeFrame(fgMaskMOG2, erosionValVL);
 	//Step 4: Perform dilation.
+
 	dilatedFrameVL = dilateFrame(erodedFrameVL, dilationValVL);
 
 	findVehicleContoursVL(dilatedFrameVL, vehicleContoursVL);
 
 	numContours = (size_t)vehicleContoursVL.size();
+	/*
 	while (numContours > MAX_NUMBER_VEHICLES) {
 		//ERROR: Too many objects
 		//Insert additional filtering here
 		break; //Remove this when above filtering is implemented
 	}
-
+	*/
 	firstContour = vehicleContoursVL.begin();
+	vector<vector<cv::Point>> ContVL; 
+
 	for (i = 0; i < numContours; i++) {
 		blobMoment = moments((Mat)vehicleContoursVL[i]);
 		area = blobMoment.m00;
@@ -339,24 +332,45 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 		else {
 			center = Point2f(blobMoment.m10 / area, blobMoment.m01 / area);
 			centroids.push_back(center);
+			ContVL.push_back(vehicleContoursVL[i]);
 		}
 	}
 	//***For Step 7 look into using meanshift() and camshift() to find the centroid of the blobs. -AZS ****
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 	vector<Vehicle> tempList;
 	//printf("%d\n", centroids.size());
+	
+	vector<vector<cv::Point>> filtContVL;
+	vector<Point2f> filtCentroids;
+	// Sort the centroids into the container for the lane they are in.
 	for (i = 0; i < centroids.size(); i++) {
-		//Vehicle x(centroids[i]);
-		//tempList.push_back(x);
+		if (pointPolygonTest(laneBoundsVL[0], centroids[i], false) >= 0) {
+			filtCentroids.push_back(centroids[i]);
+			filtContVL.push_back(ContVL[i]);
+		}
 	}
-	//vehicles = tempList;
+
+	for (i = 0; i < filtCentroids.size(); i++) {
+		Vehicle x(filtCentroids[i], frameCountVL);
+		tempList.push_back(x);
+	}
+
+	vehiclesVL = tempList;
 	currentCarCount = 0;
-	frameVL.copyTo(outputFrame);
+
+	vector<Rect2d> rectList;
+	for (i = 0; i < filtCentroids.size(); i++) {
+		rectList.push_back(boundingRect(filtContVL[i]));
+	}
+
+
+
+	frameVL.copyTo(outputFrameVL);
 	//imshow("MOG2", frameVL);
 
-	drawBoxes(outputFrame);
+	drawBoxes(1, outputFrameVL);
 	//imshow("No Subtraction", outputFrame);
-
+	
 //////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/*Controls what frame comes up
@@ -404,7 +418,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//drawBoxes(outputFrame);
 }
 
-void VehicleTracker::drawBoxes(Mat &frame) {
+void VehicleTracker::drawBoxes(bool type, Mat &frame) {
 	// Use function self.getVehiclePositions() to get the vehicle positions, and overlay boxes on top of the current thermal frame
 	// drawBoxes may be unnecessary as meanshift and camshift draw boxes. -AZS
 	vector<Point> center;
@@ -413,22 +427,34 @@ void VehicleTracker::drawBoxes(Mat &frame) {
 	const Scalar RED = Scalar(0, 0, 255);  //Assuming BGR color space.
 	Scalar COLOR;
 	COLOR = GREEN;
-	
+
 	//for (int i = 0; i < getVehiclePositions().size(); i++)
 	for (int i = 0; i < numLanes; i++) {
 		for (int j = 0; j < vehicles[i].size(); j++) {
 			Point temp;
-			temp.x = vehicles[i][j].getPosition().x;
-			temp.y = vehicles[i][j].getPosition().y;
+			if (type) {
+				temp.x = vehiclesVL[j].getPosition().x;
+				temp.y = vehiclesVL[j].getPosition().y;
+			}
+			else {
+				temp.x = vehicles[i][j].getPosition().x;
+				temp.y = vehicles[i][j].getPosition().y;
+			}
 			//COLOR = (pointPolygonTest(inboundBorder, temp, false) >= 0) ? GREEN : RED;
 			rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), COLOR, 3);	//Rectangle vertices are arbitrarily set.
 			currentCarCount++;
 		}
 	}
 	//printf("%d\n", getVehiclePositions().size());
-
-	arrowedLine(frame, inboundBorder[0], inboundBorder[1], GREEN, 3);
-	arrowedLine(frame, inboundBorder[2], inboundBorder[3], GREEN, 3);
+	if (type) {
+		line(frame, laneBoundsVL[0][0], laneBoundsVL[0][1], GREEN, 3);
+		line(frame, laneBoundsVL[0][2], laneBoundsVL[0][3], GREEN, 3);
+	}
+	else {
+		line(frame, laneBounds[0][0], laneBounds[0][1], GREEN, 3);
+		line(frame, laneBounds[0][2], laneBounds[0][3], GREEN, 3);
+	}
+	//line(frame, inboundBorder[2], inboundBorder[3], GREEN, 3);
 
 }
 
@@ -501,32 +527,42 @@ void VehicleTracker::findVehicleContoursVL(Mat inputFrame, vector<vector<Point>>
 }
 //End VL Camera
 
-void VehicleTracker::updateLaneBounds(int n, double thetaDB, std::vector<std::vector<cv::Point>> b) {
+void VehicleTracker::updateLaneBounds(int type, int n, double thetaDB, std::vector<std::vector<cv::Point>> b) {
 	int i;
 	double slope = 0;
 	//double slopeBound[2];
-	
+
 	if (n != b.size()) {
 		perror("Error: numLanes provided not equal to actual number of lanes.");
 		exit(1);
 	}
 
-	numLanes = n;
-	laneBounds = b;
-	
+	(type) ? numLanesVL = n : numLanes = n;
+	if (type) {
+		laneBoundsVL.clear();
+		laneBoundsVL = b;
+		cout << "B" << endl;
+	}
+	else {
+		cout << "A" << endl;
+		laneBounds.clear();
+		laneBounds = b;
+		vehicles.resize(numLanes);
+	}
+
 	laneSlopeBounds[0].clear();
 	laneSlopeBounds[1].clear();
 	for (i = 0; i < b.size(); i++) {
-		slope = (b[i][0].y - b[i][1].y) / (b[i][0].x - b[i][1].x);
-		slope += (b[i][3].y - b[i][2].y) / (b[i][3].x - b[i][2].x);
-		slope /= 2;
+		//slope = (b[i][0].y - b[i][1].y) / (b[i][0].x - b[i][1].x);
+		//slope += (b[i][3].y - b[i][2].y) / (b[i][3].x - b[i][2].x);
+		//slope /= 2;
 
-		laneSlopeBounds[0].push_back(tan(atan(slope) - thetaDB));
-		laneSlopeBounds[1].push_back(tan(atan(slope) + thetaDB));
+		//laneSlopeBounds[0].push_back(tan(atan(slope) - thetaDB));
+		//laneSlopeBounds[1].push_back(tan(atan(slope) + thetaDB));
 		//laneSlopeBounds.push_back(slopeBound);
 	}
-	
-	vehicles.resize(numLanes);
+	//cout << "\n Saved points: \n" << laneBounds[0] <<  endl;
+
 	return;
 }
 
