@@ -507,8 +507,6 @@
          </item>
         </layout>
        </widget>
-       <zorder>layoutWidget</zorder>
-       <zorder>groupBox_4</zorder>
       </widget>
      </widget>
     </item>
@@ -691,7 +689,7 @@
    <sender>dilateSliderVL</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>onErodeValueChangedVL(int)</slot>
+   <slot>onDilateValueChangedVL(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>450</x>
@@ -707,7 +705,7 @@
    <sender>erodeSliderVL</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>onDilateValueChangedVL(int)</slot>
+   <slot>onErodeValueChangedVL(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>472</x>

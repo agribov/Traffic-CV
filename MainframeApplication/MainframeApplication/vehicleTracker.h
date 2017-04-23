@@ -13,6 +13,7 @@
 #ifndef _vehicleTracker
 #define _vehicleTracker
 
+
 #include "globals.h"
 #include "vehicle.h"
 
@@ -33,6 +34,10 @@ private:
 	
 	// Variables for visual light tracking
 	std::vector<Vehicle> vlvehicles;
+	void *bgs;
+
+	cv::Ptr<cv::BackgroundSubtractorMOG2> pMOG2;
+
 	cv::Mat fgMaskMOG2; //Foreground mask for MOG2
 	cv::Mat frameVL; //Stores current frame from VL camera
 	cv::Mat highThFrameVL; // Stores thresholded image for hot-spots
@@ -53,6 +58,8 @@ private:
 	std::vector<Vehicle> vehiclesVL;
 	cv::Mat outputFrame; //Original frame, but with boxes overlayed on vehicles.
 	int frameCount;
+	int frameCountVL;
+
 
 	int numLanes;
 	int numLanesVL;
@@ -88,6 +95,7 @@ private:
 	//End VL Camera
 public:
 	VehicleTracker::VehicleTracker();
+	VehicleTracker::~VehicleTracker();
 	VehicleTracker(int lHue, int hHue, int er, int dil, int erVL, int dilVL); // This is the initializer for the VehicleTracker object
 	std::vector<cv::Point> getVehiclePositions(); // This function returns a vector of the current vehicle centroids
 	void update(cv::Mat currentFrame); // This function is called to update the algorithm when a new frame is available
@@ -100,6 +108,7 @@ public:
 	cv::Mat getTrackedFrameVL() { return outputFrameVL; }
 	cv::Mat getErodedVL() { return erodedFrameVL; }
 	cv::Mat getDilatedVL() { return dilatedFrameVL; }
+	cv::Mat getBgSub() { return fgMaskMOG2; }
 	//End VL Camera
 	void setLowThVal(int val) { lowHue = val; };
 	void setHighThVal(int val) { highHue = val; };
@@ -112,13 +121,15 @@ public:
 	//For VL Camera
 	void setErosionValVL(int val) { erosionValVL = val; };
 	void setDilationValVL(int val) { dilationValVL = val; };
-	int getErosionValVL() { return erosionVal; };
-	int getDilationValVL() { return dilationVal; };
+	int getErosionValVL() { return erosionValVL; };
+	int getDilationValVL() { return dilationValVL; };
 	void setMOG2ThVal(int val) { mog2thVal = val; }; //Threshold value for MOG2
 	//End VL Camera
 
 	void updateLaneBounds(int type, int n, double thetaDB, std::vector<std::vector<cv::Point>> bounds);
 	int isCalibrated(int type) { return (type) ? (bool)numLanesVL : (bool)numLanes; };
+
+	
 };
 
 #endif

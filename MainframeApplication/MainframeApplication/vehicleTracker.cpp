@@ -25,9 +25,7 @@
 using namespace std;
 using namespace cv;
 
-Ptr<BackgroundSubtractorMOG2> pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
-
-const int MAX_FRAME_DISTANCE = 50;
+const int MAX_FRAME_DISTANCE = 75;
 const int START_ZONE_DIST = 30;
 const int FRAME_COUNT_TIMEOUT = 10;
 
@@ -39,6 +37,7 @@ VehicleTracker::VehicleTracker() {
 	erosionVal = 0;
 	dilationVal = 0;
 	frameCount = 0;
+	frameCountVL = 0;
 	//For VL Camera
 	erosionValVL = 0;
 	dilationValVL = 0;
@@ -50,6 +49,7 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	Point temp;
 	vector<vector<Point>> bounds;
 	frameCount = 0;
+	frameCountVL = 0;
 
 	lowHue = lHue;
 	highHue = hHue;
@@ -79,7 +79,12 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	*/
 	numLanes = 0;
 	numLanesVL = 0;
+
+	pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
 } 
+
+VehicleTracker::~VehicleTracker() {
+}
 
 vector<Point> VehicleTracker::getVehiclePositions() {
 	// From list of vehicles in self.vehicles:
@@ -265,7 +270,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	Point2f center;
 	vector<Point2f> centroids;
 
-
+	frameCountVL++;
 
 	//cv::RotatedRect camBox;
 
@@ -289,6 +294,8 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//imshow("No Subtraction", frameVL);
 
 	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
+	//fgMaskMOG2 = thresholdFrame(frameVL, lowHue, highHue);;
+	
 	//For testing background subtraction
 	//imshow("MOG2", fgMaskMOG2);
 
@@ -297,18 +304,22 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//Step 3: Perform errosion.
 	erodedFrameVL = erodeFrame(fgMaskMOG2, erosionValVL);
 	//Step 4: Perform dilation.
+
 	dilatedFrameVL = dilateFrame(erodedFrameVL, dilationValVL);
 
 	findVehicleContoursVL(dilatedFrameVL, vehicleContoursVL);
 
 	numContours = (size_t)vehicleContoursVL.size();
+	/*
 	while (numContours > MAX_NUMBER_VEHICLES) {
 		//ERROR: Too many objects
 		//Insert additional filtering here
 		break; //Remove this when above filtering is implemented
 	}
-
+	*/
 	firstContour = vehicleContoursVL.begin();
+	vector<vector<cv::Point>> ContVL; 
+
 	for (i = 0; i < numContours; i++) {
 		blobMoment = moments((Mat)vehicleContoursVL[i]);
 		area = blobMoment.m00;
@@ -321,33 +332,45 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 		else {
 			center = Point2f(blobMoment.m10 / area, blobMoment.m01 / area);
 			centroids.push_back(center);
+			ContVL.push_back(vehicleContoursVL[i]);
 		}
 	}
 	//***For Step 7 look into using meanshift() and camshift() to find the centroid of the blobs. -AZS ****
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 	vector<Vehicle> tempList;
 	//printf("%d\n", centroids.size());
-
+	
+	vector<vector<cv::Point>> filtContVL;
 	vector<Point2f> filtCentroids;
 	// Sort the centroids into the container for the lane they are in.
 	for (i = 0; i < centroids.size(); i++) {
-		if (pointPolygonTest(laneBoundsVL[0], centroids[i], false) >= 0)
+		if (pointPolygonTest(laneBoundsVL[0], centroids[i], false) >= 0) {
 			filtCentroids.push_back(centroids[i]);
+			filtContVL.push_back(ContVL[i]);
+		}
 	}
 
 	for (i = 0; i < filtCentroids.size(); i++) {
-		Vehicle x(filtCentroids[i], frameCount);
+		Vehicle x(filtCentroids[i], frameCountVL);
 		tempList.push_back(x);
 	}
+
 	vehiclesVL = tempList;
 	currentCarCount = 0;
+
+	vector<Rect2d> rectList;
+	for (i = 0; i < filtCentroids.size(); i++) {
+		rectList.push_back(boundingRect(filtContVL[i]));
+	}
+
+
 
 	frameVL.copyTo(outputFrameVL);
 	//imshow("MOG2", frameVL);
 
 	drawBoxes(1, outputFrameVL);
 	//imshow("No Subtraction", outputFrame);
-
+	
 //////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/*Controls what frame comes up
