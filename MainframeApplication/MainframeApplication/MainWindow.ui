@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>841</width>
-    <height>683</height>
+    <width>1013</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -27,7 +27,196 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="1">
+    <item row="2" column="0">
+     <widget class="QLabel" name="mylabel">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="CQtOpenCVViewerGl" name="topFrameWidget"/>
+    </item>
+    <item row="0" column="1" rowspan="2" colspan="2">
+     <widget class="QGroupBox" name="groupParameters">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="title">
+       <string>Parameters</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>27</y>
+         <width>281</width>
+         <height>254</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="QLabel" name="lowThLabel">
+          <property name="text">
+           <string>Threshold Low</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="highThLabel">
+          <property name="text">
+           <string>Threshold High</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="erodeLabel">
+          <property name="text">
+           <string>Erode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="dilateLabel">
+          <property name="text">
+           <string>Dilate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QSlider" name="erodeSlider">
+          <property name="tracking">
+           <bool>true</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QSlider" name="dilateSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QSlider" name="thresholdHighSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QSlider" name="thresholdLowSlider">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="erodeLabelVL">
+          <property name="text">
+           <string>VL Erode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="dilateLabelVL">
+          <property name="text">
+           <string>VL Dilate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QSlider" name="erodeSliderVL">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QSlider" name="dilateSliderVL">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>280</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 1 (Bottom Right)</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_6">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>310</y>
+         <width>121</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 2 (Bottom Left)</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_7">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>340</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 3 (Top Right)</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_8">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>370</y>
+         <width>101</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>View 4 (Top Left)</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="2" column="1">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -36,7 +225,7 @@
        </sizepolicy>
       </property>
       <property name="title">
-       <string>GroupBox</string>
+       <string>Debug Output</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -77,150 +266,11 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="2">
+    <item row="2" column="2">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>Output Values</string>
       </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="CQtOpenCVViewerGl" name="topFrameWidget"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="CQtOpenCVViewerGl" name="bottomFrameWidget"/>
-    </item>
-    <item row="0" column="1" colspan="2">
-     <widget class="QGroupBox" name="groupParameters">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="title">
-       <string>Parameters</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="layoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>281</width>
-         <height>241</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
-         <widget class="QLabel" name="lowThLabel">
-          <property name="text">
-           <string>Threshold Low</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="highThLabel">
-          <property name="text">
-           <string>Threshold High</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QSlider" name="thresholdHighSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QSlider" name="dilateSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QSlider" name="thresholdLowSlider">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QSlider" name="erodeSlider">
-          <property name="tracking">
-           <bool>true</bool>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="erodeLabel">
-          <property name="text">
-           <string>Erode</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="dilateLabel">
-          <property name="text">
-           <string>Dilate</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QSlider" name="dilateSliderVL">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="dilateLabelVL">
-          <property name="text">
-           <string>VL Dilate</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QSlider" name="erodeSliderVL">
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="erodeLabelVL">
-          <property name="text">
-           <string>VL Erode</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -230,7 +280,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>841</width>
+     <width>1013</width>
      <height>21</height>
     </rect>
    </property>
@@ -270,10 +320,10 @@
   </action>
   <action name="actionDebug_Layout">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Debug Layout</string>
@@ -281,10 +331,13 @@
   </action>
   <action name="actionRelease_Layout">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Release Layout</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
    </property>
   </action>
  </widget>
@@ -304,60 +357,12 @@
    <slot>onStart()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>463</x>
-     <y>590</y>
+     <x>570</x>
+     <y>635</y>
     </hint>
     <hint type="destinationlabel">
-     <x>99</x>
-     <y>528</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>thresholdHighSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onHighThValueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>535</x>
-     <y>114</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>344</x>
-     <y>118</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>erodeSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onErodeValueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>535</x>
-     <y>184</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>347</x>
-     <y>209</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>thresholdLowSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onLowThValueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>535</x>
-     <y>78</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>344</x>
-     <y>80</y>
+     <x>314</x>
+     <y>559</y>
     </hint>
    </hints>
   </connection>
@@ -368,8 +373,8 @@
    <slot>onDilateValueChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>535</x>
-     <y>149</y>
+     <x>645</x>
+     <y>180</y>
     </hint>
     <hint type="destinationlabel">
      <x>346</x>
@@ -378,18 +383,226 @@
    </hints>
   </connection>
   <connection>
-   <sender>dilateSliderVL</sender>
+   <sender>erodeSlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>onDilateValueChangedVL(int)</slot>
+   <slot>onErodeValueChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>425</x>
+     <x>645</x>
      <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>349</x>
-     <y>260</y>
+     <x>347</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>thresholdHighSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onHighThValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>645</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>344</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>thresholdLowSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onLowThValueChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>645</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>344</x>
+     <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonThreshold(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>533</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>460</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_3</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonErode(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>568</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>462</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_4</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonDilate(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>460</x>
+     <y>378</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonOriginalImage(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>498</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>462</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mylabel</sender>
+   <signal>linkActivated(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onStart()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>266</x>
+     <y>622</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>583</x>
+     <y>326</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_7</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView3(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>583</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_6</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>573</x>
+     <y>356</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_8</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>buttonView4(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>553</x>
+     <y>416</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>314</x>
+     <y>340</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>menubar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slotOpen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>472</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilateSliderVL</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onErodeValueChangedVL(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>679</x>
+     <y>29</y>
     </hint>
    </hints>
   </connection>
@@ -397,15 +610,15 @@
    <sender>erodeSliderVL</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>onErodeValueChangedVL(int)</slot>
+   <slot>onDilateValueChangedVL(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>455</x>
-     <y>276</y>
+     <x>616</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>349</x>
-     <y>302</y>
+     <x>845</x>
+     <y>28</y>
     </hint>
    </hints>
   </connection>
@@ -416,7 +629,19 @@
   <slot>onHighThValueChanged(int)</slot>
   <slot>onErodeValueChanged(int)</slot>
   <slot>onDilateValueChanged(int)</slot>
-  <slot>onDilateValueChangedVL(int)</slot>
+  <slot>buttonDilated()</slot>
+  <slot>buttonThreshold(bool)</slot>
+  <slot>buttonErode(bool)</slot>
+  <slot>buttonDilate(bool)</slot>
+  <slot>buttonOriginalImage(bool)</slot>
+  <slot>showView1(bool)</slot>
+  <slot>showView2(bool)</slot>
+  <slot>buttonView1(bool)</slot>
+  <slot>buttonView2(bool)</slot>
+  <slot>buttonView3(bool)</slot>
+  <slot>buttonView4(bool)</slot>
+  <slot>slotOpen()</slot>
   <slot>onErodeValueChangedVL(int)</slot>
+  <slot>onDilateValueChangedVL(int)</slot>
  </slots>
 </ui>
