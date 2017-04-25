@@ -25,9 +25,7 @@
 using namespace std;
 using namespace cv;
 
-Ptr<BackgroundSubtractorMOG2> pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
-
-const int MAX_FRAME_DISTANCE = 50;
+const int MAX_FRAME_DISTANCE = 75;
 const int START_ZONE_DIST = 30;
 const int FRAME_COUNT_TIMEOUT = 10;
 
@@ -39,6 +37,7 @@ VehicleTracker::VehicleTracker() {
 	erosionVal = 0;
 	dilationVal = 0;
 	frameCount = 0;
+	frameCountVL = 0;
 	//For VL Camera
 	erosionValVL = 0;
 	dilationValVL = 0;
@@ -50,6 +49,7 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	Point temp;
 	vector<vector<Point>> bounds;
 	frameCount = 0;
+	frameCountVL = 0;
 
 	lowHue = lHue;
 	highHue = hHue;
@@ -71,7 +71,7 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	temp.x = 0;
 	temp.y = 30;
 	inboundBorder.push_back(temp);
-	
+
 	bounds.push_back(inboundBorder);
 	updateLaneBounds(0, 1, 15, bounds);
 	//laneBounds.push_back(inboundBorder);
@@ -79,7 +79,12 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	*/
 	numLanes = 0;
 	numLanesVL = 0;
-} 
+
+	pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
+}
+
+VehicleTracker::~VehicleTracker() {
+}
 
 vector<Point> VehicleTracker::getVehiclePositions() {
 	// From list of vehicles in self.vehicles:
@@ -131,14 +136,14 @@ void VehicleTracker::update(Mat currentFrame) {
 	// Step 3c: Background subtraction? (**SPIF)
 	erodedFrame = erodeFrame(highThFrame, erosionVal);
 	//printf("%d\n", highHue);
-	
+
 	// Step 4: Dilate the eroded image (to make cars very clear)
 	// Step 4b: Other clarity functions? (**SPIF)
 	dilatedFrame = dilateFrame(erodedFrame, dilationVal);
-	
+
 	// Step 5: Find contours of filtered image, to be stored in self.vehicleContours
 	findVehicleContours(dilatedFrame, vehicleContours);
-	
+
 	// Step 6: Check number and dimensions of vehicles:
 	//		- Small and large contours are probably erroneous
 	//		- Too many blobs is probably erroneus
@@ -175,8 +180,6 @@ void VehicleTracker::update(Mat currentFrame) {
 	//		- If a centroid is near leading edge, create new vehicle in the list
 	//		- If a vehicle in the middle of the intersection has disappeared, 'mark it as suspicious' (TBD, SPIF)
 
-	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
-
 	vector<vector<Point>> sortedBlobs;
 	sortedBlobs.resize(numLanes);
 	vector<Point> blobList;
@@ -189,7 +192,7 @@ void VehicleTracker::update(Mat currentFrame) {
 				sortedBlobs[j].push_back(centroids[i]);
 
 	}
-	
+
 	double dist;
 	for (i = 0; i < numLanes; i++) {
 		size_t numVehicles = (size_t)vehicles[i].size();
@@ -203,15 +206,15 @@ void VehicleTracker::update(Mat currentFrame) {
 		}
 
 		drawPoints(outputFrame, sortedBlobs[i]);
-		
+
 		// If they already exist, continue. Else make a new vehicle		
 		for (j = 0; j < sortedBlobs[i].size(); j++) {
 			bool found = false;
-			
+
 			// Try to match the centroid to an existing vehicle
 			for (k = 0; k < numVehicles; k++) {
 				dist = getDist(vehicles[i][k].getPosition(), sortedBlobs[i][j]);
-				
+
 				// If current vehicle is near current frame, and vehicle has not been updated yet, update
 				if (dist <= MAX_FRAME_DISTANCE && vehicles[i][k].getFrameNum() < frameCount) {
 					vehicles[i][k].update(sortedBlobs[i][j], frameCount);
@@ -220,7 +223,7 @@ void VehicleTracker::update(Mat currentFrame) {
 					break;
 				}
 			}
-			
+
 			// If centroid has not been yet matched to a vehicle, then check if it's near the lane start
 			if (!found) {
 				// Distance function defined in videohelper.cpp for now
@@ -236,22 +239,22 @@ void VehicleTracker::update(Mat currentFrame) {
 				}
 
 			}
-			
+
 		}
-		
+
 		// If they are near the beginning of the lane, and don't exist, make a new vehicle.
 	}
-	
+
 	/*
 	//printf("%d\n", centroids.size());
 	for (i = 0; i < centroids.size(); i++) {
-		Vehicle x(centroids[i]);
-		tempList.push_back(x);
+	Vehicle x(centroids[i]);
+	tempList.push_back(x);
 	}
 	vehicles[1] = tempList;
 
 	*/
-	currentCarCount = 0;
+
 	drawBoxes(0, outputFrame);
 
 }
@@ -261,11 +264,11 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	double area;
 	Moments blobMoment;
 	vector<vector<Point>>::iterator firstContour;
-	int i;
+	int i, j, k, l;
 	Point2f center;
 	vector<Point2f> centroids;
 
-
+	frameCountVL++;
 
 	//cv::RotatedRect camBox;
 
@@ -289,6 +292,8 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//imshow("No Subtraction", frameVL);
 
 	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
+	//fgMaskMOG2 = thresholdFrame(frameVL, lowHue, highHue);;
+
 	//For testing background subtraction
 	//imshow("MOG2", fgMaskMOG2);
 
@@ -297,18 +302,22 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//Step 3: Perform errosion.
 	erodedFrameVL = erodeFrame(fgMaskMOG2, erosionValVL);
 	//Step 4: Perform dilation.
+
 	dilatedFrameVL = dilateFrame(erodedFrameVL, dilationValVL);
 
 	findVehicleContoursVL(dilatedFrameVL, vehicleContoursVL);
 
 	numContours = (size_t)vehicleContoursVL.size();
+	/*
 	while (numContours > MAX_NUMBER_VEHICLES) {
-		//ERROR: Too many objects
-		//Insert additional filtering here
-		break; //Remove this when above filtering is implemented
+	//ERROR: Too many objects
+	//Insert additional filtering here
+	break; //Remove this when above filtering is implemented
 	}
-
+	*/
 	firstContour = vehicleContoursVL.begin();
+	vector<vector<cv::Point>> ContVL;
+
 	for (i = 0; i < numContours; i++) {
 		blobMoment = moments((Mat)vehicleContoursVL[i]);
 		area = blobMoment.m00;
@@ -321,41 +330,101 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 		else {
 			center = Point2f(blobMoment.m10 / area, blobMoment.m01 / area);
 			centroids.push_back(center);
+			ContVL.push_back(vehicleContoursVL[i]);
 		}
 	}
 	//***For Step 7 look into using meanshift() and camshift() to find the centroid of the blobs. -AZS ****
 	// TEMP SOLUTION: Replace vehicles with a vector of new vehicles everytime.
 	vector<Vehicle> tempList;
 	//printf("%d\n", centroids.size());
-
-	vector<Point2f> filtCentroids;
-	// Sort the centroids into the container for the lane they are in.
-	for (i = 0; i < centroids.size(); i++) {
-		if (pointPolygonTest(laneBoundsVL[0], centroids[i], false) >= 0)
-			filtCentroids.push_back(centroids[i]);
-	}
-
-	for (i = 0; i < filtCentroids.size(); i++) {
-		Vehicle x(filtCentroids[i], frameCount);
-		tempList.push_back(x);
-	}
-	vehiclesVL = tempList;
-	currentCarCount = 0;
-
 	frameVL.copyTo(outputFrameVL);
 	//imshow("MOG2", frameVL);
+
+	vector<vector<cv::Point>> filtContVL;
+	vector<Point> filtCentroids;
+	// Sort the centroids into the container for the lane they are in.
+	for (i = 0; i < centroids.size(); i++) {
+		if (pointPolygonTest(laneBoundsVL[0], centroids[i], false) >= 0) {
+			filtCentroids.push_back(centroids[i]);
+			filtContVL.push_back(ContVL[i]);
+		}
+	}
+
+	/*
+	for (i = 0; i < filtCentroids.size(); i++) {
+		Vehicle x(filtCentroids[i], frameCountVL);
+		tempList.push_back(x);
+	}
+	*/
+	drawPoints(outputFrameVL, filtCentroids);
+	vehiclesVL = tempList;
+
+	// Stuff for camshift
+	vector<Rect2d> rectList;
+	for (i = 0; i < filtCentroids.size(); i++) {
+		rectList.push_back(boundingRect(filtContVL[i]));
+	}
+
+	double dist;
+
+	size_t numVehicles = (size_t)vehiclesVL.size();
+
+	// Destroy vehicles that have not been updated in a while
+	for (k = 0; k < numVehicles; k++) {
+		if (vehiclesVL[k].getFrameNum() < frameCountVL - FRAME_COUNT_TIMEOUT) {
+			vehiclesVL.erase(vehiclesVL.begin() + k--);
+			numVehicles--;
+		}
+	}
+
+	// If they already exist, continue. Else make a new vehicle		
+	for (j = 0; j < filtCentroids.size(); j++) {
+		bool found = false;
+
+		// Try to match the centroid to an existing vehicle
+		for (k = 0; k < numVehicles; k++) {
+			dist = getDist(vehiclesVL[k].getPosition(), filtCentroids[j]);
+
+			// If current vehicle is near current frame, and vehicle has not been updated yet, update
+			if (dist <= MAX_FRAME_DISTANCE && vehiclesVL[k].getFrameNum() < frameCountVL) {
+				vehiclesVL[k].update(filtCentroids[j], frameCountVL);
+				found = true;
+				//printf("Updated Vehicle %d, in lane %d.\n", k, i);
+				break;
+			}
+		}
+
+		// If centroid has not been yet matched to a vehicle, then check if it's near the lane start
+		if (!found) {
+			// Distance function defined in videohelper.cpp for now
+			dist = getDistToLine(laneBoundsVL[0][1], laneBoundsVL[0][2], filtCentroids[j]);
+			//printf("Distance to vehicle is: %lf.\n", dist);
+			if (dist < START_ZONE_DIST) {
+				// It's a new vehicle: Create an object and add it to the list
+				Vehicle x(filtCentroids[j], frameCountVL);
+				vehiclesVL.push_back(x);
+				found = true;
+				//printf("Created Vehicle, in lane %d.\n", i);
+				//printf("Distance to vehicle is: %d.\n", dist);
+			}
+
+		}
+
+	}
+
+	// If they are near the beginning of the lane, and don't exist, make a new vehicle.
 
 	drawBoxes(1, outputFrameVL);
 	//imshow("No Subtraction", outputFrame);
 
-//////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	//////*QUICK AND DIRTY CODE*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	/*Controls what frame comes up
 	frameNumber++;
 	if (frameNumber == 50 || frameNumber == 200) {
 
-		line(currentFrame, Point(0, 50), Point(200, 50), Scalar(255), 2, 8, 0);
-		imshow("image", currentFrame);
+	line(currentFrame, Point(0, 50), Point(200, 50), Scalar(255), 2, 8, 0);
+	imshow("image", currentFrame);
 	}*/
 
 	//Step 5: Find contours of blobs.
@@ -405,9 +474,15 @@ void VehicleTracker::drawBoxes(bool type, Mat &frame) {
 	Scalar COLOR;
 	COLOR = GREEN;
 
+	currentCarCount = 0;
+	cout << vehiclesVL.size() << endl;
 	//for (int i = 0; i < getVehiclePositions().size(); i++)
-	for (int i = 0; i < numLanes; i++) {
-		for (int j = 0; j < vehicles[i].size(); j++) {
+	int n = (type) ? numLanesVL : numLanes;
+	cout << "Lanes: " << n << endl;
+
+	for (int i = 0; i < n; i++) {
+		int size = (type) ? vehiclesVL.size() : vehicles[i].size();
+		for (int j = 0; j < size; j++) {
 			Point temp;
 			if (type) {
 				temp.x = vehiclesVL[j].getPosition().x;
@@ -418,18 +493,18 @@ void VehicleTracker::drawBoxes(bool type, Mat &frame) {
 				temp.y = vehicles[i][j].getPosition().y;
 			}
 			//COLOR = (pointPolygonTest(inboundBorder, temp, false) >= 0) ? GREEN : RED;
-			rectangle(frame, Point(temp.x + 20, temp.y + 20), Point(temp.x - 20, temp.y - 20), COLOR, 3);	//Rectangle vertices are arbitrarily set.
+			rectangle(frame, Point(temp.x + 30, temp.y + 30), Point(temp.x - 30, temp.y - 30), COLOR, 5);	//Rectangle vertices are arbitrarily set.
 			currentCarCount++;
 		}
 	}
 	//printf("%d\n", getVehiclePositions().size());
 	if (type) {
-		line(frame, laneBoundsVL[0][0], laneBoundsVL[0][1], GREEN, 3);
-		line(frame, laneBoundsVL[0][2], laneBoundsVL[0][3], GREEN, 3);
+		line(frame, laneBoundsVL[0][0], laneBoundsVL[0][1], GREEN, 5);
+		line(frame, laneBoundsVL[0][2], laneBoundsVL[0][3], GREEN, 5);
 	}
 	else {
-		line(frame, laneBounds[0][0], laneBounds[0][1], GREEN, 3);
-		line(frame, laneBounds[0][2], laneBounds[0][3], GREEN, 3);
+		line(frame, laneBounds[0][0], laneBounds[0][1], GREEN, 5);
+		line(frame, laneBounds[0][2], laneBounds[0][3], GREEN, 5);
 	}
 	//line(frame, inboundBorder[2], inboundBorder[3], GREEN, 3);
 
@@ -490,7 +565,7 @@ void VehicleTracker::findVehicleContours(Mat inputFrame, vector<vector<Point>> &
 }
 
 void VehicleTracker::updateVehicleList(std::vector<Vehicle> &vehicleList, std::vector<cv::Point> boundary) {
-	
+
 
 	return;
 }

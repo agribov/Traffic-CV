@@ -368,8 +368,6 @@ public:
 
         gridLayout_4->addWidget(radioButton, 0, 0, 1, 1);
 
-        layoutWidget->raise();
-        groupBox_4->raise();
 
         gridLayout_2->addWidget(groupBox_5, 1, 2, 1, 2);
 
@@ -403,8 +401,8 @@ public:
         QObject::connect(thresholdLowSlider, SIGNAL(valueChanged(int)), MainWindow, SLOT(onLowThValueChanged(int)));
         QObject::connect(MapDisplay, SIGNAL(linkActivated(QString)), MainWindow, SLOT(onStart()));
         QObject::connect(menubar, SIGNAL(triggered(QAction*)), MainWindow, SLOT(slotOpen()));
-        QObject::connect(dilateSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChangedVL(int)));
-        QObject::connect(erodeSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChangedVL(int)));
+        QObject::connect(dilateSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onDilateValueChangedVL(int)));
+        QObject::connect(erodeSliderVL, SIGNAL(valueChanged(int)), MainWindow, SLOT(onErodeValueChangedVL(int)));
         QObject::connect(startButton, SIGNAL(clicked()), MainWindow, SLOT(onStart()));
         QObject::connect(radioButton_2, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonThreshold(bool)));
         QObject::connect(radioButton_3, SIGNAL(toggled(bool)), MainWindow, SLOT(buttonErode(bool)));

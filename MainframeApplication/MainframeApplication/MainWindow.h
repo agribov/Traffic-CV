@@ -30,7 +30,7 @@ private slots:
 	void buttonView3(bool val);
 	void buttonView4(bool val);
 
-	void buttonOriginalWindow(bool val);
+	void buttonOriginalImage(bool val);
 	void buttonThreshold(bool val);
 	void buttonErode(bool val);
 	void buttonDilate(bool val);
@@ -74,7 +74,7 @@ private:
 	VehicleTracker *trackers[4];
 
 	//Thermal video declarations
-	char *videoTh[NUM_ROADS] = { "thermalSample.mp4", "4th_floor_ball_2-23-2017.mp4", "Alina's apt1.mp4", "thermalSample.mp4" };
+	char *videoTh[NUM_ROADS] = { "croppedSample.mp4", "4th_floor_ball_2-23-2017.mp4", "Alina's apt1.mp4", "croppedSample.mp4" };
 	//Visual video declarations
 	char *videoVl[NUM_ROADS] = { "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4" };
 
@@ -96,6 +96,12 @@ private:
 	int dilateValVL;
 	int erodeValVL;
 	//End VL Camera
+
+	bool started = false;
+
+	int numCars[NUM_ROADS];
+	int carSpeeds[NUM_ROADS];
+	int totalCars[NUM_ROADS];
 
 protected:
 	void timerEvent(QTimerEvent *Event);

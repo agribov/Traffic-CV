@@ -9,13 +9,8 @@ using namespace cv;
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
-	ui(new Ui::MainWindow),
-	tracker(new VehicleTracker(0, 50, 0, 0, 0, 0))
-
+	ui(new Ui::MainWindow)
 {
-	//tracker = new VehicleTracker(lowHueVal, highHueVal, dilateVal, erodeVal);
-	//tracker = new VehicleTracker();
-
 	ui->setupUi(this);
 
 	ui->thresholdLowSlider->setMinimum(0);
@@ -23,14 +18,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->thresholdHighSlider->setMinimum(0);
 	ui->thresholdHighSlider->setMaximum(100);
 	ui->dilateSlider->setMinimum(0);
-	ui->dilateSlider->setMaximum(100);
+	ui->dilateSlider->setMaximum(75);
 	ui->erodeSlider->setMinimum(0);
-	ui->erodeSlider->setMaximum(100);
+	ui->erodeSlider->setMaximum(30);
 	//For VL Camera
 	ui->dilateSliderVL->setMinimum(0);
-	ui->dilateSliderVL->setMaximum(100);
+	ui->dilateSliderVL->setMaximum(75);
 	ui->erodeSliderVL->setMinimum(0);
-	ui->erodeSliderVL->setMaximum(100);
+	ui->erodeSliderVL->setMaximum(30);
 	//End VL Camera
 
 
@@ -39,11 +34,11 @@ MainWindow::MainWindow(QWidget *parent) :
 	dilateVal = 0;
 	erodeVal = 0;
 	//For VL Camera
-	dilateValVL = 0;
-	erodeValVL = 0;
+	dilateValVL = 50;
+	erodeValVL = 10;
 	//End VL Camera
 
-	for (int i = 0; i < NUM_ROADS; i++) trackers[i] = new VehicleTracker(0, 50, 0, 0, 0, 0);
+	for (int i = 0; i < NUM_ROADS; i++) trackers[i] = new VehicleTracker(0, 50, 0, 0, 17, 50);
 
 	ui->thresholdLowSlider->setValue(lowHueVal);
 	ui->thresholdHighSlider->setValue(highHueVal);
@@ -67,8 +62,10 @@ MainWindow::~MainWindow()
 {
 	delete ui;
 	for (int i = 0; i < NUM_ROADS; i++) {
-		(*pCapTh[i]).release();
-		(*pCapVl[i]).release();
+		if (started) {
+			(*pCapTh[i]).release();
+			(*pCapVl[i]).release();
+		}
 		free(trackers[i]);
 	}
 }
@@ -87,23 +84,24 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 	}
 
 	for (int i = 0; i < NUM_ROADS; i++) {
-		
+		Mat vlFrame[NUM_ROADS];
 		while (!(*pCapTh[i]).read(inputFrames[i])) {
-			cerr << "Unable to read next frame." << endl;
-			cerr << "Exiting..." << endl;
+			//cerr << "Unable to read next frame." << endl;
+			//cerr << "Exiting..." << endl;
 			//exit(EXIT_FAILURE);
 			releaseVideo(pCapTh[i]);
 			pCapTh[i] = initializeVideo(videoTh[i]);
 		}
 
-		while (!(*pCapVl[i]).read(inputFramesVl[i])) {
-			cerr << "Unable to read next frame." << endl;
-			cerr << "Exiting..." << endl;
+		while (!(*pCapVl[i]).read(vlFrame[i])) {
+			//cerr << "Unable to read next frame." << endl;
+			//cerr << "Exiting..." << endl;
 			//exit(EXIT_FAILURE);
 			releaseVideo(pCapVl[i]);
 			pCapVl[i] = initializeVideo(videoVl[i]);
-
 		}
+		flip(vlFrame[i], inputFramesVl[i], 0);
+
 
 		//trackers[i]->updatevl(inputFramesVl[i]);
 		//trackers[i]->update(inputFrames[i]);
@@ -122,22 +120,26 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		for (int j = 0; j < 4; j++) {
 			cells[3 * i + j] = new QTableWidgetItem; // add this line 
 			int num;
-			if (i == 0) num = rand() % 5;
-			else if (i == 1) num = rand() % 30;
-			else if (i == 2) num = rand() % 3;
+			if (i == 0) num = numCars[j];
+			else if (i == 1) num = carSpeeds[j];
+			else if (i == 2) num = totalCars[j];
 			cells[3 * i + j]->setText(QString::number(num));
 			ui->OutputTable->setItem(i, j, cells[3 * i + j]);
 		}
 
 	if (trackers[v]->isCalibrated(0)) {
 		//cout << "thermal update" << endl;
-		trackers[v]->update(inputFrames[v]);
-		if (!viewType) outputFrames[v] = trackers[v]->getTrackedFrame();
+		if (!viewType) {
+			trackers[v]->update(inputFrames[v]);
+			outputFrames[v] = trackers[v]->getTrackedFrame();
+		}
 	}
 	else if (!viewType) outputFrames[v] = inputFrames[v];
 	if (trackers[v]->isCalibrated(1)) {
-		trackers[v]->updatevl(inputFramesVl[v]);
-		if (viewType) outputFrames[v] = trackers[v]->getTrackedFrameVL();
+		if (viewType) {
+			trackers[v]->updatevl(inputFramesVl[v]);
+			outputFrames[v] = trackers[v]->getTrackedFrameVL();
+		}
 	}
 	else if (viewType) outputFrames[v] = inputFramesVl[v];
 
@@ -148,12 +150,16 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 
 	switch (buttonVal) {
 	case 1: debugFrame = (viewType) ? inputFramesVl[v] : inputFrames[v];
+		//cout << "Original" << endl;
 		break;
-	case 2: debugFrame = (viewType) ? trackers[v]->getThresholded() : trackers[v]->getThresholded(); // NO VL THRESHOLDING
+	case 2: debugFrame = (viewType) ? trackers[v]->getBgSub() : trackers[v]->getThresholded(); // NO VL THRESHOLDING
+		//cout << "MOG" << endl;
 		break;
 	case 3: debugFrame = (viewType) ? trackers[v]->getErodedVL() : trackers[v]->getEroded();
+		//cout << "Erode" << endl;
 		break;
-	case 4: debugFrame = (viewType) ? trackers[v]->getErodedVL() : trackers[v]->getDilated();
+	case 4: debugFrame = (viewType) ? trackers[v]->getDilatedVL() : trackers[v]->getDilated();
+		//cout << "Dilate" << endl;
 		break;
 	default: cerr << "switch button value invalid, exiting..." << endl;
 		exit(EXIT_FAILURE);
@@ -172,18 +178,15 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 
 	switch (viewVal) {
 	case 0: 
-		mapObj = mapTemp;
-		break;
-	case 1: 
 		mapObj = mapBR;
 		break;
-	case 2: 
+	case 1: 
 		mapObj = mapBL;
 		break;
-	case 3: 
+	case 2: 
 		mapObj = mapTR;
 		break;
-	case 4: 
+	case 3: 
 		mapObj = mapTL;
 		break;
 	default: cerr << "view button value invalid, exiting..." << endl;
@@ -214,14 +217,15 @@ void MainWindow::updateFrames(Mat top, Mat bottom) {
 
 void MainWindow::onStart() {
 	//Filenames initialized as members in the .h file
-	// Other declarations
+	started = true;
 	char* streetMap = "mapTemplate.png"; // using a direct path works but including a resource file does not
 
 	// Initialize video
 	for (int i = 0; i < NUM_ROADS; i++) {
 		pCapTh[i] = initializeVideo(videoTh[i]);
 		pCapVl[i] = initializeVideo(videoVl[i]);
-		trackers[i] = new VehicleTracker(0, 50, 0, 0, 0, 0);
+		numCars[i] = carSpeeds[i] = totalCars[i] = 0;
+		//trackers[i] = new VehicleTracker(0, 50, 0, 0, 17, 50);
 	}
 
 	// Start the timer
@@ -236,7 +240,7 @@ void MainWindow::onStart() {
 
 //buttons for the ui, setting booleans to numerical 
 //values to use in a switch statement.
-void MainWindow::buttonOriginalWindow(bool val){
+void MainWindow::buttonOriginalImage(bool val){
 	if (val == TRUE)
 		setButtonVal(1);
 }
@@ -294,21 +298,39 @@ void MainWindow::buttonView4(bool val) {
 void MainWindow::onLowThValueChanged(int val) {
 	lowHueVal = val;
 	trackers[viewVal]->setLowThVal(val);
+	//cout << "New Value: " << val << endl;
 }
 void MainWindow::onHighThValueChanged(int val) {
 	highHueVal = val;
 	trackers[viewVal]->setHighThVal(val);
+	//cout << "New Value: " << val << endl;
 }
 
 void MainWindow::onDilateValueChanged(int val) {
 	dilateVal = val;
 	trackers[viewVal]->setDilationVal(val);
+	//cout << "New Value: " << val << endl;
 }
 
 void MainWindow::onErodeValueChanged(int val) {
 	erodeVal = val;
 	trackers[viewVal]->setErosionVal(val);
+	//cout << "New Value: " << val << endl;
 }
+
+void MainWindow::onDilateValueChangedVL(int val) {
+	dilateValVL = val;
+	trackers[viewVal]->setDilationValVL(val);
+	//cout << "New Value: " << val << endl;
+}
+
+void MainWindow::onErodeValueChangedVL(int val) {
+	erodeValVL = val;
+	trackers[viewVal]->setErosionValVL(val);
+	//cout << "New Value: " << val << endl;
+
+}
+
 //switch statement setters and getters
 void MainWindow::setButtonVal(int val){
 	buttonVal = val;
@@ -331,16 +353,3 @@ void MainWindow::slotOpen() {
 void MainWindow::buttonCalibrate() {
 	cal = true;
 }
-
-
-//For VL Camera
-void MainWindow::onDilateValueChangedVL(int val) {
-	erodeValVL = val;
-	trackers[viewVal]->setDilationValVL(val);
-}
-
-void MainWindow::onErodeValueChangedVL(int val) {
-	dilateValVL = val;
-	trackers[viewVal]->setErosionValVL(val);
-}
-//End VL Camera
