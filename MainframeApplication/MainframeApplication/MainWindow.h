@@ -103,6 +103,9 @@ private:
 	int carSpeeds[NUM_ROADS];
 	int totalCars[NUM_ROADS];
 
+	int frameCounter;
+	const int dataUpdateRate = 10;
+
 protected:
 	void timerEvent(QTimerEvent *Event);
 };

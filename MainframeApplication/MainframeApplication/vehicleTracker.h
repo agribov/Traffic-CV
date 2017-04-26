@@ -78,6 +78,9 @@ private:
 	int mog2thVal; //Threshold value for MOG2
 	//End VL Camera
 
+	int totalCount;
+	int totalCountVL;
+
 	// Private functions
 	// NOTE: These are called BY the update() function. They are "helper functions". Innaccesible, except by members of this class
 	cv::Mat thresholdFrame(cv::Mat inputFrame, int lowH, int highH);
@@ -130,6 +133,11 @@ public:
 	int isCalibrated(int type) { return (type) ? (bool)numLanesVL : (bool)numLanes; };
 
 	int getNumCars() { return currentCarCount; }
+	int getNumCarsVL() { return vehiclesVL.size(); }
+	int getAvgVel();
+	int getAvgVelVL();
+	int getTotalCars() { return totalCount; }
+	int getTotalCarsVL() { return totalCountVL; }
 };
 
 #endif

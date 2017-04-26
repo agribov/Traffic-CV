@@ -25,9 +25,10 @@
 using namespace std;
 using namespace cv;
 
-const int MAX_FRAME_DISTANCE = 75;
-const int START_ZONE_DIST = 30;
-const int FRAME_COUNT_TIMEOUT = 10;
+const int MAX_FRAME_DISTANCE = 100;
+const int START_ZONE_DIST = 50;
+const int FRAME_COUNT_TIMEOUT = 12;
+const int END_LANE_TH = 3;
 
 //PUBLIC FUNCTIONS:
 VehicleTracker::VehicleTracker() {
@@ -81,6 +82,8 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	numLanesVL = 0;
 
 	pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
+	int totalCount = 0;
+	int totalCountVL = 0;
 }
 
 VehicleTracker::~VehicleTracker() {
@@ -242,9 +245,23 @@ void VehicleTracker::update(Mat currentFrame) {
 
 		}
 
-		// If they are near the beginning of the lane, and don't exist, make a new vehicle.
-	}
+		numVehicles = (size_t)vehicles[i].size();
 
+		// Check if vehicles are at the end of the lane,
+		// If they are, destroy the vehicle and update counter
+		for (k = 0; k < numVehicles; k++) {
+			dist = getDistToLine(laneBounds[i][0], laneBounds[i][3], vehicles[i][k].getPosition());
+			if (dist < END_LANE_TH) {
+				vehicles[i].erase(vehicles[i].begin() + k--);
+				numVehicles--;
+				totalCount++;
+			}
+		}
+
+
+		// If they are near the beginning of the lane, and don't exist, make a new vehicle.
+	} // End of numLanes for loop
+	
 	/*
 	//printf("%d\n", centroids.size());
 	for (i = 0; i < centroids.size(); i++) {
@@ -357,7 +374,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	}
 	*/
 	drawPoints(outputFrameVL, filtCentroids);
-	vehiclesVL = tempList;
+	//vehiclesVL = tempList;
 
 	// Stuff for camshift
 	vector<Rect2d> rectList;
@@ -384,7 +401,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 		// Try to match the centroid to an existing vehicle
 		for (k = 0; k < numVehicles; k++) {
 			dist = getDist(vehiclesVL[k].getPosition(), filtCentroids[j]);
-
+			cout << "Dist: " << dist << ", " << frameCountVL << endl;
 			// If current vehicle is near current frame, and vehicle has not been updated yet, update
 			if (dist <= MAX_FRAME_DISTANCE && vehiclesVL[k].getFrameNum() < frameCountVL) {
 				vehiclesVL[k].update(filtCentroids[j], frameCountVL);
@@ -411,7 +428,18 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 		}
 
 	}
-
+	numVehicles = (size_t)vehiclesVL.size();
+	/*
+	for (k = 0; k < numVehicles; k++) {
+		//dist = getDistToLine(laneBoundsVL[0][1], laneBoundsVL[0][2], filtCentroids[j]);
+		dist = getDistToLine(laneBoundsVL[0][0], laneBoundsVL[0][3], vehiclesVL[k].getPosition());
+		if (dist < END_LANE_TH) {
+			vehiclesVL.erase(vehiclesVL.begin() + k--);
+			totalCountVL++;
+			numVehicles--;
+		}
+	}
+	*/
 	// If they are near the beginning of the lane, and don't exist, make a new vehicle.
 
 	drawBoxes(1, outputFrameVL);
@@ -475,10 +503,10 @@ void VehicleTracker::drawBoxes(bool type, Mat &frame) {
 	COLOR = GREEN;
 
 	currentCarCount = 0;
-	cout << vehiclesVL.size() << endl;
+	//cout << vehiclesVL.size() << endl;
 	//for (int i = 0; i < getVehiclePositions().size(); i++)
 	int n = (type) ? numLanesVL : numLanes;
-	cout << "Lanes: " << n << endl;
+	//cout << "Lanes: " << n << endl;
 
 	for (int i = 0; i < n; i++) {
 		int size = (type) ? vehiclesVL.size() : vehicles[i].size();
@@ -618,3 +646,20 @@ void VehicleTracker::updateLaneBounds(int type, int n, double thetaDB, std::vect
 	return;
 }
 
+int VehicleTracker::getAvgVel() {
+	float sum = 0;
+	if (vehicles.size()) {
+		for (int i = 0; i < vehicles[0].size(); i++)
+			sum += vehicles[0][i].getVelocity();
+		return (vehicles[0].size()) ? sum / vehicles[0].size() : 0;
+	}
+	else return 0;
+}
+
+int VehicleTracker::getAvgVelVL() {
+float sum = 0;
+	for (int i = 0; i < vehiclesVL.size(); i++) 
+		sum += vehiclesVL[i].getVelocity();
+
+	return (vehiclesVL.size()) ? sum / vehiclesVL.size() : 0;
+}

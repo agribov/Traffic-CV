@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	viewVal = 0;
 	buttonVal = 1;
 	cal = false;
+	started = false;
+	frameCounter = 0;
 }
 
 MainWindow::~MainWindow()
@@ -71,7 +73,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::timerEvent(QTimerEvent *Event) {
-
+	frameCounter++;
 	if (lastState != viewVal) {
 		lastState = viewVal;
 		ui->thresholdHighSlider->setSliderPosition(trackers[viewVal]->getHighThVal());
@@ -114,18 +116,24 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 	}
 	if (cal) (viewType)? calibrate(inputFramesVl[v]) : calibrate(inputFrames[v]);
 
-	vector<QTableWidgetItem*> cells;
-	cells.resize(12);
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 4; j++) {
-			cells[3 * i + j] = new QTableWidgetItem; // add this line 
-			int num;
-			if (i == 0) num = numCars[j];
-			else if (i == 1) num = carSpeeds[j];
-			else if (i == 2) num = totalCars[j];
-			cells[3 * i + j]->setText(QString::number(num));
-			ui->OutputTable->setItem(i, j, cells[3 * i + j]);
-		}
+	if (frameCounter % dataUpdateRate == 0) {
+		frameCounter -= dataUpdateRate;
+		vector<QTableWidgetItem*> cells;
+		cells.resize(12);
+		numCars[v] = (viewType) ? trackers[v]->getNumCarsVL() : trackers[v]->getNumCars();
+		carSpeeds[v] = (viewType) ? trackers[v]->getAvgVelVL() : trackers[v]->getAvgVel();
+		totalCars[v] = (viewType) ? trackers[v]->getTotalCarsVL() : trackers[v]->getTotalCars();
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 4; j++) {
+				cells[3 * i + j] = new QTableWidgetItem; // add this line 
+				int num;
+				if (i == 0) num = numCars[j];
+				else if (i == 1) num = carSpeeds[j];
+				else if (i == 2) num = totalCars[j];
+				cells[3 * i + j]->setText(QString::number(num));
+				ui->OutputTable->setItem(i, j, cells[3 * i + j]);
+			}
+	}
 
 	if (trackers[v]->isCalibrated(0)) {
 		//cout << "thermal update" << endl;
@@ -142,7 +150,7 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		}
 	}
 	else if (viewType) outputFrames[v] = inputFramesVl[v];
-
+	//printf("Width: %d\n", outputFrames[v].cols);
 	//begin switch statement for filters
 	//outputFrames[v] = (viewType) ? trackers[v]->getTrackedFrameVL() : trackers[v]->getTrackedFrame();
 	//trackers[v]->updatevl(inputFramesVl[v]);
@@ -217,7 +225,6 @@ void MainWindow::updateFrames(Mat top, Mat bottom) {
 
 void MainWindow::onStart() {
 	//Filenames initialized as members in the .h file
-	started = true;
 	char* streetMap = "mapTemplate.png"; // using a direct path works but including a resource file does not
 
 	// Initialize video
@@ -229,7 +236,8 @@ void MainWindow::onStart() {
 	}
 
 	// Start the timer
-	startTimer(50);
+	if (!started) startTimer(50);
+	started = true;
 
 	// Set up the map display
 	QPixmap pixmapObject(streetMap);
