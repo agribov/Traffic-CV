@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	//End VL Camera
 
 	for (int i = 0; i < NUM_ROADS; i++) trackers[i] = new VehicleTracker(0, 50, 0, 0, 17, 50);
+	for (int i = 0; i < NUM_ROADS; i++) ntrackers[i] = new VehicleTracker(0, 50, 0, 0, 17, 50);
 
 	ui->thresholdLowSlider->setValue(lowHueVal);
 	ui->thresholdHighSlider->setValue(highHueVal);
@@ -69,6 +70,7 @@ MainWindow::~MainWindow()
 			(*pCapVl[i]).release();
 		}
 		free(trackers[i]);
+		free(ntrackers[i]);
 	}
 }
 
@@ -82,7 +84,6 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		ui->dilateSlider->setSliderPosition(trackers[viewVal]->getDilationVal());
 		ui->erodeSliderVL->setSliderPosition(trackers[viewVal]->getErosionValVL());
 		ui->dilateSliderVL->setSliderPosition(trackers[viewVal]->getDilationValVL());
-
 	}
 
 	for (int i = 0; i < NUM_ROADS; i++) {
@@ -150,6 +151,8 @@ void MainWindow::timerEvent(QTimerEvent *Event) {
 		}
 	}
 	else if (viewType) outputFrames[v] = inputFramesVl[v];
+	//namedWindow("test", WINDOW_AUTOSIZE);
+	//imshow("test", inputFramesVl[v]);
 	//printf("Width: %d\n", outputFrames[v].cols);
 	//begin switch statement for filters
 	//outputFrames[v] = (viewType) ? trackers[v]->getTrackedFrameVL() : trackers[v]->getTrackedFrame();

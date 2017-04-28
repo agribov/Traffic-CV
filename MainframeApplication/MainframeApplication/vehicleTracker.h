@@ -16,6 +16,8 @@
 
 #include "globals.h"
 #include "vehicle.h"
+#include "package_bgs/FrameDifference.h"
+#include "package_bgs/IBGS.h"
 
 class VehicleTracker {
 private:
@@ -37,7 +39,7 @@ private:
 	void *bgs;
 
 	cv::Ptr<cv::BackgroundSubtractorMOG2> pMOG2;
-
+	cv::Mat	bgMask;
 	cv::Mat fgMaskMOG2; //Foreground mask for MOG2
 	cv::Mat frameVL; //Stores current frame from VL camera
 	cv::Mat highThFrameVL; // Stores thresholded image for hot-spots
@@ -60,6 +62,7 @@ private:
 	int frameCount;
 	int frameCountVL;
 
+	bgslibrary::algorithms::IBGS *newbgs;
 
 	int numLanes;
 	int numLanesVL;

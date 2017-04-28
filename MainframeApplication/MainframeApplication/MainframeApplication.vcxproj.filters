@@ -36,6 +36,9 @@
     <Filter Include="QT GUI Files">
       <UniqueIdentifier>{fe964867-026d-4a25-b488-950c499a3ea3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="bgs">
+      <UniqueIdentifier>{93811de7-0311-4af2-b286-9daf221e28cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videoHelper.cpp">
@@ -70,6 +73,18 @@
     </ClCompile>
     <ClCompile Include="utilities.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="package_bgs\FrameDifference.cpp">
+      <Filter>bgs</Filter>
+    </ClCompile>
+    <ClCompile Include="package_bgs\AdaptiveBackgroundLearning.cpp">
+      <Filter>bgs</Filter>
+    </ClCompile>
+    <ClCompile Include="package_bgs\PixelBasedAdaptiveSegmenter.cpp">
+      <Filter>bgs</Filter>
+    </ClCompile>
+    <ClCompile Include="package_bgs\PBAS\PBAS.cpp">
+      <Filter>bgs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

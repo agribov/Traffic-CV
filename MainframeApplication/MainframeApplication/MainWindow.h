@@ -71,12 +71,13 @@ private:
 	cv::VideoCapture *pCapVl[NUM_ROADS];
 
 	VehicleTracker *tracker;
-	VehicleTracker *trackers[4];
+	VehicleTracker *trackers[NUM_ROADS];
+	VehicleTracker *ntrackers[NUM_ROADS];
 
 	//Thermal video declarations
-	char *videoTh[NUM_ROADS] = { "croppedSample.mp4", "4th_floor_ball_2-23-2017.mp4", "Alina's apt1.mp4", "croppedSample.mp4" };
+	char *videoTh[NUM_ROADS] = { "croppedSample.mp4", "A-1.mp4", "A-2.mp4", "4th_floor_ball_2-23-2017.mp4"};
 	//Visual video declarations
-	char *videoVl[NUM_ROADS] = { "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4", "visualVid1.mp4" };
+	char *videoVl[NUM_ROADS] = { "Alina-VL1.mp4", "Alina-VL2.mp4", "visualVid1.mp4", "A-1.mp4" };
 
 	int lowHueVal;
 	int highHueVal;

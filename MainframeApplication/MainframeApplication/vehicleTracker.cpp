@@ -22,8 +22,14 @@
 #include <cstdio>
 #include <iostream>
 
+#include "package_bgs/FrameDifference.h"
+#include "package_bgs/AdaptiveBackgroundLearning.h"
+#include "package_bgs/PixelBasedAdaptiveSegmenter.h"
+#include "package_bgs/IBGS.h"
+
 using namespace std;
 using namespace cv;
+using namespace bgslibrary::algorithms;
 
 const int MAX_FRAME_DISTANCE = 100;
 const int START_ZONE_DIST = 50;
@@ -81,9 +87,15 @@ VehicleTracker::VehicleTracker(int lHue = 0, int hHue = 50, int er = 0, int dil 
 	numLanes = 0;
 	numLanesVL = 0;
 
-	pMOG2 = createBackgroundSubtractorMOG2(); //MOG2 background subtractor
+	pMOG2 = createBackgroundSubtractorMOG2(8000, 16, true); //MOG2 background subtractor
 	int totalCount = 0;
 	int totalCountVL = 0;
+
+	//newbgs = new FrameDifference;
+	//newbgs = new AdaptiveBackgroundLearning;
+	newbgs = new PixelBasedAdaptiveSegmenter;
+	newbgs->setShowOutput(false);
+
 }
 
 VehicleTracker::~VehicleTracker() {
@@ -308,7 +320,11 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	//For testing background subtraction
 	//imshow("No Subtraction", frameVL);
 
-	fgMaskMOG2 = bgSubtractionMOG2(frameVL);
+	//fgMaskMOG2 = bgSubtractionMOG2(frameVL);
+	//printf("%d\n", pMOG2->getHistory());
+	
+	newbgs->process(frameVL, fgMaskMOG2, bgMask); // by default, it shows automatically the foreground mask imag
+	
 	//fgMaskMOG2 = thresholdFrame(frameVL, lowHue, highHue);;
 
 	//For testing background subtraction
@@ -387,12 +403,14 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 	size_t numVehicles = (size_t)vehiclesVL.size();
 
 	// Destroy vehicles that have not been updated in a while
+	
 	for (k = 0; k < numVehicles; k++) {
 		if (vehiclesVL[k].getFrameNum() < frameCountVL - FRAME_COUNT_TIMEOUT) {
 			vehiclesVL.erase(vehiclesVL.begin() + k--);
 			numVehicles--;
 		}
 	}
+	
 
 	// If they already exist, continue. Else make a new vehicle		
 	for (j = 0; j < filtCentroids.size(); j++) {
@@ -401,7 +419,7 @@ void VehicleTracker::updatevl(Mat currentFrameVL) {
 		// Try to match the centroid to an existing vehicle
 		for (k = 0; k < numVehicles; k++) {
 			dist = getDist(vehiclesVL[k].getPosition(), filtCentroids[j]);
-			cout << "Dist: " << dist << ", " << frameCountVL << endl;
+			//cout << "Dist: " << dist << ", " << frameCountVL << endl;
 			// If current vehicle is near current frame, and vehicle has not been updated yet, update
 			if (dist <= MAX_FRAME_DISTANCE && vehiclesVL[k].getFrameNum() < frameCountVL) {
 				vehiclesVL[k].update(filtCentroids[j], frameCountVL);
@@ -621,10 +639,10 @@ void VehicleTracker::updateLaneBounds(int type, int n, double thetaDB, std::vect
 	if (type) {
 		laneBoundsVL.clear();
 		laneBoundsVL = b;
-		cout << "B" << endl;
+		//cout << "B" << endl;
 	}
 	else {
-		cout << "A" << endl;
+		//cout << "A" << endl;
 		laneBounds.clear();
 		laneBounds = b;
 		vehicles.resize(numLanes);

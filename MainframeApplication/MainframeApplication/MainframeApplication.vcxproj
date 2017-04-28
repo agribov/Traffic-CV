@@ -38,6 +38,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="CQtOpenCVViewerGl.cpp" />
+    <ClCompile Include="package_bgs\AdaptiveBackgroundLearning.cpp" />
+    <ClCompile Include="package_bgs\FrameDifference.cpp" />
+    <ClCompile Include="package_bgs\PBAS\PBAS.cpp" />
+    <ClCompile Include="package_bgs\PixelBasedAdaptiveSegmenter.cpp" />
     <ClCompile Include="utilities.cpp" />
     <ClCompile Include="vehicle.cpp" />
     <ClCompile Include="vehicleTracker.cpp" />
