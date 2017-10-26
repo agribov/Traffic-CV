@@ -24,4 +24,4 @@ with which to interact with the data.
 
 	// CQtOpenCVViewerGl(.cpp and .h) contains the code to create a widget that displays
 	// a cv::Mat object. These were not written by us (see files for references).
-**
+
